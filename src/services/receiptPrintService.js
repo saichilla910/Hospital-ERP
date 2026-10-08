@@ -54,11 +54,11 @@ export const numberToWordsINR = (num) => {
  */
 export const generateReceiptHTML = (invoice, hospitalInfo = {}) => {
   const hInfo = {
-    name: hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute',
+    name: hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute',
     tagline: hospitalInfo.tagline || 'Excellence in Tertiary Healthcare & Clinical Research',
     address: hospitalInfo.address || 'Plot 42, Hitech Health City, Financial District, Hyderabad, Telangana 500081',
     phone: hospitalInfo.phone || '+91 40 2345 6789 / 1800-425-9999 (Emergency 24/7)',
-    email: hospitalInfo.email || 'billing@medicorehospital.org | www.medicorehospital.org',
+    email: hospitalInfo.email || 'billing@hospitalcare.org | www.hospitalcare.org',
     taxId: hospitalInfo.taxId || 'GSTIN: 36AAACM1234F1Z5',
     licenseNo: hospitalInfo.licenseNo || 'NABH-HOSP-2026-0941 • Reg No: MED-TG-2020-8801'
   };
@@ -590,7 +590,7 @@ export const generateReceiptHTML = (invoice, hospitalInfo = {}) => {
         <td style="width: 40%; text-align: right;">
           <div class="signature-line">
             Authorized Cashier / Accountant<br>
-            <span style="font-size: 10px; font-weight: 500; color: #64748b;">MediCore Billing Operations</span>
+            <span style="font-size: 10px; font-weight: 500; color: #64748b;">HospitalCare Billing Operations</span>
           </div>
         </td>
       </tr>

@@ -163,7 +163,7 @@ export const InvoiceModal = ({ isOpen, onClose, invoice }) => {
           <div className="w-5 h-5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
             <ShieldCheck size={13} />
           </div>
-          <span>Official GST Tax Invoice authenticated by MediCore ERP Hospital Billing.</span>
+          <span>Official GST Tax Invoice authenticated by HospitalCare Hospital Billing.</span>
         </div>
       }
       footer={
@@ -203,7 +203,7 @@ export const InvoiceModal = ({ isOpen, onClose, invoice }) => {
               </div>
               <div>
                 <h2 className="text-lg sm:text-xl font-bold text-teal-700 dark:text-teal-400 tracking-tight uppercase font-display leading-snug">
-                  {hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute'}
+                  {hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute'}
                 </h2>
                 <div className="text-[11px] italic text-text-muted mt-0.5">
                   {hospitalInfo.tagline || 'Excellence in Tertiary Healthcare & Clinical Research'}
@@ -459,7 +459,7 @@ export const InvoiceModal = ({ isOpen, onClose, invoice }) => {
         {/* ── 5. LEGAL NOTES & SIGNATURE BLOCKS ── */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pt-4 border-t border-border-subtle text-[11px] text-text-muted">
           <div className="max-w-md text-text-dim leading-relaxed">
-            <strong>Note:</strong> Original receipt must be submitted for discharge clearance or mediclaim reimbursement. This computer-generated hospital receipt is digitally recorded under the MediCore Hospital Information System.
+            <strong>Note:</strong> Original receipt must be submitted for discharge clearance or mediclaim reimbursement. This computer-generated hospital receipt is digitally recorded under the HospitalCare Information System.
           </div>
 
           <div className="sm:text-right shrink-0">

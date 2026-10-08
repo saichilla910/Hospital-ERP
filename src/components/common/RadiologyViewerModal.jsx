@@ -42,7 +42,7 @@ export const RadiologyViewerModal = ({ isOpen, onClose, radiologyOrder }) => {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={`MediCore ERP PACS / DICOM Viewer — ${activeOrder.modality}`}
+      title={`HospitalCare PACS / DICOM Viewer — ${activeOrder.modality}`}
       subtitle={`Study Order: ${activeOrder.orderNo} • Patient: ${activeOrder.patientName}`}
       maxWidth="1050px"
       footer={

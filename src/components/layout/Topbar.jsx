@@ -1,7 +1,8 @@
 import React from 'react';
-import { Search, Bell, ShieldAlert, Sun, Moon, Menu, UserPlus } from 'lucide-react';
+import { Search, Bell, ShieldAlert, Sun, Moon, Menu, UserPlus, LogOut, Shield } from 'lucide-react';
 import { useHospital } from '../../context/HospitalContext';
 import { BrandLogo } from '../common/BrandLogo';
+import { ROLES } from '../../services/authService';
 
 export const Topbar = () => {
   const {
@@ -13,10 +14,15 @@ export const Topbar = () => {
     setNotificationDrawerOpen,
     setActiveNav,
     userRole,
+    currentUser,
+    logout,
+    canAccess,
     authenticatedPatient,
     setPatientOnboardingModalOpen,
     loginAsStaff
   } = useHospital();
+
+  const currentRoleMeta = ROLES[currentUser?.role] || ROLES.admin;
 
   return (
     <header
@@ -49,12 +55,12 @@ export const Topbar = () => {
             title="Go to Dashboard"
           >
             <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-xs"
-              style={{ background: 'linear-gradient(135deg, #0d9488 0%, #0891b2 100%)' }}>
+              style={{ background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)' }}>
               <BrandLogo size={18} color="#ffffff" />
             </div>
             <span className="text-[15px] font-bold text-text-main tracking-tight whitespace-nowrap"
               style={{ fontFamily: 'var(--font-display)' }}>
-              MediCore
+              HospitalCare
             </span>
           </div>
 
@@ -120,84 +126,53 @@ export const Topbar = () => {
             />
           </button>
 
-          {/* Patient register / portal button */}
-          <button
-            onClick={() => {
-              if (userRole === 'patient') {
-                setActiveNav({ module: 'patientManagement', subModule: 'profile' });
-              } else {
-                setActiveNav({ module: 'patientManagement', subModule: 'registration' });
-              }
-            }}
-            className="hidden md:flex items-center gap-2 h-10 px-3.5 rounded-lg text-xs font-semibold
-              transition-all duration-150 shrink-0 cursor-pointer border"
-            style={userRole === 'patient' ? {
-              background: 'var(--teal-600)',
-              color: '#fff',
-              borderColor: 'var(--teal-600)',
-              boxShadow: '0 1px 3px rgba(13,148,136,0.25)',
-            } : {
-              background: 'rgba(13, 148, 136, 0.08)',
-              color: 'var(--teal-700)',
-              borderColor: 'rgba(13, 148, 136, 0.25)',
-            }}
-            title="Register new patient or log in to Patient Portal"
-          >
-            <UserPlus size={16} className="shrink-0" />
-            <span>{userRole === 'patient' ? 'Patient Portal' : 'Register / Log In'}</span>
-          </button>
-
-          {/* User profile badge */}
-          {userRole === 'patient' && authenticatedPatient ? (
-            <div
-              onClick={() => setActiveNav({ module: 'patientManagement', subModule: 'profile' })}
-              className="flex items-center gap-2.5 h-10 pl-2 pr-3 rounded-lg cursor-pointer
-                select-none transition-all duration-150 bg-bg-surface border border-teal-500/30 hover:border-teal-500 shadow-2xs shrink-0"
-              title={`Logged in as ${authenticatedPatient.name}`}
+          {/* New Patient Action (only if current role is authorized for Patients) */}
+          {canAccess && canAccess('patients') && (
+            <button
+              onClick={() => setActiveNav({ module: 'patientManagement', subModule: 'registration' })}
+              className="hidden md:flex items-center gap-1.5 h-10 px-3.5 rounded-lg text-xs font-semibold
+                transition-all duration-150 shrink-0 cursor-pointer border
+                bg-teal-500/10 text-teal-700 dark:text-teal-300 border-teal-500/25 hover:bg-teal-500/20 shadow-2xs"
+              title="Register a new patient into the hospital directory"
             >
-              <img
-                src={authenticatedPatient.photo}
-                alt={authenticatedPatient.name}
-                className="w-7 h-7 rounded-md object-cover shrink-0 border border-teal-500/30"
-              />
-              <div className="hidden sm:block text-left leading-tight">
-                <div className="text-xs font-semibold text-text-main max-w-[90px] truncate">
-                  {authenticatedPatient.name}
-                </div>
-                <div className="text-[10px] font-medium text-teal-600 dark:text-teal-400">
-                  {authenticatedPatient.mrn}
-                </div>
-              </div>
-              <button
-                onClick={e => { e.stopPropagation(); loginAsStaff(); }}
-                className="text-[10px] font-semibold px-2 py-0.5 rounded-md cursor-pointer
-                  transition-colors duration-150 border-none ml-1 bg-bg-surface-elevated text-text-muted hover:bg-rose-600 hover:text-white"
-                title="Switch back to Staff Mode"
-              >
-                Exit
-              </button>
-            </div>
-          ) : (
-            <div
-              onClick={() => setActiveNav({ module: 'administration', subModule: 'users' })}
-              className="flex items-center gap-2.5 h-10 pl-2 pr-3 rounded-lg cursor-pointer
-                select-none transition-all duration-150 bg-bg-surface border border-border-subtle hover:border-teal-500/40 hover:shadow-2xs shrink-0"
-              title="Dr. Sarah Jenkins — CMO / Admin"
-            >
-              <div
-                className="w-7 h-7 rounded-md flex items-center justify-center text-white font-bold text-[11px] shrink-0 shadow-2xs"
-                style={{ background: 'linear-gradient(135deg, #0d9488 0%, #0891b2 100%)' }}
-              >
-                SJ
-              </div>
-              <div className="hidden sm:block text-left leading-tight">
-                <div className="text-xs font-semibold text-text-main leading-tight">Dr. Sarah</div>
-                <div className="text-[10px] font-medium leading-tight text-teal-600 dark:text-teal-400">
-                  CMO / Admin
-                </div>
-              </div>
-            </div>
+              <UserPlus size={15} className="shrink-0 text-teal-600 dark:text-teal-400" />
+              <span>+ New Patient</span>
+            </button>
           )}
+
+          {/* Fixed Staff Role Profile Badge — Role is strictly locked once logged in */}
+          <div
+            className="flex items-center gap-2.5 h-10 pl-2.5 pr-3 rounded-lg select-none bg-bg-surface border border-border-subtle shadow-2xs shrink-0"
+            title={`${currentUser?.name} — Position: ${currentRoleMeta.name} (Role is locked to this active session)`}
+          >
+            <div
+              className="w-7 h-7 rounded-md flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-2xs overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-600"
+            >
+              {currentUser?.avatar ? (
+                <img src={currentUser.avatar} alt={currentUser.name} className="w-full h-full object-cover" />
+              ) : (
+                <span>{currentRoleMeta.emoji}</span>
+              )}
+            </div>
+            <div className="text-left leading-tight">
+              <div className="text-xs font-bold text-text-main max-w-[120px] truncate leading-tight">
+                {currentUser?.name || 'Staff User'}
+              </div>
+              <div className="text-[10px] font-semibold text-teal-700 dark:text-teal-400 flex items-center gap-1 leading-tight">
+                <span>{currentRoleMeta.emoji} {currentRoleMeta.name}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Direct Topbar Logout Button */}
+          <button
+            onClick={logout}
+            className="flex items-center gap-1.5 h-10 px-3 rounded-lg border border-border-subtle bg-bg-surface hover:bg-rose-500/10 hover:border-rose-500/30 hover:text-rose-600 text-text-muted text-xs font-semibold cursor-pointer transition-colors shadow-2xs"
+            title="Log out of HospitalCare to switch account or role"
+          >
+            <LogOut size={15} />
+            <span className="hidden md:inline">Log Out</span>
+          </button>
         </div>
       </div>
     </header>

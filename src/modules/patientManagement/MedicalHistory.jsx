@@ -23,7 +23,9 @@ import {
   FileText,
   Activity,
   ChevronRight,
-  AlertCircle
+  AlertCircle,
+  FlaskConical,
+  CreditCard
 } from 'lucide-react';
 import { useHospital } from '../../context/HospitalContext';
 
@@ -33,6 +35,10 @@ export const MedicalHistory = () => {
     setSelectedPatient,
     patients = [],
     doctors = [],
+    admissions = [],
+    labOrders = [],
+    prescriptions = [],
+    billingInvoices = [],
     showToast,
     userRole,
     authenticatedPatient,
@@ -62,7 +68,7 @@ export const MedicalHistory = () => {
     diagnosis: '',
     desc: '',
     prescribedMeds: '',
-    facility: 'MediCore Hospital - OPD Block A',
+    facility: 'HospitalCare - OPD Block A',
     severity: 'Normal'
   });
 
@@ -123,7 +129,7 @@ export const MedicalHistory = () => {
       diagnosis: '',
       desc: '',
       prescribedMeds: '',
-      facility: 'MediCore Hospital - OPD Block A',
+      facility: 'HospitalCare - OPD Block A',
       severity: 'Normal'
     });
     setIsAddModalOpen(false);
@@ -205,8 +211,8 @@ export const MedicalHistory = () => {
       time: '09:00 AM',
       type: 'Registration & Intake',
       title: 'Electronic Health Record (EHR) Initialized',
-      desc: `Patient onboarding completed with MediCore Hospital (MRN: ${patient.mrn}). Baseline vitals recorded: BP ${patient.vitals?.bp || '120/80 mmHg'}, Pulse ${patient.vitals?.pulse || '72 bpm'}, SpO2 ${patient.vitals?.spo2 || '98%'}. Attending Physician: ${patient.attendingDoctor}.`,
-      facility: 'MediCore Central Registration Desk',
+      desc: `Patient onboarding completed with HospitalCare (MRN: ${patient.mrn}). Baseline vitals recorded: BP ${patient.vitals?.bp || '120/80 mmHg'}, Pulse ${patient.vitals?.pulse || '72 bpm'}, SpO2 ${patient.vitals?.spo2 || '98%'}. Attending Physician: ${patient.attendingDoctor}.`,
+      facility: 'HospitalCare Central Registration Desk',
       doctorName: patient.attendingDoctor || 'Dr. Arvind Swaminathan',
       icon: History,
       color: 'teal',
@@ -236,7 +242,7 @@ export const MedicalHistory = () => {
         type: 'Allergy Record',
         title: `Allergy Flag: ${patient.allergies.join(', ')}`,
         desc: 'Special clinical vigilance alert enabled across hospital pharmacy dispensing and inpatient orders.',
-        facility: 'MediCore Clinical Safety Desk',
+        facility: 'HospitalCare Clinical Safety Desk',
         icon: ShieldAlert,
         color: 'rose',
         status: 'High Vigilance Alert'
@@ -268,10 +274,83 @@ export const MedicalHistory = () => {
     }
   ];
 
-  // Combine all events and sort by date descending
-  const allEvents = [...customEvents, ...consultationEncounters, ...baselineEvents].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
+  // 4. IPD Admissions
+  const admissionEvents = (admissions || [])
+    .filter((adm) => adm.patientId === patient.id || adm.patientName === patient.name)
+    .map((adm) => ({
+      id: adm.admissionId,
+      date: adm.admitTime ? adm.admitTime.split(' ')[0] : '2026-09-15',
+      time: adm.admitTime ? adm.admitTime.split(' ').slice(1).join(' ') : '08:30 AM',
+      type: 'IPD Admission',
+      title: `Inpatient Admission: ${adm.wardName} (Bed ${adm.bedNo})`,
+      desc: `Admitted for: ${adm.diagnosis}. Attending: ${adm.attendingDoctor}. Expected Discharge: ${adm.expectedDischarge}. Room: ${adm.roomNo}. Status: ${adm.status}`,
+      facility: `${adm.wardName} • ${adm.roomNo}`,
+      doctorName: adm.attendingDoctor,
+      icon: Building2,
+      color: 'indigo',
+      status: adm.status === 'Discharged' ? 'Discharged' : 'Active Inpatient'
+    }));
+
+  // 5. Diagnostic Laboratory Reports
+  const labEvents = (labOrders || [])
+    .filter((lab) => lab.patientId === patient.id || lab.patientName === patient.name)
+    .map((lab) => ({
+      id: lab.id || lab.orderNo,
+      date: lab.orderDate || '2026-09-16',
+      time: '11:00 AM',
+      type: 'Lab Investigation',
+      title: `Lab Investigation: ${lab.testName} (${lab.orderNo})`,
+      desc: `Category: ${lab.category}. Priority: ${lab.urgency || 'Routine'}. Current Stage: ${lab.stage || lab.status}. Verified by: ${lab.verifiedBy || 'Pathology Lab'}. ${lab.results?.length > 0 ? `Results: ${lab.results.map((r) => `${r.paramName}: ${r.value} ${r.unit}`).join(', ')}` : 'Diagnostic processing underway'}.`,
+      facility: 'Central Diagnostic Pathology Lab',
+      doctorName: lab.doctorName || lab.verifiedBy,
+      icon: FlaskConical,
+      color: 'teal',
+      status: lab.stage || lab.status || 'Verified'
+    }));
+
+  // 6. Pharmacy e-Prescriptions
+  const prescriptionEvents = (prescriptions || [])
+    .filter((rx) => rx.patientId === patient.id || rx.patientName === patient.name)
+    .map((rx) => ({
+      id: rx.id || rx.rxNo,
+      date: rx.date || '2026-09-16',
+      time: '10:30 AM',
+      type: 'Prescription',
+      title: `e-Prescription Issued by ${rx.doctorName || 'Attending Physician'} (${rx.rxNo || 'e-Rx'})`,
+      desc: `Medications: ${(rx.medicines || []).map((m) => `${m.name} (${m.dosage || m.dose})`).join(', ') || 'Prescribed medications'}. Instructions: ${rx.instructions || 'Take as advised with water'}.`,
+      facility: 'Hospital Pharmacy Dispensing Station',
+      doctorName: rx.doctorName,
+      icon: Pill,
+      color: 'emerald',
+      status: 'Dispensed / Active'
+    }));
+
+  // 7. Hospital Invoices & Billing
+  const billingEvents = (billingInvoices || [])
+    .filter((inv) => inv.patientId === patient.id || inv.patientName === patient.name)
+    .map((inv) => ({
+      id: inv.id || inv.invoiceNo,
+      date: inv.date || '2026-09-17',
+      time: '01:00 PM',
+      type: 'Billing & Invoice',
+      title: `Hospital Invoice ${inv.invoiceNo}: ₹${(inv.totalAmount || inv.amount || 0).toLocaleString()}`,
+      desc: `Payment status: ${inv.status}. Total Bill: ₹${(inv.totalAmount || inv.amount || 0).toLocaleString()}. Advance Deducted: ₹${(inv.advancePaid || 0).toLocaleString()}. Net Payable: ₹${(inv.netPayable || inv.totalAmount || 0).toLocaleString()}. Settled via: ${inv.paymentMode || 'Counter'}.`,
+      facility: 'Accounts & Billing Department',
+      icon: CreditCard,
+      color: 'amber',
+      status: inv.status || 'Settled'
+    }));
+
+  // Combine all visits, admissions, labs, prescriptions, bills and sort in chronological order (descending)
+  const allEvents = [
+    ...customEvents,
+    ...consultationEncounters,
+    ...admissionEvents,
+    ...labEvents,
+    ...prescriptionEvents,
+    ...billingEvents,
+    ...baselineEvents
+  ].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   // Filter & Search Logic
   const filteredEvents = allEvents.filter((evt) => {
@@ -286,10 +365,13 @@ export const MedicalHistory = () => {
 
     if (filterType === 'All') return true;
     if (filterType === 'Consultations') return evt.type.includes('Consult');
+    if (filterType === 'Admissions') return evt.type.includes('Admission') || evt.type.includes('Ward');
+    if (filterType === 'Labs') return evt.type.includes('Lab') || evt.type.includes('Investigation');
+    if (filterType === 'Prescriptions') return evt.type.includes('Prescription') || evt.type.includes('Med');
+    if (filterType === 'Billing') return evt.type.includes('Billing') || evt.type.includes('Invoice');
     if (filterType === 'Surgeries') return evt.type.includes('Surgery') || evt.type.includes('Procedure');
     if (filterType === 'Diagnoses') return evt.type.includes('Diagnosis') || evt.type.includes('Condition');
     if (filterType === 'Vaccinations') return evt.type.includes('Vaccin') || evt.type.includes('Immuniz');
-    if (filterType === 'Admissions') return evt.type.includes('Admission') || evt.type.includes('Emergency') || evt.type.includes('Intake');
     if (filterType === 'UserAdded') return evt.isCustom === true;
 
     return true;
@@ -321,7 +403,7 @@ export const MedicalHistory = () => {
                   }`}
                 >
                   <img
-                    src={p.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'}
+                    src={p.photo || 'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=200&auto=format&fit=crop&q=80'}
                     alt={p.name}
                     className="w-5 h-5 rounded-full object-cover"
                   />
@@ -350,19 +432,24 @@ export const MedicalHistory = () => {
       <div className="glass-card rounded-2xl p-5 bg-bg-surface border border-border-subtle shadow-xs flex justify-between items-center flex-wrap gap-4">
         <div className="flex items-center gap-4">
           <img
-            src={patient.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'}
+            src={patient.photo || 'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=200&auto=format&fit=crop&q=80'}
             alt={patient.name}
             className="w-16 h-16 rounded-2xl object-cover border-2 border-teal-500/40 shadow-sm"
           />
           <div>
-            <div className="flex items-center gap-2.5 flex-wrap">
+            <div className="flex items-center gap-2 flex-wrap">
               <h2 className="text-xl sm:text-2xl font-bold text-text-main font-display tracking-tight">
                 {patient.name}
               </h2>
-              <span className="mono text-xs font-semibold px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/25">
-                {patient.mrn}
+              <span className="mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/25">
+                UHID: {patient.uhid || patient.mrn}
               </span>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/25">
+              {patient.abhaId && (
+                <span className="mono text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25" title="Ayushman Bharat Health Account">
+                  ABHA: {patient.abhaId}
+                </span>
+              )}
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/25">
                 Blood: {patient.bloodGroup || 'O+'}
               </span>
             </div>
@@ -396,12 +483,14 @@ export const MedicalHistory = () => {
         {/* Category Filter Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto max-w-full py-0.5">
           {[
-            { key: 'All', label: `All Events (${allEvents.length})` },
-            { key: 'Consultations', label: 'Consultations' },
-            { key: 'Surgeries', label: 'Surgeries & Procedures' },
+            { key: 'All', label: `All Timeline (${allEvents.length})` },
+            { key: 'Consultations', label: `Visits (${consultationEncounters.length})` },
+            { key: 'Admissions', label: `Admissions (${admissionEvents.length})` },
+            { key: 'Labs', label: `Labs (${labEvents.length})` },
+            { key: 'Prescriptions', label: `Prescriptions (${prescriptionEvents.length})` },
+            { key: 'Billing', label: `Bills & Receipts (${billingEvents.length})` },
+            { key: 'Surgeries', label: 'Surgeries' },
             { key: 'Diagnoses', label: 'Diagnoses' },
-            { key: 'Vaccinations', label: 'Vaccinations' },
-            { key: 'Admissions', label: 'Admissions & ER' },
             { key: 'UserAdded', label: `Logged Events (${customEvents.length})` }
           ].map((cat) => (
             <button
@@ -544,10 +633,10 @@ export const MedicalHistory = () => {
                           {evt.isCustom && (
                             <button
                               onClick={(e) => handleDeleteEvent(e, evt.id)}
-                              className="w-7 h-7 rounded-lg bg-bg-surface hover:bg-rose-500/10 text-text-dim hover:text-rose-500 border border-border-subtle flex items-center justify-center transition-colors"
+                              className="btn-icon btn-sm btn-icon-danger"
                               title="Delete this medical event"
                             >
-                              <Trash2 size={13} />
+                              <Trash2 size={20} strokeWidth={2.2} />
                             </button>
                           )}
                         </div>

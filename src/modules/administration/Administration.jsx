@@ -6,10 +6,21 @@ import { Permissions } from './Permissions';
 import { AuditLogs } from './AuditLogs';
 import { SubNavTabs } from '../../components/common/SubNavTabs';
 import { Users, Key, ShieldCheck, FileSpreadsheet } from 'lucide-react';
+import { AccessDenied } from '../../components/common/AccessDenied';
 
 export const Administration = () => {
-  const { activeNav, setActiveNav } = useHospital();
+  const { activeNav, setActiveNav, currentUser } = useHospital();
   const currentSub = activeNav.subModule || 'users';
+
+  if (currentUser?.role !== 'admin') {
+    return (
+      <AccessDenied
+        role={currentUser?.role}
+        moduleName="Administration & Staff Management"
+        onGoToDashboard={() => setActiveNav({ module: 'dashboard', subModule: null })}
+      />
+    );
+  }
 
   const tabs = [
     { key: 'users', label: 'Staff Accounts', icon: Users },

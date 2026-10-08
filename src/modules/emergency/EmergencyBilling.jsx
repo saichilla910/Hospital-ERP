@@ -111,8 +111,12 @@ export const EmergencyBilling = () => {
                     <td className="font-semibold text-text-main">{item.item}</td>
                     <td className="text-right font-bold mono">₹{item.amount.toLocaleString()}</td>
                     <td className="text-right">
-                      <button className="btn-icon btn-sm" onClick={() => handleRemoveItem(idx)}>
-                        <Trash2 size={13} className="text-rose-600" />
+                      <button
+                        className="btn-icon btn-sm btn-icon-danger"
+                        onClick={() => handleRemoveItem(idx)}
+                        title="Remove Charge Item"
+                      >
+                        <Trash2 size={20} strokeWidth={2.2} />
                       </button>
                     </td>
                   </tr>

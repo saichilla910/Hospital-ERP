@@ -12,7 +12,6 @@ import {
   Stethoscope,
   Activity,
   Droplet,
-  Sparkles,
   RefreshCw,
   Building2,
   CreditCard,
@@ -51,6 +50,8 @@ const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 export const PatientRegistration = ({ initialMode = 'register' }) => {
   const {
     addPatient,
+    registerPatientWithUhid,
+    checkPatientDuplicates,
     setActiveNav,
     setSelectedPatient,
     showToast,
@@ -62,6 +63,7 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
   } = useHospital();
 
   const [mode, setMode] = useState(initialMode);
+  const [duplicateMatches, setDuplicateMatches] = useState([]);
 
   useEffect(() => {
     if (initialMode) {
@@ -73,10 +75,12 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
+    dob: '',
     gender: 'Male',
     bloodGroup: 'O+',
     phone: '',
     email: '',
+    abhaId: '',
     address: '',
     emergencyContact: '',
     attendingDoctor: doctors?.[0]?.name || 'Dr. Arvind Swaminathan',
@@ -99,6 +103,23 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
   // Login Form State (Email / Phone only, no PIN required)
   const [loginIdentifier, setLoginIdentifier] = useState('');
   const [autoLoginAfterRegister, setAutoLoginAfterRegister] = useState(true);
+
+  // Pre-save duplicate check trigger
+  useEffect(() => {
+    if ((formData.phone && formData.phone.length >= 7) || (formData.name && formData.name.trim().length >= 4)) {
+      if (checkPatientDuplicates) {
+        const matches = checkPatientDuplicates({
+          name: formData.name,
+          phone: formData.phone,
+          dob: formData.dob,
+          age: formData.age
+        });
+        setDuplicateMatches(matches);
+      }
+    } else {
+      setDuplicateMatches([]);
+    }
+  }, [formData.name, formData.phone, formData.dob, formData.age, checkPatientDuplicates]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -143,34 +164,6 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
     });
   };
 
-  const handleAutoFillDemo = () => {
-    setFormData({
-      name: 'Radhika Madhavan',
-      age: '34',
-      gender: 'Female',
-      bloodGroup: 'B+',
-      phone: '+91 98450 67214',
-      email: 'radhika.madhavan@healthcorp.in',
-      address: 'Flat 402, Lotus Residency, Road No. 12, Banjara Hills, Hyderabad',
-      emergencyContact: 'R. Madhavan (Spouse) - +91 98450 67210',
-      attendingDoctor: doctors?.[1]?.name || doctors?.[0]?.name || 'Dr. Ananya Mukherjee',
-      status: 'Outpatient',
-      ward: 'N/A',
-      bedNo: 'N/A',
-      allergies: 'Penicillin, Sulfa Drugs',
-      chronicConditions: 'Asthma / COPD',
-      insuranceProvider: 'Star Health Insurance',
-      policyNo: 'STAR-IND-884920',
-      coverage: '₹10,00,000',
-      bp: '118/78 mmHg',
-      pulse: '74 bpm',
-      temp: '98.4 °F',
-      spo2: '99%',
-      weight: '64 kg',
-      height: '165 cm'
-    });
-    showToast('Sample patient details populated for preview!', 'info');
-  };
 
   const handleReset = () => {
     setFormData({
@@ -210,10 +203,12 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
     const newPatient = {
       name: formData.name.trim(),
       age: parseInt(formData.age) || 30,
+      dob: formData.dob || '',
       gender: formData.gender,
       bloodGroup: formData.bloodGroup,
       phone: formData.phone.trim(),
       email: formData.email.trim() || `${formData.name.toLowerCase().replace(/\s+/g, '.')}@example.com`,
+      abhaId: formData.abhaId.trim() || '',
       address: formData.address.trim() || 'Cyberabad, Hyderabad',
       emergencyContact: formData.emergencyContact.trim() || `Family Contact - ${formData.phone}`,
       allergies: formData.allergies ? formData.allergies.split(',').map((a) => a.trim()).filter(Boolean) : ['None known'],
@@ -252,10 +247,14 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
       ward: formData.ward,
       bedNo: formData.bedNo,
       attendingDoctor: formData.attendingDoctor,
-      photo: `https://images.unsplash.com/photo-${formData.gender === 'Female' ? '1544005313-94ddf0286df2' : '1535713875002-d1d0cf377fde'}?w=150&auto=format&fit=crop&q=80`
+      photo: formData.gender === 'Female'
+        ? 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80'
+        : 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80'
     };
 
-    const savedPatient = addPatient(newPatient);
+    const savedPatient = registerPatientWithUhid
+      ? registerPatientWithUhid(newPatient)
+      : addPatient(newPatient);
     setSelectedPatient(savedPatient);
 
     if (autoLoginAfterRegister || userRole === 'patient') {
@@ -377,26 +376,15 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
 
           <div className="flex items-center gap-2.5 flex-wrap">
             {mode === 'register' && (
-              <>
-                <button
-                  type="button"
-                  onClick={handleAutoFillDemo}
-                  className="btn btn-outline min-h-[42px] px-4.5 py-2 flex items-center gap-2.5 text-xs font-semibold rounded-xl cursor-pointer"
-                  title="Auto-fill sample data"
-                >
-                  <Sparkles size={16} className="text-teal-600 dark:text-teal-400 shrink-0" />
-                  <span>Auto-Fill Demo</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="btn btn-secondary min-h-[42px] px-4.5 py-2 flex items-center gap-2.5 text-xs font-semibold rounded-xl cursor-pointer"
-                  title="Reset form"
-                >
-                  <RefreshCw size={15} className="shrink-0" />
-                  <span>Reset</span>
-                </button>
-              </>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="btn btn-secondary min-h-[42px] px-4.5 py-2 flex items-center gap-2.5 text-xs font-semibold rounded-xl cursor-pointer"
+                title="Reset form"
+              >
+                <RefreshCw size={15} className="shrink-0" />
+                <span>Reset</span>
+              </button>
             )}
             <button
               type="button"
@@ -589,6 +577,39 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
         /* ── MODE 2: REGISTER NEW PATIENT ── */
         <form onSubmit={handleRegisterSubmit} className="flex flex-col gap-6">
 
+          {/* ⚠️ DUPLICATE PATIENT DETECTION WARNING BANNER */}
+          {duplicateMatches.length > 0 && (
+            <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border-2 border-amber-500/40 text-amber-900 dark:text-amber-200 flex flex-col gap-3 animate-fadeIn">
+              <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base">
+                <AlertTriangle size={20} className="text-amber-600 dark:text-amber-400 shrink-0" />
+                <span>⚠️ Possible Existing Patient Detected ({duplicateMatches.length} Match{duplicateMatches.length > 1 ? 'es' : ''})</span>
+              </div>
+              <p className="text-xs text-amber-800 dark:text-amber-300">
+                A patient matching this phone number, date of birth, or name was found in the hospital registry. Please verify to avoid split EMR records:
+              </p>
+              <div className="flex flex-col gap-2 pt-1">
+                {duplicateMatches.map((dup) => (
+                  <div key={dup.id} className="p-3 rounded-xl bg-bg-surface border border-border-subtle flex items-center justify-between flex-wrap gap-2 text-xs">
+                    <div>
+                      <strong className="text-text-main text-sm">{dup.name}</strong> • UHID: <span className="mono font-bold text-teal-600 dark:text-teal-400">{dup.uhid || dup.mrn}</span> • Phone: <span className="mono font-semibold">{dup.phone}</span> • Age: {dup.age} yrs
+                      {dup.matchReason && <span className="ml-2 badge badge-amber text-[10px]">{dup.matchReason}</span>}
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-xs text-xs font-bold rounded-lg"
+                      onClick={() => {
+                        setSelectedPatient(dup);
+                        setActiveNav({ module: 'patientManagement', subModule: 'profile' });
+                      }}
+                    >
+                      Open Existing Timeline
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* ── SECTION 1: PERSONAL & CONTACT INFORMATION ── */}
           <div className="glass-card p-6 sm:p-7 rounded-2xl bg-bg-surface border border-border-subtle shadow-xs space-y-5">
             <div className="flex items-center justify-between pb-3.5 border-b border-border-subtle flex-wrap gap-2">
@@ -598,10 +619,10 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
                 </div>
                 <div>
                   <h3 className="text-sm sm:text-base font-bold text-text-main tracking-tight uppercase">
-                    1. Personal & Contact Information
+                    1. Personal & Contact Information (UHID & ABHA)
                   </h3>
                   <p className="text-xs text-text-muted mt-0.5 font-medium">
-                    Primary demographic identifiers and emergency contact channels.
+                    Primary demographic identifiers, unique UHID allocation, and ABDM Ayushman Bharat Health ID.
                   </p>
                 </div>
               </div>
@@ -612,7 +633,7 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {/* Full Name */}
-              <div className="sm:col-span-2 form-group mb-0">
+              <div className="form-group mb-0">
                 <label className="form-label flex items-center justify-between">
                   <span>Patient Full Legal Name <span className="text-rose-500">*</span></span>
                 </label>
@@ -625,6 +646,35 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
                   value={formData.name}
                   onChange={handleChange}
                   autoFocus
+                />
+              </div>
+
+              {/* Date of Birth (DOB) */}
+              <div className="form-group mb-0">
+                <label className="form-label">
+                  Date of Birth (DOB)
+                </label>
+                <input
+                  type="date"
+                  name="dob"
+                  className="form-input"
+                  value={formData.dob}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    let calculatedAge = formData.age;
+                    if (val) {
+                      const birthYear = new Date(val).getFullYear();
+                      const currentYear = new Date().getFullYear();
+                      if (birthYear > 1900 && currentYear >= birthYear) {
+                        calculatedAge = currentYear - birthYear;
+                      }
+                    }
+                    setFormData((prev) => ({
+                      ...prev,
+                      dob: val,
+                      age: calculatedAge ? String(calculatedAge) : prev.age
+                    }));
+                  }}
                 />
               </div>
 
@@ -739,6 +789,36 @@ export const PatientRegistration = ({ initialMode = 'register' }) => {
                   className="form-input"
                   placeholder="e.g. Spouse / Parent & Contact"
                   value={formData.emergencyContact}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* ABHA ID (Ayushman Bharat Digital Health Account) */}
+              <div className="form-group mb-0">
+                <label className="form-label flex items-center justify-between">
+                  <span>ABHA ID (National Health Account)</span>
+                  <span className="text-[10px] text-teal-600 dark:text-teal-400 font-bold">ABDM Verified</span>
+                </label>
+                <input
+                  type="text"
+                  name="abhaId"
+                  className="form-input mono"
+                  placeholder="e.g. 91-8842-9901-3421"
+                  value={formData.abhaId}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Date of Birth */}
+              <div className="form-group mb-0">
+                <label className="form-label">
+                  Date of Birth (DOB)
+                </label>
+                <input
+                  type="date"
+                  name="dob"
+                  className="form-input"
+                  value={formData.dob}
                   onChange={handleChange}
                 />
               </div>

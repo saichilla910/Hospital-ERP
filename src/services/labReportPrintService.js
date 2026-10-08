@@ -5,11 +5,11 @@
 
 export const generateLabReportHTML = (labReport, hospitalInfo = {}) => {
   const hInfo = {
-    name: hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute',
+    name: hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute',
     address: hospitalInfo.address || 'Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081',
     phone: hospitalInfo.phone || '+91 (040) 6889-4000 / 1800-425-9999',
     licenseNo: hospitalInfo.licenseNo || 'NABH-TERTIARY-2024-99821 • NABL Cert: MC-4190',
-    email: hospitalInfo.email || 'pathology@medicorehospital.org'
+    email: hospitalInfo.email || 'pathology@hospitalcare.org'
   };
 
   const report = {

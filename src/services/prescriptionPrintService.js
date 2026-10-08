@@ -5,11 +5,11 @@
 
 export const generatePrescriptionHTML = (prescription, hospitalInfo = {}) => {
   const hInfo = {
-    name: hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute',
+    name: hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute',
     address: hospitalInfo.address || 'Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081',
     phone: hospitalInfo.phone || '+91 (040) 6889-4000 / 1800-425-9999',
     licenseNo: hospitalInfo.licenseNo || 'NABH-TERTIARY-2024-99821 • Reg No: MED-TG-2020-8801',
-    email: hospitalInfo.email || 'clinical@medicorehospital.org'
+    email: hospitalInfo.email || 'clinical@hospitalcare.org'
   };
 
   const rx = {
@@ -35,9 +35,12 @@ export const generatePrescriptionHTML = (prescription, hospitalInfo = {}) => {
   const rowsHtml = rx.items.map((item, idx) => `
     <tr>
       <td style="padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 700; color: #0f172a; font-size: 12px;">
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <span style="color: #0d9488; font-size: 14px;">💊</span>
-          <span>${item.name}</span>
+        <div style="display: flex; align-items: flex-start; gap: 6px;">
+          <span style="color: #0d9488; font-size: 14px; margin-top: 2px;">💊</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: #0f172a;">${item.genericName || item.name}</div>
+            ${item.genericName ? `<div style="font-size: 11px; color: #0f766e; font-weight: 600;">Brand Ref: ${item.name}</div>` : ''}
+          </div>
         </div>
       </td>
       <td style="padding: 10px 12px; border-bottom: 1px solid #e2e8f0; font-size: 11.5px; text-align: center;">
@@ -319,7 +322,7 @@ export const generatePrescriptionHTML = (prescription, hospitalInfo = {}) => {
     <table class="footer-table">
       <tr>
         <td style="font-size: 10px; color: #64748b; width: 65%; vertical-align: bottom;">
-          Digitally generated via MediCore ERP Electronic Medical Record (EMR). Valid under National Medical Commission digital prescription regulations.
+          Digitally generated via HospitalCare ERP Electronic Medical Record (EMR). Valid under National Medical Commission digital prescription regulations.
         </td>
         <td style="width: 35%; text-align: right; vertical-align: bottom;">
           <div style="border-bottom: 1.5px solid #0f172a; width: 180px; margin-left: auto; padding-bottom: 3px; margin-bottom: 4px;">

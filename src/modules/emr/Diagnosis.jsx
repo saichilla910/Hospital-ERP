@@ -168,11 +168,11 @@ export const Diagnosis = () => {
                 </td>
                 <td className="text-right">
                   <button
-                    className="btn-icon btn-sm"
+                    className="btn-icon btn-sm btn-icon-danger"
                     onClick={() => removeDiagnosis(idx)}
                     title="Remove Condition"
                   >
-                    <Trash2 size={14} className="text-rose-600" />
+                    <Trash2 size={20} strokeWidth={2.2} />
                   </button>
                 </td>
               </tr>

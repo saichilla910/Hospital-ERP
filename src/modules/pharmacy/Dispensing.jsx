@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
-import { Pill, ShoppingCart, Check, Trash2, Search, Printer, CreditCard } from 'lucide-react';
+import { Pill, ShoppingCart, Check, Trash2, Search, Printer, CreditCard, Plus } from 'lucide-react';
 import { useHospital } from '../../context/HospitalContext';
 
 export const Dispensing = () => {
-  const { pharmacyMedicines, dispenseMedicine, showToast, openModal, addInvoice } = useHospital();
-  const [selectedMedId, setSelectedMedId] = useState(pharmacyMedicines[0].id);
+  const {
+    pharmacyMedicines = [],
+    pharmacyItems = [],
+    pharmacyBatches = [],
+    dispenseMedicineFEFO,
+    dispenseMedicine,
+    showToast,
+    openModal,
+    addInvoice
+  } = useHospital();
+
+  const [selectedMedId, setSelectedMedId] = useState(pharmacyMedicines?.[0]?.id || '');
   const [dispenseQty, setDispenseQty] = useState(10);
   const [cart, setCart] = useState([
     { medId: 'MED-001', name: 'Brilinta (Ticagrelor 90mg)', qty: 30, price: 42.5, total: 1275 },
     { medId: 'MED-002', name: 'Rozavel-EZ 20/10', qty: 30, price: 28.0, total: 840 }
   ]);
+
+  // Find batches for the selected medicine sorted by FEFO (earliest expiry first)
+  const activeBatches = pharmacyBatches
+    .filter((b) => b.itemId === selectedMedId || b.name === pharmacyMedicines.find((m) => m.id === selectedMedId)?.name)
+    .sort((a, b) => new Date(a.expiryDate) - new Date(b.expiryDate));
 
   const addToCart = () => {
     const med = pharmacyMedicines.find((m) => m.id === selectedMedId);
@@ -32,8 +47,17 @@ export const Dispensing = () => {
 
   const handleCompleteDispense = () => {
     if (cart.length === 0) return;
+    const allAllocations = [];
+
     cart.forEach((c) => {
-      dispenseMedicine(c.medId, c.qty);
+      if (dispenseMedicineFEFO) {
+        const res = dispenseMedicineFEFO(c.medId, c.qty, 'Walk-in Counter Patient');
+        if (res && res.allocatedBatches) {
+          allAllocations.push(...res.allocatedBatches);
+        }
+      } else {
+        dispenseMedicine(c.medId, c.qty);
+      }
     });
 
     const inv = {
@@ -60,7 +84,7 @@ export const Dispensing = () => {
     addInvoice(inv);
     openModal('invoice', inv);
     setCart([]);
-    showToast(`Prescription dispensed! Total ₹${totalBill.toLocaleString()} receipt generated.`, 'success');
+    showToast(`Prescription dispensed with FEFO batch deduction! Total ₹${totalBill.toLocaleString()} receipt generated.`, 'success');
   };
 
   return (
@@ -117,6 +141,34 @@ export const Dispensing = () => {
             </div>
           </div>
 
+          {/* FEFO Active Batches Strip */}
+          {activeBatches.length > 0 && (
+            <div className="p-3 rounded-xl bg-teal-500/10 border border-teal-500/30 text-xs">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="font-bold text-teal-800 dark:text-teal-300 flex items-center gap-1.5">
+                  ⚡ FEFO Batch Allocation (Earliest Expiry First):
+                </span>
+                <span className="text-[10px] text-teal-700 dark:text-teal-400 font-mono font-semibold">
+                  {activeBatches.length} Batches in Store
+                </span>
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                {activeBatches.map((b, idx) => (
+                  <span
+                    key={b.id || idx}
+                    className={`px-2 py-0.5 rounded-lg text-[11px] font-mono border ${
+                      idx === 0
+                        ? 'bg-teal-600 text-white border-teal-600 font-bold shadow-xs'
+                        : 'bg-bg-surface text-text-muted border-border-subtle'
+                    }`}
+                  >
+                    {idx === 0 ? '▶ NEXT DISPENSE: ' : ''}{b.batchNo} ({b.qty}u left • Exp: {b.expiryDate})
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Quick Dispense Table */}
           <div className="table-container mt-2.5">
             <table className="medicore-table">
@@ -137,8 +189,12 @@ export const Dispensing = () => {
                     <td className="text-text-muted">₹{item.price.toFixed(2)}</td>
                     <td className="text-right font-bold mono">₹{item.total.toFixed(2)}</td>
                     <td className="text-right">
-                      <button className="btn-icon btn-sm" onClick={() => removeFromCart(idx)}>
-                        <Trash2 size={13} className="text-rose-500" />
+                      <button
+                        className="btn-icon btn-sm btn-icon-danger"
+                        onClick={() => removeFromCart(idx)}
+                        title="Remove Item from Cart"
+                      >
+                        <Trash2 size={20} strokeWidth={2.2} />
                       </button>
                     </td>
                   </tr>

@@ -161,7 +161,7 @@ export const Reports = () => {
         { name: 'Ward_Bed_Occupancy', data: wardSheet }
       ];
 
-      const fileName = `MediCore_Hospital_Performance_Report_2026.xlsx`;
+      const fileName = `HospitalCare_Performance_Report_2026.xlsx`;
       exportToExcel(sheets, fileName);
       showToast(`Master Excel report "${fileName}" downloaded successfully!`, 'success');
     } catch (err) {

@@ -54,17 +54,31 @@ export const Doctors = () => {
   const scrollRowRef = useRef(null);
 
   const departmentConfig = [
-    { name: 'All', label: 'All Specialties', icon: Stethoscope, color: 'teal' },
+    { name: 'All', label: 'All Specialties', icon: Stethoscope, color: 'blue' },
     { name: 'Cardiology', label: 'Cardiology', icon: HeartPulse, color: 'rose' },
-    { name: 'Emergency', label: 'Emergency', icon: ShieldAlert, color: 'amber' },
-    { name: 'Neurology', label: 'Neurology', icon: Activity, color: 'violet' },
-    { name: 'Obstetrics & Gynaecology', label: 'Obstetrics & Gynae', icon: Heart, color: 'pink' },
     { name: 'Orthopaedics', label: 'Orthopaedics', icon: Layers, color: 'blue' },
     { name: 'Paediatrics', label: 'Paediatrics', icon: Sparkles, color: 'emerald' },
-    { name: 'Gastroenterology', label: 'Gastroenterology', icon: Stethoscope, color: 'indigo' },
+    { name: 'Neurology', label: 'Neurology', icon: Activity, color: 'violet' },
+    { name: 'Obstetrics & Gynaecology', label: 'Obstetrics & Gynae', icon: Heart, color: 'pink' },
+    { name: 'General Surgery', label: 'General Surgery', icon: Scissors, color: 'amber' },
+    { name: 'Dermatology', label: 'Dermatology', icon: Sparkles, color: 'purple' },
+    { name: 'ENT', label: 'ENT', icon: Stethoscope, color: 'cyan' },
+    { name: 'Radiology', label: 'Radiology', icon: Scan, color: 'indigo' },
+    { name: 'Oncology', label: 'Oncology', icon: ShieldAlert, color: 'rose' },
+    { name: 'Endocrinology', label: 'Endocrinology', icon: Activity, color: 'blue' },
+    { name: 'Urology', label: 'Urology', icon: Layers, color: 'blue' },
+    { name: 'Ophthalmology', label: 'Ophthalmology', icon: Scan, color: 'violet' },
     { name: 'Pulmonology', label: 'Pulmonology', icon: Wind, color: 'cyan' },
-    { name: 'Radiology', label: 'Radiology', icon: Scan, color: 'purple' },
-    { name: 'Laboratory', label: 'Laboratory', icon: FlaskConical, color: 'teal' }
+    { name: 'Psychiatry', label: 'Psychiatry', icon: Activity, color: 'emerald' },
+    { name: 'Gastroenterology', label: 'Gastroenterology', icon: Stethoscope, color: 'indigo' },
+    { name: 'Anesthesiology', label: 'Anesthesiology', icon: Activity, color: 'amber' },
+    { name: 'Nephrology', label: 'Nephrology', icon: Layers, color: 'blue' },
+    { name: 'Laboratory', label: 'Laboratory', icon: FlaskConical, color: 'blue' },
+    { name: 'Emergency', label: 'Emergency', icon: ShieldAlert, color: 'rose' },
+    { name: 'Dentistry', label: 'Dentistry', icon: Sparkles, color: 'emerald' },
+    { name: 'Rheumatology', label: 'Rheumatology', icon: Layers, color: 'pink' },
+    { name: 'Physiotherapy', label: 'Physiotherapy', icon: Activity, color: 'blue' },
+    { name: 'General Medicine', label: 'General Medicine', icon: Stethoscope, color: 'blue' }
   ];
 
   const scrollDepartments = (direction) => {
@@ -176,18 +190,11 @@ export const Doctors = () => {
 
         <div className="flex gap-2.5 flex-wrap items-center">
           <button
-            className="btn btn-secondary h-10 px-4 rounded-xl text-xs font-semibold cursor-pointer"
-            onClick={() => showToast('NABH & NMC Accreditation Standards verified.', 'info')}
-          >
-            <ShieldCheck size={15} className="text-teal-600 dark:text-teal-400" />
-            <span>Accreditation Standards</span>
-          </button>
-          <button
-            className="btn btn-primary h-10 px-4 rounded-xl text-xs font-semibold shadow-sm shadow-teal-600/20 flex items-center gap-1.5 cursor-pointer"
+            className="btn btn-primary h-10 px-5 rounded-xl text-xs sm:text-sm font-semibold shadow-sm shadow-teal-600/20 flex items-center gap-2 cursor-pointer hover:shadow-md transition-all"
             onClick={() => setIsAddDoctorModalOpen(true)}
             title="Onboard and register a new specialist doctor"
           >
-            <Plus size={16} />
+            <Plus size={18} />
             <span>Add Specialist Doctor</span>
           </button>
         </div>

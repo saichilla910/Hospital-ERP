@@ -9,12 +9,15 @@ export const PatientDirectory = () => {
   const [statusFilter, setStatusFilter] = useState('All');
 
   const filteredPatients = patients.filter((patient) => {
+    const q = searchTerm.toLowerCase();
     const matchesSearch =
-      patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      patient.mrn.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      patient.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.name.toLowerCase().includes(q) ||
+      (patient.uhid && patient.uhid.toLowerCase().includes(q)) ||
+      (patient.mrn && patient.mrn.toLowerCase().includes(q)) ||
+      (patient.abhaId && patient.abhaId.toLowerCase().includes(q)) ||
+      patient.id.toLowerCase().includes(q) ||
       patient.phone.includes(searchTerm) ||
-      (patient.attendingDoctor && patient.attendingDoctor.toLowerCase().includes(searchTerm.toLowerCase()));
+      (patient.attendingDoctor && patient.attendingDoctor.toLowerCase().includes(q));
     const matchesStatus = statusFilter === 'All' || patient.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -91,14 +94,14 @@ export const PatientDirectory = () => {
           <thead>
             <tr>
               <th className="min-w-[220px]">Patient Name</th>
-              <th className="w-28">MRN</th>
+              <th className="w-36">UHID / MRN</th>
               <th className="w-28 whitespace-nowrap">Age / Gender</th>
               <th className="w-20 text-center">Blood</th>
               <th className="w-28">Status</th>
               <th className="w-36">Location</th>
-              <th className="min-w-[220px]">Attending & Consulted Doctor</th>
+              <th className="min-w-[200px]">Attending & Consulted Doctor</th>
               <th className="w-32">Phone</th>
-              <th className="w-36 text-right">Actions</th>
+              <th className="w-48 text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -153,9 +156,16 @@ export const PatientDirectory = () => {
                       </div>
                     </td>
                     <td>
-                      <span className="mono text-xs font-semibold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 py-1 px-2.5 rounded border border-teal-200 dark:border-teal-800/60 inline-block leading-none">
-                        {p.mrn}
-                      </span>
+                      <div className="flex flex-col gap-1 items-start">
+                        <span className="mono text-xs font-semibold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 py-1 px-2.5 rounded border border-teal-200 dark:border-teal-800/60 inline-block leading-none">
+                          {p.uhid || p.mrn}
+                        </span>
+                        {p.abhaId && (
+                          <span className="mono text-[10px] font-medium text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/50 py-0.5 px-1.5 rounded border border-indigo-200 dark:border-indigo-800/50 inline-block leading-none" title={`ABDM ABHA ID: ${p.abhaId}`}>
+                            ABHA: {p.abhaId}
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className="text-xs sm:text-sm text-text-main whitespace-nowrap">
                       {p.age} yrs • {p.gender}
@@ -191,27 +201,38 @@ export const PatientDirectory = () => {
                       {p.phone}
                     </td>
                     <td className="text-right">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-1.5 flex-nowrap">
                         <button
-                          className="btn btn-secondary min-h-[36px] px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5 rounded-lg"
+                          className="btn btn-secondary min-h-[34px] px-2.5 py-1 text-xs font-semibold flex items-center gap-1 rounded-lg"
                           onClick={() => {
                             setSelectedPatient(p);
                             setActiveNav({ module: 'patientManagement', subModule: 'profile' });
                           }}
                           title="View Full Profile & Consulted Doctors History"
                         >
-                          <Eye size={14} className="shrink-0" />
+                          <Eye size={13} className="shrink-0" />
                           <span>View</span>
                         </button>
                         <button
-                          className="btn btn-primary min-h-[36px] px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5 rounded-lg"
+                          className="btn btn-secondary min-h-[34px] px-2.5 py-1 text-xs font-semibold flex items-center gap-1 rounded-lg bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 dark:hover:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-800/60"
+                          onClick={() => {
+                            setSelectedPatient(p);
+                            setActiveNav({ module: 'patientManagement', subModule: 'history' });
+                          }}
+                          title="Open Unified Patient Timeline (Visits, Labs, Rx, Bills)"
+                        >
+                          <FileText size={13} className="shrink-0 text-indigo-600 dark:text-indigo-400" />
+                          <span>Timeline</span>
+                        </button>
+                        <button
+                          className="btn btn-primary min-h-[34px] px-2.5 py-1 text-xs font-semibold flex items-center gap-1 rounded-lg"
                           onClick={() => {
                             setSelectedPatient(p);
                             openModal('doctorConsult', matchedDoctor);
                           }}
                           title="Book Doctor Consultation"
                         >
-                          <Stethoscope size={14} className="shrink-0" />
+                          <Stethoscope size={13} className="shrink-0" />
                           <span>Consult</span>
                         </button>
                       </div>

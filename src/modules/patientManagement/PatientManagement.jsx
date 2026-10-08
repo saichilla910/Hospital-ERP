@@ -15,10 +15,10 @@ export const PatientManagement = () => {
   const tabs = [
     { key: 'directory', label: 'All Patients', icon: Users },
     { key: 'profile', label: 'Patient Record & Vital Graphs', icon: UserCheck },
+    { key: 'history', label: 'Unified Patient Timeline', icon: History, badge: 'Visits • Labs • Rx • Bills', highlight: true },
     { key: 'analytics', label: 'Patient Population Graphs', icon: BarChart3 },
-    { key: 'registration', label: 'Register New Patient', icon: UserPlus, badge: 'Intake', highlight: true },
-    { key: 'login', label: 'Patient Portal Login', icon: LogIn, badge: 'Sign In' },
-    { key: 'history', label: 'Medical History', icon: History }
+    { key: 'registration', label: 'Register New Patient (UHID & ABHA)', icon: UserPlus, badge: 'Intake' },
+    { key: 'login', label: 'Patient Portal Login', icon: LogIn, badge: 'Sign In' }
   ];
 
   const renderSubModule = () => {

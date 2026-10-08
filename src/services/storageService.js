@@ -31,21 +31,51 @@ export const loadDatabase = (fallbackData) => {
     const serialized = localStorage.getItem(STORAGE_KEY);
     if (serialized) {
       const parsed = JSON.parse(serialized);
-      // Ensure all doctors from fallbackData are synchronized if fallback has more or newer doctors or outdated surgery count
-      if (!parsed.doctors || parsed.doctors.length < (fallbackData.doctors?.length || 0) || parsed.doctors.some(d => (d.totalSurgeries || 0) >= 100)) {
+      // Always synchronize doctor dataset (names, specialties, photos, departments) from fallbackData
+      if (parsed.doctors && fallbackData.doctors) {
+        let hasDoctorUpdate = false;
+        parsed.doctors = fallbackData.doctors.map((fallbackDoc) => {
+          const existingDoc = parsed.doctors.find((d) => d.id === fallbackDoc.id);
+          if (existingDoc) {
+            return {
+              ...existingDoc,
+              name: fallbackDoc.name,
+              photo: fallbackDoc.photo,
+              department: fallbackDoc.department,
+              specialty: fallbackDoc.specialty
+            };
+          }
+          return fallbackDoc;
+        });
+        hasDoctorUpdate = true;
+
+        if (parsed.patients && fallbackData.patients) {
+          parsed.patients = parsed.patients.map((pat) => {
+            const fallbackPat = fallbackData.patients.find((f) => f.id === pat.id);
+            if (fallbackPat && fallbackPat.photo && pat.photo !== fallbackPat.photo) {
+              return { ...pat, photo: fallbackPat.photo };
+            }
+            return pat;
+          });
+        }
+
+        if (hasDoctorUpdate) {
+          saveDatabase(parsed);
+        }
+      } else if (!parsed.doctors) {
         parsed.doctors = fallbackData.doctors;
         saveDatabase(parsed);
       }
       if (!parsed.hospitalInfo || parsed.hospitalInfo.name !== fallbackData.hospitalInfo?.name) {
         parsed.hospitalInfo = fallbackData.hospitalInfo || {
-          name: 'MediCore ERP Super Specialty Hospital & Research Institute',
-          tagline: 'Excellence in Tertiary Healthcare & Clinical Research',
+          name: 'HospitalCare Super Specialty Hospital & Research Institute',
+          tagline: 'Comprehensive Clinical Care & Hospital Resource Management',
           licenseNo: 'NABH-TERTIARY-2024-99821',
           taxId: 'GSTIN-36AAACH7829K1Z4',
           address: 'Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081',
           phone: '+91 (040) 6889-4000',
           emergencyHelpline: '+91 1066 / +91 (040) 6889-4911',
-          email: 'desk@medicore-erp.org',
+          email: 'contact@hospitalcare.org',
           activeShift: 'Morning Shift (07:00 - 15:30)',
           currentShiftSupervisor: 'Dr. Arvind Swaminathan, MD (Emergency Medicine)'
         };
@@ -77,6 +107,67 @@ export const loadDatabase = (fallbackData) => {
             status: 'Confirmed'
           }
         ];
+        saveDatabase(parsed);
+      }
+      // Ensure charges, servicePriceMaster, servicePackages, and billingAuditLogs exist
+      if (!parsed.charges && fallbackData.charges) {
+        parsed.charges = fallbackData.charges;
+        saveDatabase(parsed);
+      }
+      if (!parsed.servicePriceMaster && fallbackData.servicePriceMaster) {
+        parsed.servicePriceMaster = fallbackData.servicePriceMaster;
+        saveDatabase(parsed);
+      }
+      if (!parsed.servicePackages && fallbackData.servicePackages) {
+        parsed.servicePackages = fallbackData.servicePackages;
+        saveDatabase(parsed);
+      }
+      if (!parsed.billingAuditLogs && fallbackData.billingAuditLogs) {
+        parsed.billingAuditLogs = fallbackData.billingAuditLogs;
+        saveDatabase(parsed);
+      }
+      if (!parsed.drugsMaster || parsed.drugsMaster.length < fallbackData.drugsMaster?.length) {
+        parsed.drugsMaster = fallbackData.drugsMaster;
+        saveDatabase(parsed);
+      }
+      if (!parsed.drugInteractions || parsed.drugInteractions.length < fallbackData.drugInteractions?.length) {
+        parsed.drugInteractions = fallbackData.drugInteractions;
+        saveDatabase(parsed);
+      }
+      if (!parsed.labTestMaster || parsed.labTestMaster.length < fallbackData.labTestMaster?.length) {
+        parsed.labTestMaster = fallbackData.labTestMaster;
+        saveDatabase(parsed);
+      }
+      if (!parsed.criticalLabAlerts || parsed.criticalLabAlerts.length < fallbackData.criticalLabAlerts?.length) {
+        parsed.criticalLabAlerts = fallbackData.criticalLabAlerts;
+        saveDatabase(parsed);
+      }
+      if (!parsed.labOrders || parsed.labOrders.length < fallbackData.labOrders?.length || !parsed.labOrders[0]?.timeline) {
+        parsed.labOrders = fallbackData.labOrders;
+        saveDatabase(parsed);
+      }
+      if (!parsed.pharmacyItems || parsed.pharmacyItems.length < fallbackData.pharmacyItems?.length) {
+        parsed.pharmacyItems = fallbackData.pharmacyItems;
+        saveDatabase(parsed);
+      }
+      if (!parsed.pharmacyBatches || parsed.pharmacyBatches.length < fallbackData.pharmacyBatches?.length) {
+        parsed.pharmacyBatches = fallbackData.pharmacyBatches;
+        saveDatabase(parsed);
+      }
+      if (!parsed.stockMovements || parsed.stockMovements.length < fallbackData.stockMovements?.length) {
+        parsed.stockMovements = fallbackData.stockMovements;
+        saveDatabase(parsed);
+      }
+      if (!parsed.beds || parsed.beds.length < fallbackData.beds?.length) {
+        parsed.beds = fallbackData.beds;
+        saveDatabase(parsed);
+      }
+      if (!parsed.admissions || parsed.admissions.length < fallbackData.admissions?.length) {
+        parsed.admissions = fallbackData.admissions;
+        saveDatabase(parsed);
+      }
+      if (!parsed.bedTransfers || parsed.bedTransfers.length < fallbackData.bedTransfers?.length) {
+        parsed.bedTransfers = fallbackData.bedTransfers;
         saveDatabase(parsed);
       }
       return parsed;

@@ -1,11 +1,13 @@
 import React from 'react';
 import { useHospital } from '../../context/HospitalContext';
 import { Appointments } from './Appointments';
+import { DoctorSlotManager } from './DoctorSlotManager';
 import { TokenQueue } from './TokenQueue';
+import { RemindersManager } from './RemindersManager';
 import { DoctorConsultation } from './DoctorConsultation';
 import { Prescriptions } from './Prescriptions';
 import { SubNavTabs } from '../../components/common/SubNavTabs';
-import { Calendar, ListOrdered, Stethoscope, Pill } from 'lucide-react';
+import { Calendar, Clock, Monitor, MessageSquare, Stethoscope, Pill } from 'lucide-react';
 
 export const OPD = () => {
   const { activeNav, setActiveNav } = useHospital();
@@ -13,17 +15,23 @@ export const OPD = () => {
 
   const tabs = [
     { key: 'appointments', label: 'Appointments Schedule', icon: Calendar },
+    { key: 'slots', label: 'Doctor Slots & Capacity', icon: Clock },
+    { key: 'queue', label: 'Live TV Queue Screen', icon: Monitor },
+    { key: 'reminders', label: 'SMS & WhatsApp Reminders', icon: MessageSquare },
     { key: 'consultation', label: 'Doctor Consult & e-Rx', icon: Stethoscope },
-    { key: 'queue', label: 'Live Token Board', icon: ListOrdered },
-    { key: 'prescriptions', label: 'Prescription Records', icon: Pill }
+    { key: 'prescriptions', label: 'Prescriptions', icon: Pill }
   ];
 
   const renderSubModule = () => {
     switch (currentSub) {
       case 'appointments':
         return <Appointments />;
+      case 'slots':
+        return <DoctorSlotManager />;
       case 'queue':
         return <TokenQueue />;
+      case 'reminders':
+        return <RemindersManager />;
       case 'consultation':
         return <DoctorConsultation />;
       case 'prescriptions':
@@ -39,7 +47,7 @@ export const OPD = () => {
       <SubNavTabs
         tabs={tabs}
         activeKey={currentSub}
-        onSelectTab={(subKey) => setActiveNav({ module: 'appointment', subModule: subKey })}
+        onSelectTab={(subKey) => setActiveNav({ module: 'opd', subModule: subKey })}
       />
 
       {/* Sub Module Render */}

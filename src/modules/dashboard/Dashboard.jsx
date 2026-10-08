@@ -48,6 +48,9 @@ export const Dashboard = () => {
     patients,
     doctors,
     opdAppointments,
+    beds = [],
+    admissions = [],
+    bedTransfers = [],
     setActiveNav,
     setSelectedPatient,
     showToast,
@@ -57,6 +60,18 @@ export const Dashboard = () => {
     setPatientOnboardingModalOpen,
     loginAsStaff
   } = useHospital();
+
+  const totalBedCount = beds.length || (wards.reduce((acc, w) => acc + w.totalBeds, 0));
+  const occupiedBedCount = beds.length > 0 ? beds.filter((b) => b.status === 'occupied').length : wards.reduce((acc, w) => acc + w.occupiedBeds, 0);
+  const cleaningBedCount = beds.length > 0 ? beds.filter((b) => b.status === 'cleaning').length : 2;
+  const availableBedCount = beds.length > 0 ? beds.filter((b) => b.status === 'available').length : (totalBedCount - occupiedBedCount);
+  const occupancyPercentage = totalBedCount > 0 ? Math.round((occupiedBedCount / totalBedCount) * 100) : 0;
+
+  const expectedDischargesToday = admissions.filter((adm) => {
+    if (adm.status !== 'Admitted') return false;
+    const exp = (adm.expectedDischarge || '').toLowerCase();
+    return exp.includes('today') || exp.includes('2026-09-17');
+  });
 
   const [searchQuery, setSearchQuery] = useState('');
   const [patientFilterStatus, setPatientFilterStatus] = useState('All'); // 'All' | 'Checked-In' | 'In-Consult' | 'Waiting' | 'Completed'
@@ -517,27 +532,73 @@ export const Dashboard = () => {
 
         {/* Right Column: Ward Bed Availability & Active ER Trauma Matrix */}
         <div className="flex flex-col gap-6 min-w-0">
-          {/* Ward Bed Status */}
+          {/* 1. Real-Time Bed Occupancy & Turnover Widget */}
           <div className="glass-card flex flex-col gap-4 rounded-2xl bg-bg-surface border border-border-subtle shadow-xs p-5 sm:p-6 overflow-hidden min-w-0">
             <div className="flex items-center justify-between border-b border-border-subtle pb-3.5 min-w-0">
               <div className="min-w-0 flex-1">
-                <h3 className="text-base font-bold text-text-main truncate">
-                  Ward Bed Availability
-                </h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-text-main truncate">
+                    Bed Occupancy & Turnover Matrix
+                  </h3>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-md ${
+                    occupancyPercentage > 85
+                      ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
+                      : 'bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20'
+                  }`}>
+                    {occupancyPercentage}% Occupancy
+                  </span>
+                </div>
                 <p className="text-xs text-text-muted mt-0.5 truncate font-medium">
-                  Live occupancy across all hospital wings
+                  {occupiedBedCount} occupied • {availableBedCount} free • {cleaningBedCount} in cleaning queue
                 </p>
               </div>
               <button
                 className="btn btn-secondary h-9 px-3.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 whitespace-nowrap hover:border-teal-500/40"
                 onClick={() => setActiveNav({ module: 'ipd', subModule: 'beds' })}
               >
-                <span>Bed Map</span>
+                <span>Live Bed Board</span>
                 <ArrowUpRight size={13} className="text-teal-600" />
               </button>
             </div>
 
-            <div className="flex flex-col gap-3 min-w-0">
+            {/* Overall Occupancy Gauge Bar */}
+            <div className="p-3.5 rounded-xl bg-bg-surface-elevated/70 border border-border-subtle flex flex-col gap-2">
+              <div className="flex justify-between items-center text-xs">
+                <span className="font-bold text-text-main">Overall Hospital Occupancy</span>
+                <span className="font-extrabold text-teal-600 dark:text-teal-400">{occupiedBedCount} / {totalBedCount} Beds</span>
+              </div>
+              <div className="w-full h-3 bg-bg-surface rounded-full overflow-hidden border border-border-subtle flex">
+                <div
+                  className="h-full bg-rose-500 transition-all duration-500"
+                  style={{ width: `${(occupiedBedCount / totalBedCount) * 100}%` }}
+                  title={`Occupied: ${occupiedBedCount}`}
+                />
+                <div
+                  className="h-full bg-amber-500 animate-pulse transition-all duration-500"
+                  style={{ width: `${(cleaningBedCount / totalBedCount) * 100}%` }}
+                  title={`In Cleaning: ${cleaningBedCount}`}
+                />
+                <div
+                  className="h-full bg-emerald-500 transition-all duration-500"
+                  style={{ width: `${(availableBedCount / totalBedCount) * 100}%` }}
+                  title={`Available: ${availableBedCount}`}
+                />
+              </div>
+              <div className="flex items-center justify-between text-[11px] text-text-muted pt-1">
+                <span className="flex items-center gap-1 font-semibold text-rose-600">
+                  <span className="w-2 h-2 rounded-full bg-rose-500" /> {occupiedBedCount} Occupied
+                </span>
+                <span className="flex items-center gap-1 font-semibold text-amber-600">
+                  <span className="w-2 h-2 rounded-full bg-amber-500" /> {cleaningBedCount} Cleaning
+                </span>
+                <span className="flex items-center gap-1 font-semibold text-emerald-600">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" /> {availableBedCount} Free
+                </span>
+              </div>
+            </div>
+
+            {/* Ward-wise breakdowns */}
+            <div className="flex flex-col gap-2.5 min-w-0">
               {wards.map((ward) => {
                 const freeBeds = ward.totalBeds - ward.occupiedBeds;
                 const occupancyPct = Math.round((ward.occupiedBeds / ward.totalBeds) * 100);
@@ -545,26 +606,25 @@ export const Dashboard = () => {
                 return (
                   <div
                     key={ward.id}
-                    className="dash-ward-card"
+                    className="dash-ward-card cursor-pointer"
                     onClick={() => setActiveNav({ module: 'ipd', subModule: 'beds' })}
                   >
-                    <div className="flex justify-between items-center mb-2 gap-2 min-w-0">
+                    <div className="flex justify-between items-center mb-1.5 gap-2 min-w-0">
                       <span className="text-xs sm:text-sm font-bold text-text-main truncate min-w-0 flex-1">
                         {ward.name}
                       </span>
                       <span
-                        className={`text-xs font-semibold shrink-0 whitespace-nowrap px-2.5 py-0.5 rounded-md ${
-                          freeBeds > 2
+                        className={`text-[11px] font-semibold shrink-0 whitespace-nowrap px-2 py-0.5 rounded-md ${
+                          freeBeds > 1
                             ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20'
                             : 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20'
                         }`}
                       >
-                        {freeBeds} beds free ({ward.occupiedBeds}/{ward.totalBeds})
+                        {freeBeds} free ({ward.occupiedBeds}/{ward.totalBeds})
                       </span>
                     </div>
 
-                    {/* Progress Bar (8px height, rounded) */}
-                    <div className="w-full h-2 bg-bg-surface rounded-full overflow-hidden border border-border-subtle">
+                    <div className="w-full h-1.5 bg-bg-surface rounded-full overflow-hidden border border-border-subtle">
                       <div
                         className={`h-full rounded-full transition-all duration-300 ${
                           occupancyPct > 85 ? 'bg-rose-500' : occupancyPct > 70 ? 'bg-amber-500' : 'bg-teal-500'
@@ -575,6 +635,68 @@ export const Dashboard = () => {
                   </div>
                 );
               })}
+            </div>
+          </div>
+
+          {/* 2. Expected Discharges Today (Admission Planning Widget) */}
+          <div className="glass-card flex flex-col gap-4 rounded-2xl bg-bg-surface border border-border-subtle shadow-xs p-5 sm:p-6 overflow-hidden min-w-0">
+            <div className="flex items-center justify-between border-b border-border-subtle pb-3.5 min-w-0">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-bold text-text-main truncate">
+                    Expected Discharges Today
+                  </h3>
+                  <span className="badge badge-amber text-xs font-bold py-0.5 px-2">
+                    {expectedDischargesToday.length} Planned
+                  </span>
+                </div>
+                <p className="text-xs text-text-muted mt-0.5 truncate font-medium">
+                  Anticipate freed beds to schedule incoming admissions
+                </p>
+              </div>
+              <button
+                className="btn btn-secondary h-9 px-3.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 whitespace-nowrap hover:border-amber-500/40"
+                onClick={() => setActiveNav({ module: 'ipd', subModule: 'discharge' })}
+              >
+                <span>Discharge Desk</span>
+                <ArrowUpRight size={13} className="text-amber-600" />
+              </button>
+            </div>
+
+            <div className="flex flex-col gap-2.5 min-w-0">
+              {expectedDischargesToday.slice(0, 3).map((adm) => (
+                <div
+                  key={adm.admissionId}
+                  className="p-3 rounded-xl bg-bg-surface-elevated/70 border border-border-subtle hover:border-amber-500/40 transition-all flex items-center justify-between gap-3 cursor-pointer"
+                  onClick={() => setActiveNav({ module: 'ipd', subModule: 'discharge' })}
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-text-main truncate">
+                        {adm.patientName}
+                      </span>
+                      <span className="mono font-bold text-[10px] text-teal-600 dark:text-teal-400 bg-bg-surface px-1.5 py-0.2 rounded border border-border-subtle">
+                        Bed {adm.bedNo}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-text-muted mt-0.5 truncate">
+                      {adm.wardName} • {adm.attendingDoctor}
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="badge badge-amber text-[10px] font-bold block">
+                      {adm.expectedDischarge.includes('(') ? adm.expectedDischarge.split('(')[1]?.replace(')', '') : adm.expectedDischarge}
+                    </span>
+                    <span className="text-[10px] text-text-dim mt-0.5 block">Freed for admission</span>
+                  </div>
+                </div>
+              ))}
+
+              {expectedDischargesToday.length === 0 && (
+                <div className="text-xs text-text-muted text-center py-4">
+                  No discharges scheduled for today.
+                </div>
+              )}
             </div>
           </div>
 

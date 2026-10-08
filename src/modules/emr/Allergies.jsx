@@ -225,11 +225,11 @@ export const Allergies = () => {
                 </td>
                 <td className="py-4 px-5 text-right">
                   <button
-                    className="btn-icon btn-sm rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 ml-auto"
+                    className="btn-icon btn-sm btn-icon-danger ml-auto"
                     onClick={() => removeAllergy(i)}
                     title="Remove Allergy Alert"
                   >
-                    <Trash2 size={15} className="text-rose-600 dark:text-rose-400" />
+                    <Trash2 size={20} strokeWidth={2.2} />
                   </button>
                 </td>
               </tr>

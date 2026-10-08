@@ -73,7 +73,7 @@ export const LabReportModal = ({ isOpen, onClose, labReport }) => {
           <div className="w-5 h-5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
             <Info size={12} />
           </div>
-          <span>This is an electronically generated report from MediCore ERP (LIS). For any queries, please contact the laboratory.</span>
+          <span>This is an electronically generated report from HospitalCare (LIS). For any queries, please contact the laboratory.</span>
         </div>
       }
       footer={
@@ -110,7 +110,7 @@ export const LabReportModal = ({ isOpen, onClose, labReport }) => {
             </div>
             <div>
               <h3 className="text-base sm:text-lg font-bold text-text-main tracking-tight font-display">
-                {hospitalInfo.name || 'MediCore ERP Super Specialty Hospital & Research Institute'}
+                {hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute'}
               </h3>
               <p className="text-xs text-text-muted mt-0.5 font-medium">
                 Central Diagnostic Pathology & Clinical Biochemistry Laboratory

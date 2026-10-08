@@ -16,7 +16,7 @@ export const BrandLogo = ({ size = 38, className = '' }) => {
 
   return (
     <div
-      className={`flex items-center justify-center shadow-[0_4px_16px_rgba(13,148,136,0.35)] shrink-0 relative overflow-hidden bg-gradient-to-br from-[#0284c7] via-[#0d9488] to-[#10b981] ${sizeClass} ${className}`}
+      className={`flex items-center justify-center shadow-[0_4px_16px_rgba(37,99,235,0.35)] shrink-0 relative overflow-hidden bg-gradient-to-br from-[#1e40af] via-[#2563eb] to-[#3b82f6] ${sizeClass} ${className}`}
     >
       {/* Subtle shine glass overlay */}
       <div className="absolute -top-[40%] -left-[40%] w-[180%] h-[180%] bg-[radial-gradient(circle,rgba(255,255,255,0.3)_0%,rgba(255,255,255,0)_65%)] pointer-events-none" />
@@ -32,8 +32,8 @@ export const BrandLogo = ({ size = 38, className = '' }) => {
         <defs>
           <linearGradient id="carepulse-grad" x1="2" y1="12" x2="22" y2="12" gradientUnits="userSpaceOnUse">
             <stop stopColor="#ffffff" />
-            <stop offset="0.45" stopColor="#a7f3d0" />
-            <stop offset="0.75" stopColor="#38bdf8" />
+            <stop offset="0.45" stopColor="#bfdbfe" />
+            <stop offset="0.75" stopColor="#60a5fa" />
             <stop offset="1" stopColor="#ffffff" />
           </linearGradient>
           <filter id="carepulse-glow" x="-20%" y="-20%" width="140%" height="140%">

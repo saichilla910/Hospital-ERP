@@ -12,7 +12,6 @@ import {
   Activity,
   X,
   Stethoscope,
-  Sparkles,
   Droplet,
   Check,
   CreditCard,
@@ -24,12 +23,12 @@ import {
 import { useHospital } from '../../context/HospitalContext';
 
 const AVATAR_OPTIONS = [
-  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
   'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80'
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=150&auto=format&fit=crop&q=80'
 ];
 
 const BLOOD_GROUPS = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
@@ -65,6 +64,9 @@ export const PatientOnboardingModal = () => {
     patientOnboardingModalOpen,
     setPatientOnboardingModalOpen,
     addPatient,
+    registerPatientWithUhid,
+    checkPatientDuplicates,
+    setActiveNav,
     setSelectedPatient,
     doctors,
     patients,
@@ -74,10 +76,12 @@ export const PatientOnboardingModal = () => {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
+    dob: '',
     gender: 'Male',
     bloodGroup: 'O+',
     phone: '',
     email: '',
+    abhaId: '',
     address: '',
     emergencyContact: '',
     emergencyRelation: 'Spouse',
@@ -106,6 +110,25 @@ export const PatientOnboardingModal = () => {
     attendingDoctor: doctors?.[0]?.name || 'Dr. Arvind Swaminathan'
   });
 
+  const [duplicateMatches, setDuplicateMatches] = useState([]);
+
+  // Pre-save duplicate check trigger
+  React.useEffect(() => {
+    if ((formData.phone && formData.phone.length >= 7) || (formData.name && formData.name.trim().length >= 4)) {
+      if (checkPatientDuplicates) {
+        const matches = checkPatientDuplicates({
+          name: formData.name,
+          phone: formData.phone,
+          dob: formData.dob,
+          age: formData.age
+        });
+        setDuplicateMatches(matches);
+      }
+    } else {
+      setDuplicateMatches([]);
+    }
+  }, [formData.name, formData.phone, formData.dob, formData.age, checkPatientDuplicates]);
+
   // Dynamic preview MRN
   const previewMrn = useMemo(() => {
     const nextNum = (patients?.length || 0) + 98808;
@@ -132,38 +155,6 @@ export const PatientOnboardingModal = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Auto-Fill sample data
-  const handleAutoFillDemo = () => {
-    setFormData({
-      name: 'Radhika Madhavan',
-      age: '34',
-      gender: 'Female',
-      bloodGroup: 'B+',
-      phone: '+91 98450 67214',
-      email: 'radhika.madhavan@healthcloud.org',
-      address: 'Flat 402, Lotus Residency, Road 12, Banjara Hills, Hyderabad',
-      emergencyContact: '+91 98450 67210',
-      emergencyRelation: 'Spouse (R. Madhavan)',
-      photo: AVATAR_OPTIONS[0],
-      status: 'Outpatient',
-      height: '165',
-      weight: '64',
-      bpSystolic: '118',
-      bpDiastolic: '78',
-      pulse: '74',
-      spo2: '99',
-      temp: '98.4',
-      allergiesList: ['Penicillin', 'Sulfa Drugs'],
-      conditionsList: ['Asthma / COPD'],
-      customAllergy: '',
-      customCondition: '',
-      insuranceProvider: 'Star Health Insurance',
-      policyNo: 'STAR-IND-884920',
-      coverage: '₹10,00,000',
-      attendingDoctor: doctors?.[1]?.name || doctors?.[0]?.name || 'Dr. Ananya Mukherjee'
-    });
-    if (showToast) showToast('Sample intake details loaded!', 'info');
-  };
 
   const handleReset = () => {
     setFormData({
@@ -251,15 +242,25 @@ export const PatientOnboardingModal = () => {
       return;
     }
 
+    if (duplicateMatches.length > 0) {
+      const firstDup = duplicateMatches[0];
+      const proceed = window.confirm(
+        `⚠️ Possible existing patient record detected for "${firstDup.name}" (UHID: ${firstDup.uhid || firstDup.mrn}, Phone: ${firstDup.phone}, Match: ${firstDup.matchReason || 'Similar demographics'}).\n\nClick OK to confirm and register as a new separate record, or Cancel to open/review existing patient record.`
+      );
+      if (!proceed) return;
+    }
+
     const bpString = `${formData.bpSystolic || 120}/${formData.bpDiastolic || 80} mmHg`;
 
     const newPatient = {
       name: formData.name.trim(),
       age: parseInt(formData.age) || 30,
+      dob: formData.dob || '',
       gender: formData.gender,
       bloodGroup: formData.bloodGroup,
       phone: formData.phone.trim(),
       email: formData.email.trim() || `${formData.name.toLowerCase().replace(/\s+/g, '.')}@example.com`,
+      abhaId: formData.abhaId.trim() || '',
       address: formData.address.trim() || 'Hyderabad, Telangana',
       emergencyContact: formData.emergencyContact.trim()
         ? `${formData.emergencyRelation ? formData.emergencyRelation + ': ' : ''}${formData.emergencyContact.trim()}`
@@ -303,11 +304,11 @@ export const PatientOnboardingModal = () => {
       photo: formData.photo
     };
 
-    const savedPatient = addPatient(newPatient);
+    const savedPatient = registerPatientWithUhid ? registerPatientWithUhid(newPatient) : addPatient(newPatient);
     setSelectedPatient(savedPatient);
     setPatientOnboardingModalOpen(false);
     if (showToast) {
-      showToast(`Patient ${savedPatient.name} registered to site successfully! (MRN: ${savedPatient.mrn})`, 'success');
+      showToast(`Patient ${savedPatient.name} registered successfully! (UHID: ${savedPatient.uhid || savedPatient.mrn})`, 'success');
     }
   };
 
@@ -343,21 +344,12 @@ export const PatientOnboardingModal = () => {
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               type="button"
-              onClick={handleAutoFillDemo}
-              className="flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-xs font-semibold bg-teal-500/15 hover:bg-teal-500/25 text-teal-700 dark:text-teal-300 border border-teal-500/30 transition-all cursor-pointer shadow-2xs active:scale-[0.98]"
-              title="Auto-fill sample data"
-            >
-              <Sparkles size={14} className="text-teal-600 dark:text-teal-300 animate-pulse" />
-              <span>Auto-Fill Demo</span>
-            </button>
-
-            <button
-              type="button"
               onClick={handleReset}
-              className="h-9 px-3 rounded-xl text-xs font-bold bg-bg-surface hover:bg-bg-surface-hover text-text-muted border-2 border-border-strong transition-all cursor-pointer"
+              className="h-9 px-3.5 rounded-xl text-xs font-bold bg-bg-surface hover:bg-bg-surface-hover text-text-muted border-2 border-border-strong transition-all cursor-pointer flex items-center gap-1.5"
               title="Reset fields"
             >
               <RefreshCw size={13} />
+              <span>Reset</span>
             </button>
 
             <button
@@ -410,6 +402,40 @@ export const PatientOnboardingModal = () => {
         {/* Modal Form Scrollable Body */}
         <form onSubmit={handleSubmit} className="overflow-y-auto max-h-[calc(88vh-140px)] p-6 sm:p-8 space-y-6">
 
+          {/* ⚠️ DUPLICATE PATIENT DETECTION WARNING BANNER */}
+          {duplicateMatches.length > 0 && (
+            <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border-2 border-amber-500/40 text-amber-900 dark:text-amber-200 flex flex-col gap-3 animate-fadeIn">
+              <div className="flex items-center gap-2.5 font-bold text-sm sm:text-base">
+                <AlertTriangle size={20} className="text-amber-600 dark:text-amber-400 shrink-0" />
+                <span>⚠️ Possible Existing Patient Detected ({duplicateMatches.length} Match{duplicateMatches.length > 1 ? 'es' : ''})</span>
+              </div>
+              <p className="text-xs text-amber-800 dark:text-amber-300">
+                A patient matching this phone number, date of birth, or name was found in the hospital registry. Please review to avoid split EMR records:
+              </p>
+              <div className="flex flex-col gap-2 pt-1">
+                {duplicateMatches.map((dup) => (
+                  <div key={dup.id} className="p-3 rounded-xl bg-bg-surface border border-border-subtle flex items-center justify-between flex-wrap gap-2 text-xs">
+                    <div>
+                      <strong className="text-text-main text-sm">{dup.name}</strong> • UHID: <span className="mono font-bold text-teal-600 dark:text-teal-400">{dup.uhid || dup.mrn}</span> • Phone: <span className="mono font-semibold">{dup.phone}</span> • Age: {dup.age} yrs
+                      {dup.matchReason && <span className="ml-2 badge badge-amber text-[10px]">{dup.matchReason}</span>}
+                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-xs text-xs font-bold rounded-lg"
+                      onClick={() => {
+                        setSelectedPatient(dup);
+                        setPatientOnboardingModalOpen(false);
+                        if (setActiveNav) setActiveNav({ module: 'patientManagement', subModule: 'profile' });
+                      }}
+                    >
+                      Open Existing Patient
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* ── SECTION 1: PERSONAL & CONTACT IDENTITY ── */}
           <div className="rounded-2xl bg-bg-surface border-2 border-border-strong p-5 sm:p-6 shadow-sm relative overflow-hidden transition-all hover:border-teal-500/60">
             <div className="flex items-center justify-between pb-3 mb-4 border-b-2 border-border-subtle">
@@ -459,13 +485,13 @@ export const PatientOnboardingModal = () => {
                   Patient Full Name <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
-                  <User size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim" />
+                  <User size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim pointer-events-none" />
                   <input
                     type="text"
                     name="name"
                     required
-                    placeholder="e.g. Radhika Madhavan / Rajesh Kumar"
-                    className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full h-11 pl-11 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
                     value={formData.name}
                     onChange={handleChange}
                     autoFocus
@@ -484,7 +510,7 @@ export const PatientOnboardingModal = () => {
                   min="0"
                   max="125"
                   required
-                  placeholder="e.g. 34"
+                  placeholder="e.g. 32"
                   className="w-full h-11 px-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs font-mono"
                   value={formData.age}
                   onChange={handleChange}
@@ -547,13 +573,13 @@ export const PatientOnboardingModal = () => {
                   Mobile Phone <span className="text-rose-500">*</span>
                 </label>
                 <div className="relative">
-                  <Phone size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim" />
+                  <Phone size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim pointer-events-none" />
                   <input
                     type="tel"
                     name="phone"
                     required
                     placeholder="+91 98765 43210"
-                    className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs font-mono"
+                    className="w-full h-11 pl-11 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs font-mono"
                     value={formData.phone}
                     onChange={handleChange}
                   />
@@ -566,12 +592,12 @@ export const PatientOnboardingModal = () => {
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim" />
+                  <Mail size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim pointer-events-none" />
                   <input
                     type="email"
                     name="email"
-                    placeholder="patient@example.com"
-                    className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
+                    placeholder="e.g. rahul.sharma@example.com"
+                    className="w-full h-11 pl-11 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
                     value={formData.email}
                     onChange={handleChange}
                   />
@@ -586,9 +612,39 @@ export const PatientOnboardingModal = () => {
                 <input
                   type="text"
                   name="emergencyContact"
-                  placeholder="e.g. Spouse / +91 Contact"
+                  placeholder="e.g. Priya Sharma (+91 98765 43210)"
                   className="w-full h-11 px-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
                   value={formData.emergencyContact}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* ABHA ID (Ayushman Bharat Digital Health Account) */}
+              <div>
+                <label className="flex items-center justify-between text-xs font-semibold text-text-main mb-1.5 uppercase tracking-wide">
+                  <span>ABHA ID (Ayushman Bharat)</span>
+                  <span className="text-[10px] text-teal-600 dark:text-teal-400 font-bold">ABDM Verified</span>
+                </label>
+                <input
+                  type="text"
+                  name="abhaId"
+                  placeholder="14-digit ABHA ID (e.g. 14-8842-9901-3421)"
+                  className="w-full h-11 px-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs font-mono"
+                  value={formData.abhaId}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Date of Birth (DOB) */}
+              <div>
+                <label className="block text-xs font-semibold text-text-main mb-1.5 uppercase tracking-wide">
+                  Date of Birth (DOB)
+                </label>
+                <input
+                  type="date"
+                  name="dob"
+                  className="w-full h-11 px-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
+                  value={formData.dob}
                   onChange={handleChange}
                 />
               </div>
@@ -599,12 +655,12 @@ export const PatientOnboardingModal = () => {
                   Residential Address
                 </label>
                 <div className="relative">
-                  <MapPin size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim" />
+                  <MapPin size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim pointer-events-none" />
                   <input
                     type="text"
                     name="address"
-                    placeholder="House/Flat No., Street, Area, City"
-                    className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
+                    placeholder="Flat / House No., Street, Landmark, Area, City, PIN"
+                    className="w-full h-11 pl-11 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs"
                     value={formData.address}
                     onChange={handleChange}
                   />
@@ -635,11 +691,12 @@ export const PatientOnboardingModal = () => {
                   <input
                     type="number"
                     name="bpSystolic"
-                    className="w-full h-11 px-3 pr-10 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
+                    placeholder="120"
+                    className="w-full h-11 px-3 pr-11 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
                     value={formData.bpSystolic}
                     onChange={handleChange}
                   />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-text-dim">mmHg</span>
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-text-dim pointer-events-none">mmHg</span>
                 </div>
               </div>
 
@@ -650,11 +707,12 @@ export const PatientOnboardingModal = () => {
                   <input
                     type="number"
                     name="bpDiastolic"
-                    className="w-full h-11 px-3 pr-10 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
+                    placeholder="80"
+                    className="w-full h-11 px-3 pr-11 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
                     value={formData.bpDiastolic}
                     onChange={handleChange}
                   />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-text-dim">mmHg</span>
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-text-dim pointer-events-none">mmHg</span>
                 </div>
               </div>
 
@@ -665,11 +723,12 @@ export const PatientOnboardingModal = () => {
                   <input
                     type="number"
                     name="pulse"
-                    className="w-full h-11 px-3 pr-9 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
+                    placeholder="72"
+                    className="w-full h-11 px-3 pr-10 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
                     value={formData.pulse}
                     onChange={handleChange}
                   />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-rose-500">bpm</span>
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-rose-500 pointer-events-none">bpm</span>
                 </div>
               </div>
 
@@ -680,11 +739,12 @@ export const PatientOnboardingModal = () => {
                   <input
                     type="number"
                     name="spo2"
-                    className="w-full h-11 px-3 pr-7 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
+                    placeholder="99"
+                    className="w-full h-11 px-3 pr-8 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
                     value={formData.spo2}
                     onChange={handleChange}
                   />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[11px] font-bold text-cyan-600">%</span>
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] font-bold text-cyan-600 pointer-events-none">%</span>
                 </div>
               </div>
 
@@ -696,11 +756,12 @@ export const PatientOnboardingModal = () => {
                     type="number"
                     step="0.1"
                     name="temp"
-                    className="w-full h-11 px-3 pr-7 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
+                    placeholder="98.6"
+                    className="w-full h-11 px-3 pr-8 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
                     value={formData.temp}
                     onChange={handleChange}
                   />
-                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold text-amber-500">°F</span>
+                  <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-bold text-amber-500 pointer-events-none">°F</span>
                 </div>
               </div>
 
@@ -710,7 +771,8 @@ export const PatientOnboardingModal = () => {
                 <input
                   type="number"
                   name="height"
-                  className="w-full h-11 px-3 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
+                  placeholder="170"
+                  className="w-full h-11 px-3 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
                   value={formData.height}
                   onChange={handleChange}
                 />
@@ -722,7 +784,8 @@ export const PatientOnboardingModal = () => {
                 <input
                   type="number"
                   name="weight"
-                  className="w-full h-11 px-3 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
+                  placeholder="70"
+                  className="w-full h-11 px-3 text-xs sm:text-sm rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 font-mono font-bold transition-all shadow-2xs text-center"
                   value={formData.weight}
                   onChange={handleChange}
                 />
@@ -778,23 +841,23 @@ export const PatientOnboardingModal = () => {
               {/* Allergies */}
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wide text-text-main mb-2">
-                  Known Drug & Food Allergies
+                  Known Drug & Environmental Allergies
                 </label>
                 <div className="flex gap-2 flex-wrap mb-2.5">
-                  {COMMON_ALLERGIES.map((alg) => {
-                    const selected = formData.allergiesList.includes(alg);
+                  {COMMON_ALLERGIES.map((allg) => {
+                    const selected = formData.allergiesList.includes(allg);
                     return (
                       <button
-                        key={alg}
+                        key={allg}
                         type="button"
-                        onClick={() => handleAllergyToggle(alg)}
+                        onClick={() => handleAllergyToggle(allg)}
                         className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                           selected
                             ? 'bg-rose-600 text-white shadow-xs'
                             : 'bg-bg-surface text-text-main border-2 border-border-strong hover:border-rose-500/60'
                         }`}
                       >
-                        {selected ? '✓ ' : '+ '} {alg}
+                        {selected ? '✓ ' : '+ '} {allg}
                       </button>
                     );
                   })}
@@ -802,7 +865,7 @@ export const PatientOnboardingModal = () => {
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Add custom allergy (e.g. Iodine, Morphine)..."
+                    placeholder="e.g. Iodine, Morphine, Shellfish..."
                     className="flex-1 h-10 px-3.5 text-xs rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 font-medium transition-all shadow-2xs"
                     value={formData.customAllergy}
                     onChange={(e) => setFormData({ ...formData, customAllergy: e.target.value })}
@@ -850,7 +913,7 @@ export const PatientOnboardingModal = () => {
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Add custom condition (e.g. Migraine, Epilepsy)..."
+                    placeholder="e.g. Migraine, Epilepsy, Thyroid..."
                     className="flex-1 h-10 px-3.5 text-xs rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 font-medium transition-all shadow-2xs"
                     value={formData.customCondition}
                     onChange={(e) => setFormData({ ...formData, customCondition: e.target.value })}
@@ -894,10 +957,10 @@ export const PatientOnboardingModal = () => {
                   Assigned Attending Specialist
                 </label>
                 <div className="relative">
-                  <Stethoscope size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-teal-600 dark:text-teal-400" />
+                  <Stethoscope size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-teal-600 dark:text-teal-400 pointer-events-none" />
                   <select
                     name="attendingDoctor"
-                    className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm font-bold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs cursor-pointer"
+                    className="w-full h-11 pl-11 pr-4 text-xs sm:text-sm font-bold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main outline-none focus:border-teal-500 focus:ring-4 focus:ring-teal-500/15 transition-all shadow-2xs cursor-pointer"
                     value={formData.attendingDoctor}
                     onChange={handleChange}
                   >
@@ -936,12 +999,12 @@ export const PatientOnboardingModal = () => {
                   Policy / TPA Number
                 </label>
                 <div className="relative">
-                  <CreditCard size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim" />
+                  <CreditCard size={17} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-dim pointer-events-none" />
                   <input
                     type="text"
                     name="policyNo"
-                    placeholder="e.g. SH-8829410"
-                    className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 transition-all shadow-2xs font-mono"
+                    placeholder="e.g. POL-8829410"
+                    className="w-full h-11 pl-11 pr-4 text-xs sm:text-sm font-semibold rounded-xl bg-bg-surface border-2 border-border-strong text-text-main placeholder:text-text-dim outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 transition-all shadow-2xs font-mono"
                     value={formData.policyNo}
                     onChange={handleChange}
                   />

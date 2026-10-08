@@ -114,7 +114,7 @@ export const PrescriptionModal = ({ isOpen, onClose, prescription }) => {
             </div>
             <div>
               <h3 className="text-base sm:text-lg font-bold text-text-main tracking-tight font-display">
-                {hospitalInfo.name || 'MediCore ERP Super Specialty Hospital & Research Institute'}
+                {hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute'}
               </h3>
               <p className="text-xs text-text-muted mt-0.5 font-medium">
                 {hospitalInfo.address} • Tel: {hospitalInfo.phone}
@@ -234,9 +234,16 @@ export const PrescriptionModal = ({ isOpen, onClose, prescription }) => {
                   <tr key={idx} className="hover:bg-bg-surface-elevated/80 transition-colors">
                     <td className="text-center text-xs text-text-dim font-bold">{idx + 1}</td>
                     <td className="font-extrabold text-xs sm:text-sm text-text-main">
-                      <div className="flex items-center gap-2">
-                        <Pill size={14} className="text-teal-600 dark:text-teal-400 shrink-0" />
-                        <span>{item.name}</span>
+                      <div className="flex flex-col gap-0.5">
+                        <div className="flex items-center gap-2">
+                          <Pill size={14} className="text-teal-600 dark:text-teal-400 shrink-0" />
+                          <span className="font-extrabold">{item.genericName || item.name}</span>
+                        </div>
+                        {item.genericName && (
+                          <span className="text-[11px] text-teal-700 dark:text-teal-300 font-semibold pl-5.5">
+                            Brand: {item.name} {item.strength ? `(${item.strength})` : ''}
+                          </span>
+                        )}
                       </div>
                     </td>
                     <td className="text-center">

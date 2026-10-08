@@ -6,11 +6,11 @@
 
 export const generateExecutiveReportHTML = (reportData = {}, hospitalInfo = {}) => {
   const hInfo = {
-    name: hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute',
+    name: hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute',
     address: hospitalInfo.address || 'Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081',
     phone: hospitalInfo.phone || '+91 (040) 6889-4000 / 1800-425-9999',
     licenseNo: hospitalInfo.licenseNo || 'NABH-TERTIARY-2024-99821 • Reg No: MED-TG-2020-8801',
-    email: hospitalInfo.email || 'clinical.audit@medicorehospital.org'
+    email: hospitalInfo.email || 'clinical.audit@hospitalcare.org'
   };
 
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -592,7 +592,7 @@ export const generateExecutiveReportHTML = (reportData = {}, hospitalInfo = {}) 
 
     <!-- Report Footer -->
     <div class="report-footer">
-      This document is an electronically generated and digitally validated hospital clinical quality record under MediCore Hospital ERP System v4.2.<br>
+      This document is an electronically generated and digitally validated hospital clinical quality record under HospitalCare ERP System v4.2.<br>
       Confidential • For Internal Clinical & Quality Audit Use Only • Report Ref: ${reportId}
     </div>
   </div>

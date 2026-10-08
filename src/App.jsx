@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HospitalProvider, useHospital } from './context/HospitalContext';
 import { Sidebar } from './components/layout/Sidebar';
 import { Topbar } from './components/layout/Topbar';
@@ -36,10 +37,26 @@ import { Administration } from './modules/administration/Administration';
 import { Settings } from './modules/settings/Settings';
 import { Doctors } from './modules/doctors/Doctors';
 
+// Auth & Access Control
+import { AuthPage } from './components/auth/AuthPage';
+import { AccessDenied } from './components/common/AccessDenied';
+import { canAccessModule } from './services/authService';
+
 const MainLayout = () => {
-  const { activeNav, activeModal, closeModal, toast } = useHospital();
+  const { activeNav, activeModal, closeModal, toast, currentUser, setActiveNav } = useHospital();
 
   const renderActiveModule = () => {
+    // RBAC Permission Guard: check if current role is authorized for this module
+    if (!canAccessModule(currentUser?.role, activeNav.module)) {
+      return (
+        <AccessDenied
+          role={currentUser?.role}
+          moduleName={activeNav.module}
+          onGoToDashboard={() => setActiveNav({ module: 'dashboard', subModule: null })}
+        />
+      );
+    }
+
     switch (activeNav.module) {
       case 'dashboard':
         return <Dashboard />;
@@ -185,10 +202,27 @@ const MainLayout = () => {
   );
 };
 
+const AppContent = () => {
+  const { currentUser } = useHospital();
+
+  if (!currentUser) {
+    return <AuthPage />;
+  }
+
+  return <MainLayout />;
+};
+
 export default function App() {
   return (
-    <HospitalProvider>
-      <MainLayout />
-    </HospitalProvider>
+    <BrowserRouter>
+      <HospitalProvider>
+        <Routes>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/:module" element={<AppContent />} />
+          <Route path="/:module/:subModule" element={<AppContent />} />
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </HospitalProvider>
+    </BrowserRouter>
   );
 }

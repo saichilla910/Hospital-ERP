@@ -24,7 +24,8 @@ export const CommandPalette = () => {
     doctors,
     setSelectedPatient,
     setActiveNav,
-    setPatientOnboardingModalOpen
+    setPatientOnboardingModalOpen,
+    canAccess
   } = useHospital();
 
   const [query, setQuery] = useState('');
@@ -62,7 +63,7 @@ export const CommandPalette = () => {
       )
     : [];
 
-  const quickNavs = [
+  const allQuickNavs = [
     { label: 'Register New Patient (EHR Intake Form)', icon: UserPlus, module: 'patientManagement', sub: 'registration', bgClass: 'bg-teal-500/15', textClass: 'text-teal-600' },
     { label: 'Patient Portal Login (Existing Account)', icon: LogIn, module: 'patientManagement', sub: 'login', bgClass: 'bg-indigo-500/15', textClass: 'text-indigo-600' },
     { label: 'Patient Management & Profiles', icon: Users, module: 'patientManagement', sub: 'directory', bgClass: 'bg-teal-500/15', textClass: 'text-teal-600' },
@@ -72,6 +73,8 @@ export const CommandPalette = () => {
     { label: 'Pharmacy Medicine Dispense', icon: Pill, module: 'pharmacy', sub: 'dispensing', bgClass: 'bg-emerald-500/15', textClass: 'text-emerald-600' },
     { label: 'Billing Invoices', icon: ReceiptText, module: 'billing', sub: 'opdBilling', bgClass: 'bg-indigo-500/15', textClass: 'text-indigo-600' }
   ];
+
+  const quickNavs = allQuickNavs.filter(nav => canAccess ? canAccess(nav.module) : true);
 
   return (
     <div
@@ -195,7 +198,7 @@ export const CommandPalette = () => {
         {/* Footer */}
         <div className="py-2.5 px-4 bg-bg-surface-elevated border-t border-border-subtle flex justify-between text-xs text-text-dim">
           <span>Tip: Press <kbd className="bg-bg-surface px-1 py-0.5 rounded border border-border-subtle font-mono">Ctrl + K</kbd> anytime to open</span>
-          <span>MediCore ERP Universal Search</span>
+          <span>HospitalCare ERP Universal Search</span>
         </div>
       </div>
     </div>

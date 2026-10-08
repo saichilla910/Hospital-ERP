@@ -66,7 +66,7 @@ export const DoctorCard = ({ doctor, onOpenProfile, onOpenSlots, onConsult }) =>
       {/* ── 1. CARD TOP BAR: DEPARTMENT & AVAILABILITY STATUS ── */}
       <div className="doc-card-topbar">
         <span className="doc-dept-pill">
-          <Briefcase size={12} className="text-teal-600 dark:text-teal-400 shrink-0" />
+          <Briefcase size={12} className="text-blue-600 dark:text-blue-400 shrink-0" />
           <span className="truncate max-w-[135px] font-semibold">{doctor.department}</span>
         </span>
 
@@ -128,7 +128,7 @@ export const DoctorCard = ({ doctor, onOpenProfile, onOpenSlots, onConsult }) =>
         {/* Room / Location */}
         <div className="doc-spec-col" title={`Clinical Location: ${doctor.room}`}>
           <div className="doc-spec-meta">
-            <MapPin size={12} className="text-teal-600 dark:text-teal-400 shrink-0" />
+            <MapPin size={12} className="text-blue-600 dark:text-blue-400 shrink-0" />
             <span className="doc-spec-lbl">ROOM</span>
           </div>
           <div className="doc-spec-val">
@@ -159,7 +159,7 @@ export const DoctorCard = ({ doctor, onOpenProfile, onOpenSlots, onConsult }) =>
         title={`Next consultation slot: ${doctor.nextSlot || 'Available Today'}. Click to view slots.`}
       >
         <div className="doc-slot-content">
-          <CalendarClock size={13} className="text-teal-600 dark:text-teal-400 shrink-0" />
+          <CalendarClock size={13} className="text-blue-600 dark:text-blue-400 shrink-0" />
           <span className="doc-slot-title">Next Slot:</span>
           <span className="doc-slot-highlight">{doctor.nextSlot || 'Available Today'}</span>
         </div>
@@ -176,7 +176,7 @@ export const DoctorCard = ({ doctor, onOpenProfile, onOpenSlots, onConsult }) =>
             onClick={handleSlots}
             title="View live slot calendar"
           >
-            <Clock size={13} className="text-teal-600 dark:text-teal-400 shrink-0" />
+            <Clock size={13} className="text-blue-600 dark:text-blue-400 shrink-0" />
             <span>Slots</span>
           </button>
 
@@ -185,7 +185,7 @@ export const DoctorCard = ({ doctor, onOpenProfile, onOpenSlots, onConsult }) =>
             onClick={handleProfile}
             title="View full credentials & reviews"
           >
-            <UserCheck size={13} className="text-teal-600 dark:text-teal-400 shrink-0" />
+            <UserCheck size={13} className="text-blue-600 dark:text-blue-400 shrink-0" />
             <span>Details</span>
           </button>
         </div>

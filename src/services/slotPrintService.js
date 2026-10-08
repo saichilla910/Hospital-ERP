@@ -9,7 +9,7 @@
  */
 export const generateDoctorSlotsReportHTML = ({ doctor, selectedDate, slotData, hospitalInfo = {} }) => {
   const hInfo = {
-    name: hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute',
+    name: hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute',
     address: hospitalInfo.address || 'Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081',
     phone: hospitalInfo.phone || '+91 (040) 6889-4000 / 1800-425-9999',
     licenseNo: hospitalInfo.licenseNo || 'NABH-TERTIARY-2024-99821 • Reg No: MED-TG-2020-8801'
@@ -82,7 +82,7 @@ export const generateDoctorSlotsReportHTML = ({ doctor, selectedDate, slotData, 
       z-index: 1000;
     }
     .print-btn {
-      background: #0d9488;
+      background: #2563eb;
       color: #ffffff;
       border: none;
       padding: 9px 18px;
@@ -94,7 +94,7 @@ export const generateDoctorSlotsReportHTML = ({ doctor, selectedDate, slotData, 
       align-items: center;
       gap: 8px;
     }
-    .print-btn:hover { background: #0f766e; }
+    .print-btn:hover { background: #1d4ed8; }
     .close-btn {
       background: #334155;
       color: #f8fafc;
@@ -132,7 +132,7 @@ export const generateDoctorSlotsReportHTML = ({ doctor, selectedDate, slotData, 
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      border-bottom: 2.5px solid #0d9488;
+      border-bottom: 2.5px solid #2563eb;
       padding-bottom: 12px;
       margin-bottom: 14px;
     }
@@ -144,7 +144,7 @@ export const generateDoctorSlotsReportHTML = ({ doctor, selectedDate, slotData, 
     .hospital-logo {
       width: 48px;
       height: 48px;
-      background: linear-gradient(135deg, #0d9488 0%, #0369a1 100%);
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -170,7 +170,7 @@ export const generateDoctorSlotsReportHTML = ({ doctor, selectedDate, slotData, 
     .doctor-banner {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
-      border-left: 4px solid #0d9488;
+      border-left: 4px solid #2563eb;
       padding: 12px 16px;
       border-radius: 8px;
       display: flex;
@@ -503,7 +503,7 @@ export const generateDoctorSlotsReportHTML = ({ doctor, selectedDate, slotData, 
  */
 export const generateAppointmentTokenHTML = (booking, hospitalInfo = {}) => {
   const hInfo = {
-    name: hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute',
+    name: hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute',
     address: hospitalInfo.address || 'Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081',
     phone: hospitalInfo.phone || '+91 (040) 6889-4000 / 1800-425-9999'
   };
@@ -729,7 +729,7 @@ export const generateAppointmentTokenHTML = (booking, hospitalInfo = {}) => {
     </div>
 
     <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 8px; font-size: 9px; color: #64748b;">
-      <div>Issued by: MediCore OPD Reception</div>
+      <div>Issued by: HospitalCare OPD Reception</div>
       <div>Date: ${new Date().toLocaleDateString('en-US')}</div>
     </div>
   </div>
@@ -750,7 +750,7 @@ export const generateAppointmentTokenHTML = (booking, hospitalInfo = {}) => {
  */
 export const generateDailyOPDScheduleHTML = (appointments = [], dateStr, doctors = [], hospitalInfo = {}) => {
   const hInfo = {
-    name: hospitalInfo.name || 'MediCore Super Specialty Hospital & Research Institute',
+    name: hospitalInfo.name || 'HospitalCare Super Specialty Hospital & Research Institute',
     address: hospitalInfo.address || 'Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081',
     phone: hospitalInfo.phone || '+91 (040) 6889-4000 / 1800-425-9999'
   };

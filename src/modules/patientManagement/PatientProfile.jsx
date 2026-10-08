@@ -312,11 +312,11 @@ export const PatientProfile = () => {
                   title={`${p.name} • ${p.mrn} • ${p.ward !== 'N/A' ? p.ward : 'OPD'}`}
                 >
                   <img
-                    src={p.photo || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80'}
+                    src={p.photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80'}
                     alt={p.name}
                     className="patient-pill-avatar"
                     onError={(e) => {
-                      e.currentTarget.src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80';
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80';
                     }}
                   />
                   <div className="text-left leading-tight">
@@ -359,11 +359,11 @@ export const PatientProfile = () => {
           <div className="flex items-start gap-4.5 flex-1 min-w-[280px]">
             <div className="patient-avatar-wrap">
               <img
-                src={patient.photo || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80'}
+                src={patient.photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80'}
                 alt={patient.name}
                 className="patient-avatar-main"
                 onError={(e) => {
-                  e.currentTarget.src = 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80';
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80';
                 }}
               />
               <span
@@ -385,8 +385,13 @@ export const PatientProfile = () => {
                   {patient.name}
                 </h2>
                 <span className="badge badge-teal font-mono text-xs py-0.5 px-2.5 font-bold shrink-0">
-                  {patient.mrn}
+                  UHID: {patient.uhid || patient.mrn}
                 </span>
+                {patient.abhaId && (
+                  <span className="badge badge-emerald font-mono text-[11px] py-0.5 px-2 font-bold shrink-0" title="Ayushman Bharat Health Account (ABDM Verified)">
+                    ABHA: {patient.abhaId}
+                  </span>
+                )}
                 <span className="badge badge-rose text-xs py-0.5 px-2 font-bold shrink-0">
                   🩸 {patient.bloodGroup}
                 </span>
@@ -481,12 +486,12 @@ export const PatientProfile = () => {
             </button>
 
             <button
-              className="patient-act-btn patient-act-btn-secondary"
+              className="patient-act-btn patient-act-btn-secondary bg-teal-500/10 border-teal-500/30 text-teal-700 dark:text-teal-300 font-bold hover:bg-teal-500/20"
               onClick={() => setActiveNav({ module: 'patientManagement', subModule: 'history' })}
-              title="View comprehensive medical history"
+              title="View unified chronological timeline: Visits, Admissions, Labs, Prescriptions, Bills"
             >
-              <FileText size={14} />
-              <span>History</span>
+              <FileText size={14} className="text-teal-600 dark:text-teal-400" />
+              <span>Unified Timeline</span>
             </button>
 
             <button

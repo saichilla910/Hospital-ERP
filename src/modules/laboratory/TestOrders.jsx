@@ -4,7 +4,7 @@ import { useHospital } from '../../context/HospitalContext';
 import { Badge } from '../../components/common/Badge';
 
 export const TestOrders = () => {
-  const { patients, doctors, showToast } = useHospital();
+  const { patients, doctors, showToast, orderLabTest } = useHospital();
   const [selectedPatientId, setSelectedPatientId] = useState(patients[0].id);
   const [selectedDoctorId, setSelectedDoctorId] = useState(doctors[0].id);
   const [testCategory, setTestCategory] = useState('Biochemistry');
@@ -32,7 +32,18 @@ export const TestOrders = () => {
   const handleOrderTest = (e) => {
     e.preventDefault();
     const p = patients.find((pat) => pat.id === selectedPatientId);
-    showToast(`Lab test "${testName}" ordered for ${p.name}. Transmitted to sample collection desk.`, 'success');
+    const d = doctors.find((doc) => doc.id === selectedDoctorId);
+    orderLabTest({
+      patientId: selectedPatientId,
+      patientName: p?.name,
+      patientMrn: p?.mrn,
+      testName,
+      category: testCategory,
+      urgency,
+      doctorId: selectedDoctorId,
+      doctorName: d?.name,
+      department: d?.department
+    });
   };
 
   return (

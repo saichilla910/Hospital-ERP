@@ -1,1135 +1,1991 @@
-// MediCore ERP — Enterprise Hospital Management System Mock Database
+// HospitalCare ERP — Hospital Management System Database
 
 export const INITIAL_HOSPITAL_DATA = {
   hospitalInfo: {
-    name: "MediCore ERP Super Specialty Hospital & Research Institute",
-    tagline: "Excellence in Tertiary Healthcare & Clinical Research",
+    name: "HospitalCare Super Specialty Hospital & Research Institute",
+    tagline: "Comprehensive Clinical Care & Hospital Resource Management",
     licenseNo: "NABH-TERTIARY-2024-99821",
     taxId: "GSTIN-36AAACH7829K1Z4",
     address: "Plot 42-45, Health City, Cyberabad, Hyderabad, TS - 500081",
     phone: "+91 (040) 6889-4000",
     emergencyHelpline: "+91 1066 / +91 (040) 6889-4911",
-    email: "desk@medicore-erp.org",
+    email: "contact@hospitalcare.org",
     activeShift: "Morning Shift (07:00 - 15:30)",
     currentShiftSupervisor: "Dr. Arvind Swaminathan, MD (Emergency Medicine)"
   },
 
   doctors: [
-    {
-      id: "DOC-101",
-      name: "Dr. Arvind Swaminathan",
-      specialty: "Emergency & Trauma Medicine",
-      department: "Emergency",
-      room: "Trauma Bay 1",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 14,
-      nextSlot: "Immediate Walk-in / 5 mins",
-      phone: "+91 98480 11223",
-      experience: "16 yrs",
-      fee: 1000,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Senior Consultant in Emergency Medicine and Trauma Resuscitation. Expert in advanced polytrauma stabilization, acute cardiac arrest management, and emergency critical airway care.",
-      successRate: 98.6,
-      patientRating: 4.9,
-      reviewCount: 420,
-      totalSurgeries: 74,
-      successfulSurgeries: 73,
-      inRecoverySurgeries: 1,
-      totalConsultations: 18500,
-      avgWaitTime: "5-10 mins",
-      councilRegNo: "MCI-TS-38291",
-      languages: ["English", "Hindi", "Telugu", "Tamil"],
-      education: [
-        { degree: "MBBS", institution: "Madras Medical College, Chennai", year: "2008" },
-        { degree: "MD - Emergency Medicine", institution: "AIIMS New Delhi", year: "2012" },
-        { degree: "Fellowship in Trauma Care (FACEE)", institution: "Alfred Hospital, Melbourne", year: "2015" }
-      ],
-      certifications: ["ATLS National Instructor", "ACLS & BLS Master Trainer", "NABH Clinical Quality Assessor"],
-      proceduresTreated: ["Acute Polytrauma Resuscitation", "Rapid Sequence Intubation", "Central Venous Cannulation", "Emergency Thoracostomy", "Cardiopulmonary Resuscitation"],
-      insuranceAccepted: ["Star Health", "HDFC ERGO", "Care Health", "Niva Bupa", "Bajaj Allianz", "Govt EHS / Aarogyasri"],
-      patientReviews: [
-        { patientName: "Farooq K.", rating: 5, date: "2026-09-10", comment: "Dr. Arvind acted with lightning speed when my daughter had acute respiratory distress in ER. Exceptional expertise." },
-        { patientName: "Sunil M.", rating: 5, date: "2026-08-28", comment: "The trauma team led by Dr. Swaminathan saved my brother after a major accident. Forever grateful." }
-      ]
-    },
-    {
-      id: "DOC-102",
-      name: "Dr. Ananya Mukherjee",
-      specialty: "Interventional Cardiology",
-      department: "Cardiology",
-      room: "OPD-302 (Block A)",
-      status: "In-Consult",
-      availableNow: true,
-      availableSlotsToday: 6,
-      nextSlot: "11:30 AM (In 20 mins)",
-      phone: "+91 98480 22334",
-      experience: "14 yrs",
-      fee: 1200,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&auto=format&fit=crop&q=80",
-      about: "Renowned Interventional Cardiologist specializing in complex coronary angioplasty, transcatheter aortic valve replacement (TAVR), bifurcation stenting, and preventive cardiology.",
-      successRate: 98.9,
-      patientRating: 4.95,
-      reviewCount: 560,
-      totalSurgeries: 88,
-      successfulSurgeries: 87,
-      inRecoverySurgeries: 1,
-      totalConsultations: 16200,
-      avgWaitTime: "12-15 mins",
-      councilRegNo: "MCI-TS-44120",
-      languages: ["English", "Hindi", "Bengali", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Medical College Kolkata", year: "2010" },
-        { degree: "MD - General Medicine", institution: "PGI Chandigarh", year: "2014" },
-        { degree: "DM - Interventional Cardiology", institution: "SCTIMST Trivandrum", year: "2017" },
-        { degree: "Fellowship in Complex Coronary Interventions", institution: "Mount Sinai Hospital, New York", year: "2019" }
-      ],
-      certifications: ["Fellow of European Society of Cardiology (FESC)", "Fellow of Society for Cardiovascular Angiography (FSCAI)", "Gold Medalist in DM Cardiology"],
-      proceduresTreated: ["Primary & Elective Angioplasty (PTCA)", "Drug-Eluting Stent Placement", "Radial Artery Angiography", "Pacemaker Implantation", "Heart Failure Management"],
-      insuranceAccepted: ["Star Health", "HDFC ERGO", "Care Health", "ICICI Lombard", "Niva Bupa", "Govt CGHS / EHS"],
-      patientReviews: [
-        { patientName: "Rameshwar P. Sharma", rating: 5, date: "2026-09-17", comment: "Dr. Ananya explained my stent procedure so clearly. Recovered completely with minimal discomfort." },
-        { patientName: "Meera Sen", rating: 5, date: "2026-09-02", comment: "Incredible bedside manner and top-notch clinical accuracy. Best cardiologist in Hyderabad." }
-      ]
-    },
-    {
-      id: "DOC-103",
-      name: "Dr. Vikramaditya Rao",
-      specialty: "Neurology & Stroke Specialist",
-      department: "Neurology",
-      room: "OPD-405 (Block B)",
-      status: "In-Consult",
-      availableNow: true,
-      availableSlotsToday: 4,
-      nextSlot: "12:00 PM (In 45 mins)",
-      phone: "+91 98480 33445",
-      experience: "19 yrs",
-      fee: 1500,
-      photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&auto=format&fit=crop&q=80",
-      about: "Chief Neurologist and Stroke Specialist. Pioneer in acute hyperacute stroke thrombolysis, movement disorders, epilepsy mapping, and neurodegenerative disease therapies.",
-      successRate: 98.5,
-      patientRating: 4.88,
-      reviewCount: 380,
-      totalSurgeries: 65,
-      successfulSurgeries: 64,
-      inRecoverySurgeries: 1,
-      totalConsultations: 19800,
-      avgWaitTime: "15 mins",
-      councilRegNo: "MCI-TS-29188",
-      languages: ["English", "Telugu", "Hindi"],
-      education: [
-        { degree: "MBBS", institution: "Osmania Medical College, Hyderabad", year: "2005" },
-        { degree: "MD - General Medicine", institution: "NIMS Hyderabad", year: "2009" },
-        { degree: "DM - Neurology", institution: "NIMHANS Bengaluru", year: "2013" }
-      ],
-      certifications: ["Member of American Academy of Neurology (AAN)", "Presidential Award in Stroke Care 2023", "National Neurological Society Fellow"],
-      proceduresTreated: ["Acute Ischemic Stroke Thrombolysis", "Epilepsy Diagnostics & EEG", "Parkinson's Disease Management", "Nerve Conduction Studies (NCS/EMG)", "Migraine & Neuropathy Care"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa", "Aditya Birla Health"],
-      patientReviews: [
-        { patientName: "Suresh R.", rating: 5, date: "2026-09-12", comment: "Dr. Vikramaditya diagnosed my father's neurological tremor accurately after months of running around other clinics." },
-        { patientName: "Lakshmi Narayana", rating: 5, date: "2026-08-15", comment: "Extremely thorough neurological examination. Highly recommend." }
-      ]
-    },
-    {
-      id: "DOC-104",
-      name: "Dr. Priya Sundaram",
-      specialty: "Obstetrics & High-Risk Pregnancy",
-      department: "Obstetrics & Gynaecology",
-      room: "OPD-201 (Block C)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 9,
-      nextSlot: "Available Now / Walk-in",
-      phone: "+91 98480 44556",
-      experience: "12 yrs",
-      fee: 900,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80",
-      about: "Lead Obstetrician and Fetal Medicine Consultant. Passionate about maternal health, painless natural childbirth, high-risk twin gestations, and laparoscopic gynaecological surgeries.",
-      successRate: 98.9,
-      patientRating: 4.98,
-      reviewCount: 680,
-      totalSurgeries: 92,
-      successfulSurgeries: 91,
-      inRecoverySurgeries: 1,
-      totalConsultations: 14800,
-      avgWaitTime: "8-10 mins",
-      councilRegNo: "MCI-TS-51920",
-      languages: ["English", "Telugu", "Hindi", "Kannada"],
-      education: [
-        { degree: "MBBS", institution: "CMC Vellore", year: "2012" },
-        { degree: "MS - Obstetrics & Gynaecology", institution: "JIPMER Puducherry", year: "2016" },
-        { degree: "Fellowship in Maternal-Fetal Medicine", institution: "Royal College of Obstetricians (MRCOG UK)", year: "2019" }
-      ],
-      certifications: ["MRCOG (London, UK)", "FOGSI Certified Laparoscopic Surgeon", "Fetal Ultrasound Accredited Specialist"],
-      proceduresTreated: ["High-Risk Pregnancy Care", "Painless Normal Delivery", "Laparoscopic Hysterectomy & Cystectomy", "Anomaly Scan & Fetal Monitoring", "PCOD & Infertility Workup"],
-      insuranceAccepted: ["Star Health", "HDFC ERGO", "Care Health", "Bajaj Allianz", "Tata AIG"],
-      patientReviews: [
-        { patientName: "Sneha Jennifer", rating: 5, date: "2026-09-17", comment: "Dr. Priya provides the warmest, most reassuring pregnancy care. Made our 24-week ultrasound such a joyful experience." },
-        { patientName: "Ananya Reddy", rating: 5, date: "2026-08-30", comment: "Handled my high-risk delivery with absolute mastery and calm." }
-      ]
-    },
-    {
-      id: "DOC-105",
-      name: "Dr. Rajesh K. Nair",
-      specialty: "Orthopaedics & Joint Replacement",
-      department: "Orthopaedics",
-      room: "OPD-108 (Block A)",
-      status: "In-Surgery",
-      availableNow: false,
-      availableSlotsToday: 2,
-      nextSlot: "02:30 PM (Post-Op rounds)",
-      phone: "+91 98480 55667",
-      experience: "22 yrs",
-      fee: 1100,
-      photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&auto=format&fit=crop&q=80",
-      about: "Chief of Orthopaedic Surgery and Robotic Joint Replacement. Specialized in minimally invasive computer-navigated knee and hip arthroplasty, complex trauma reconstruction, and spinal decompression.",
-      successRate: 99.0,
-      patientRating: 4.91,
-      reviewCount: 510,
-      totalSurgeries: 96,
-      successfulSurgeries: 95,
-      inRecoverySurgeries: 1,
-      totalConsultations: 24000,
-      avgWaitTime: "15 mins",
-      councilRegNo: "MCI-TS-21094",
-      languages: ["English", "Hindi", "Malayalam", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Kasturba Medical College, Manipal", year: "2002" },
-        { degree: "MS - Orthopaedics", institution: "Seth GS Medical College & KEM Hospital, Mumbai", year: "2006" },
-        { degree: "MCh - Orthopaedics", institution: "University of Dundee, UK", year: "2010" }
-      ],
-      certifications: ["Fellow of International College of Surgeons (FICS)", "Robotic Knee Arthroplasty Certified Proctored Surgeon"],
-      proceduresTreated: ["Robotic Total Knee Replacement", "Total Hip Arthroplasty", "Arthroscopic ACL Reconstruction", "Microdiscectomy (L4-L5 Spine)", "Complex Non-Union Fracture Fixation"],
-      insuranceAccepted: ["Star Health", "Niva Bupa", "Care Health", "HDFC ERGO", "Reliance General"],
-      patientReviews: [
-        { patientName: "Gurpreet Singh Chawla", rating: 5, date: "2026-09-16", comment: "My lower spine surgery was flawlessly done. I was able to walk the very next day without back pain." },
-        { patientName: "Harish Patel", rating: 5, date: "2026-08-20", comment: "Best orthopaedic surgeon in South India. Knee replacement outcome exceeded all expectations." }
-      ]
-    },
-    {
-      id: "DOC-106",
-      name: "Dr. Farhan Siddiqui",
-      specialty: "Pulmonology & Critical Care",
-      department: "Pulmonology",
-      room: "ICU-Consult",
-      status: "In-Rounds",
-      availableNow: true,
-      availableSlotsToday: 5,
-      nextSlot: "01:00 PM (In ICU Lounge)",
-      phone: "+91 98480 66778",
-      experience: "11 yrs",
-      fee: 1000,
-      photo: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&auto=format&fit=crop&q=80",
-      about: "Lead Pulmonologist & Intensive Care Specialist. Expert in severe ARDS ventilation, advanced bronchoscopy, COPD rehabilitation, and sleep apnea management.",
-      successRate: 97.9,
-      patientRating: 4.86,
-      reviewCount: 310,
-      totalSurgeries: 48,
-      successfulSurgeries: 47,
-      inRecoverySurgeries: 1,
-      totalConsultations: 12400,
-      avgWaitTime: "10 mins",
-      councilRegNo: "MCI-TS-56128",
-      languages: ["English", "Hindi", "Urdu", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Deccan College of Medical Sciences", year: "2013" },
-        { degree: "MD - Pulmonary Medicine", institution: "Vallabhbhai Patel Chest Institute, Delhi", year: "2017" },
-        { degree: "IDCCM (Critical Care)", institution: "Apollo Hospitals", year: "2019" }
-      ],
-      certifications: ["European Diploma in Adult Respiratory Medicine (EDARM)", "Indian Society of Critical Care Medicine (ISCCM) Member"],
-      proceduresTreated: ["Flexible Fiberoptic Bronchoscopy", "Endobronchial Ultrasound (EBUS)", "Mechanical & Non-Invasive Ventilation (BiPAP)", "Pleural Fluid Aspiration & ICD Insertion", "Asthma & COPD Titration"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "Venkata Satyanarayana Reddy", rating: 5, date: "2026-09-15", comment: "Dr. Farhan's ICU care brought my father safely out of acute respiratory crisis. Forever grateful." }
-      ]
-    },
-    {
-      id: "DOC-107",
-      name: "Dr. Meenakshi Iyer",
-      specialty: "Paediatrics & Neonatology",
-      department: "Paediatrics",
-      room: "OPD-112 (Block B)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 11,
-      nextSlot: "Available Now / Walk-in",
-      phone: "+91 98480 77889",
-      experience: "9 yrs",
-      fee: 800,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80",
-      about: "Compassionate Paediatrician and Neonatal Care Specialist. Dedicated to infant nutrition, childhood asthma, febrile illness management, and developmental milestones tracking.",
-      successRate: 100,
-      patientRating: 4.97,
-      reviewCount: 490,
-      totalSurgeries: 34,
-      successfulSurgeries: 34,
-      inRecoverySurgeries: 0,
-      totalConsultations: 11200,
-      avgWaitTime: "6-8 mins",
-      councilRegNo: "MCI-TS-61029",
-      languages: ["English", "Tamil", "Telugu", "Hindi"],
-      education: [
-        { degree: "MBBS", institution: "Stanley Medical College, Chennai", year: "2015" },
-        { degree: "MD - Paediatrics", institution: "Madras Medical College (ICH)", year: "2019" },
-        { degree: "Fellowship in Neonatal Intensive Care", institution: "Rainbow Children's Hospital", year: "2021" }
-      ],
-      certifications: ["Indian Academy of Paediatrics (IAP) Life Member", "Neonatal Resuscitation Program (NRP) Certified"],
-      proceduresTreated: ["Neonatal Intensive Care (NICU)", "Paediatric Allergy & Asthma", "Childhood Immunization", "Growth & Developmental Assessment", "Paediatric Infectious Disease"],
-      insuranceAccepted: ["Bajaj Allianz", "Star Health", "HDFC ERGO", "Care Health"],
-      patientReviews: [
-        { patientName: "Karthik Subramanian", rating: 5, date: "2026-09-17", comment: "Dr. Meenakshi has been treating Aarav since infancy. She is extremely patient, caring, and accurate." }
-      ]
-    },
-    {
-      id: "DOC-108",
-      name: "Dr. Harsh Vardhan",
-      specialty: "Gastroenterology & Hepatology",
-      department: "Gastroenterology",
-      room: "OPD-310 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 8,
-      nextSlot: "11:30 AM (In 20 mins)",
-      phone: "+91 98480 88990",
-      experience: "15 yrs",
-      fee: 1300,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Consultant Gastroenterologist and Therapeutic Endoscopist. Expert in liver diseases, inflammatory bowel disease (IBD), acid reflux disorders, and diagnostic upper & lower GI endoscopy.",
-      successRate: 98.7,
-      patientRating: 4.89,
-      reviewCount: 340,
-      totalSurgeries: 78,
-      successfulSurgeries: 77,
-      inRecoverySurgeries: 1,
-      totalConsultations: 15400,
-      avgWaitTime: "10 mins",
-      councilRegNo: "MCI-TS-39401",
-      languages: ["English", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "King George's Medical University (KGMU), Lucknow", year: "2009" },
-        { degree: "MD - Medicine", institution: "BHU Varanasi", year: "2013" },
-        { degree: "DM - Gastroenterology", institution: "SGPGI Lucknow", year: "2017" }
-      ],
-      certifications: ["Member of Indian Society of Gastroenterology (ISG)", "Advanced ERCP & EUS Certified"],
-      proceduresTreated: ["Upper GI Endoscopy (UGIE)", "Colonoscopy & Polypectomy", "Fatty Liver & Hepatitis Treatment", "GERD & Ulcer Management", "Capsule Endoscopy"],
-      insuranceAccepted: ["Star Health", "HDFC ERGO", "Care Health", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "Ayesha Fatima", rating: 5, date: "2026-09-17", comment: "Very gentle during my endoscopy exam and explained the GERD diet regimen in detail." }
-      ]
-    },
-    {
-      id: "DOC-109",
-      name: "Dr. Neha Kulkarni",
-      specialty: "Pathology & Transfusion Medicine",
-      department: "Laboratory",
-      room: "Central Pathology Lab",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 15,
-      nextSlot: "Available Now (Lab Consult)",
-      phone: "+91 98480 99001",
-      experience: "13 yrs",
-      fee: 700,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&auto=format&fit=crop&q=80",
-      about: "Chief Pathologist and Head of Central Diagnostic Services. Specializing in oncopathology, hematopathology, flow cytometry, and quality assurance in tertiary diagnostic testing.",
-      successRate: 99.8,
-      patientRating: 4.92,
-      reviewCount: 220,
-      totalSurgeries: 0,
-      successfulSurgeries: 0,
-      inRecoverySurgeries: 0,
-      totalConsultations: 28000,
-      avgWaitTime: "5 mins",
-      councilRegNo: "MCI-TS-41890",
-      languages: ["English", "Marathi", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Grant Medical College, Mumbai", year: "2011" },
-        { degree: "MD - Pathology", institution: "Tata Memorial Hospital, Mumbai", year: "2015" }
-      ],
-      certifications: ["NABL Lead Assessor (ISO 15189)", "Indian Association of Pathologists & Microbiologists (IAPM) Fellow"],
-      proceduresTreated: ["Histopathology & Biopsy Reporting", "Bone Marrow Aspiration & Trephine", "Flow Cytometry", "Immuno-histochemistry", "Blood Transfusion Safety"],
-      insuranceAccepted: ["All Major Insurance & TPAs"],
-      patientReviews: [
-        { patientName: "R. Sharma", rating: 5, date: "2026-09-14", comment: "Fast, accurate biopsy report turnaround. High diagnostic confidence." }
-      ]
-    },
-    {
-      id: "DOC-110",
-      name: "Dr. Tarun Sen",
-      specialty: "Consultant Radiologist",
-      department: "Radiology",
-      room: "RIS/PACS Console 2",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 12,
-      nextSlot: "Available Now (Imaging Review)",
-      phone: "+91 98480 11002",
-      experience: "17 yrs",
-      fee: 1000,
-      photo: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&auto=format&fit=crop&q=80",
-      about: "Senior Consultant Radiologist with expertise in high-resolution multi-slice CT angiography, 3T MRI neuroradiology, musculoskeletal imaging, and ultrasound-guided interventions.",
-      successRate: 100,
-      patientRating: 4.9,
-      reviewCount: 290,
-      totalSurgeries: 26,
-      successfulSurgeries: 26,
-      inRecoverySurgeries: 0,
-      totalConsultations: 22000,
-      avgWaitTime: "5-10 mins",
-      councilRegNo: "MCI-TS-32104",
-      languages: ["English", "Hindi", "Bengali", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Calcutta National Medical College", year: "2007" },
-        { degree: "MD - Radiodiagnosis", institution: "AIIMS New Delhi", year: "2011" },
-        { degree: "Fellowship in MRI & Cross-Sectional Imaging", institution: "Singapore General Hospital", year: "2014" }
-      ],
-      certifications: ["FRCR (London, UK)", "Indian Radiological & Imaging Association (IRIA) Member"],
-      proceduresTreated: ["3T MRI Brain & Spine", "Coronary CT Angiogram", "USG Guided Biopsies", "Musculoskeletal MRI", "Fetal Doppler Imaging"],
-      insuranceAccepted: ["All Major Cashless TPAs"],
-      patientReviews: [
-        { patientName: "Sneha Thomas", rating: 5, date: "2026-09-17", comment: "Dr. Tarun provided an ultra-clear, detailed ultrasound reading with zero wait time." }
-      ]
-    },
-    {
-      id: "DOC-111",
-      name: "Dr. Rohan Deshmukh",
-      specialty: "Cardiothoracic & Vascular Surgery (CTVS)",
-      department: "Cardiology",
-      room: "OT-3 & OPD-105",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 6,
-      nextSlot: "11:45 AM (Pre-Op Consult)",
-      phone: "+91 98480 11111",
-      experience: "18 yrs",
-      fee: 1400,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Senior Cardiothoracic Surgeon specializing in off-pump coronary artery bypass grafting (CABG), minimally invasive heart valve repair/replacement, aortic aneurysm repair, and post-infarct ventricular reconstruction.",
-      successRate: 98.8,
-      patientRating: 4.93,
-      reviewCount: 420,
-      totalSurgeries: 82,
-      successfulSurgeries: 81,
-      inRecoverySurgeries: 1,
-      totalConsultations: 16500,
-      avgWaitTime: "12 mins",
-      councilRegNo: "MCI-TS-28491",
-      languages: ["English", "Hindi", "Marathi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "AIIMS New Delhi", year: "2006" },
-        { degree: "MS - General Surgery", institution: "PGI Chandigarh", year: "2010" },
-        { degree: "MCh - CTVS", institution: "AIIMS New Delhi", year: "2014" }
-      ],
-      certifications: ["Fellow of Indian Association of Cardiovascular-Thoracic Surgeons (FIACS)", "Minimally Invasive Cardiac Surgery (MICS) Fellow, Leipzig Heart Center"],
-      proceduresTreated: ["Off-Pump CABG (Beating Heart)", "Mitral & Aortic Valve Replacement", "Tetralogy of Fallot Correction", "Thoracic Aortic Aneurysm Repair", "Pericardiectomy"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa", "Bajaj Allianz"],
-      patientReviews: [
-        { patientName: "K. Muralidhar", rating: 5, date: "2026-09-12", comment: "Underwent triple bypass surgery with Dr. Deshmukh. Recovery was smooth and prompt with great ICU follow-up." }
-      ]
-    },
-    {
-      id: "DOC-112",
-      name: "Dr. Alisha Kapur",
-      specialty: "Non-Invasive Cardiology & Heart Failure",
-      department: "Cardiology",
-      room: "OPD-106 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 10,
-      nextSlot: "Available Now / Walk-in",
-      phone: "+91 98480 11112",
-      experience: "12 yrs",
-      fee: 950,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&auto=format&fit=crop&q=80",
-      about: "Specialist in heart failure management, preventive cardiology, 3D Echocardiography, Dobutamine Stress Echo (DSE), and cardiac rehabilitation for diabetic and hypertensive patients.",
-      successRate: 100,
-      patientRating: 4.88,
-      reviewCount: 380,
-      totalSurgeries: 18,
-      successfulSurgeries: 18,
-      inRecoverySurgeries: 0,
-      totalConsultations: 18200,
-      avgWaitTime: "8 mins",
-      councilRegNo: "MCI-TS-44102",
-      languages: ["English", "Hindi", "Punjabi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Lady Hardinge Medical College, Delhi", year: "2012" },
-        { degree: "MD - General Medicine", institution: "Maulana Azad Medical College", year: "2016" },
-        { degree: "DNB - Cardiology", institution: "Escorts Heart Institute", year: "2020" }
-      ],
-      certifications: ["European Association of Cardiovascular Imaging (EACVI) Certified", "Life Member - Cardiological Society of India (CSI)"],
-      proceduresTreated: ["3D Transthoracic & Transesophageal Echo (TEE)", "Dobutamine Stress Echo", "Holter & 24h Ambulatory BP Monitoring", "Heart Failure Optimization", "Cardio-Metabolic Risk Profiling"],
-      insuranceAccepted: ["Star Health", "HDFC ERGO", "Niva Bupa", "Care Health"],
-      patientReviews: [
-        { patientName: "Satish Varma", rating: 5, date: "2026-09-18", comment: "Very thorough evaluation of my heart murmur with precise medication adjustment. High confidence doctor." }
-      ]
-    },
-    {
-      id: "DOC-113",
-      name: "Dr. Neeraj Gupta",
-      specialty: "Critical Trauma & Resuscitation",
-      department: "Emergency",
-      room: "Red Triage Bay 1",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 14,
-      nextSlot: "Immediate (Emergency Priority)",
-      phone: "+91 98480 11113",
-      experience: "14 yrs",
-      fee: 900,
-      photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&auto=format&fit=crop&q=80",
-      about: "Senior Emergency Physician and Trauma Care Specialist. Expert in rapid sequence intubation, point-of-care ultrasound (POCUS), polytrauma stabilization, and toxicological emergencies.",
-      successRate: 98.1,
-      patientRating: 4.90,
-      reviewCount: 460,
-      totalSurgeries: 54,
-      successfulSurgeries: 53,
-      inRecoverySurgeries: 1,
-      totalConsultations: 26000,
-      avgWaitTime: "0-3 mins",
-      councilRegNo: "MCI-TS-37912",
-      languages: ["English", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Osmania Medical College", year: "2010" },
-        { degree: "MD - Emergency Medicine", institution: "NIMS Hyderabad", year: "2014" },
-        { degree: "Fellowship in Trauma Life Support", institution: "AIIMS New Delhi", year: "2016" }
-      ],
-      certifications: ["ATLS Course Director", "ACLS/BLS Master Instructor", "Fellow of Academic College of Emergency Experts (FACEE)"],
-      proceduresTreated: ["Damage Control Resuscitation", "POCUS Fast Exam", "Central Venous & Arterial Cannulation", "Emergency Thoracostomy", "Toxic Ingestion Management"],
-      insuranceAccepted: ["All Major Cashless TPAs & Emergency Cover"],
-      patientReviews: [
-        { patientName: "G. Venkatesh", rating: 5, date: "2026-09-10", comment: "Saved my brother's life following a road accident. Instant critical response by Dr. Neeraj." }
-      ]
-    },
-    {
-      id: "DOC-114",
-      name: "Dr. Rashmi Desai",
-      specialty: "Acute Medical Emergencies & Triage",
-      department: "Emergency",
-      room: "Yellow Triage Bay 3",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 10,
-      nextSlot: "Available Now",
-      phone: "+91 98480 11114",
-      experience: "10 yrs",
-      fee: 850,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80",
-      about: "Emergency specialist dedicated to acute metabolic emergencies, diabetic ketoacidosis, anaphylaxis, acute stroke thrombolysis protocols, and pediatric emergency triage.",
-      successRate: 100,
-      patientRating: 4.87,
-      reviewCount: 310,
-      totalSurgeries: 29,
-      successfulSurgeries: 29,
-      inRecoverySurgeries: 0,
-      totalConsultations: 19400,
-      avgWaitTime: "2-5 mins",
-      councilRegNo: "MCI-TS-58201",
-      languages: ["English", "Hindi", "Gujarati", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "BJ Medical College, Ahmedabad", year: "2014" },
-        { degree: "MEM (Masters in Emergency Medicine)", institution: "George Washington University USA / Apollo", year: "2018" }
-      ],
-      certifications: ["Certified Pediatric Emergency Medicine Specialist", "Advanced Stroke Life Support (ASLS) Provider"],
-      proceduresTreated: ["Acute Stroke Thrombolysis (rtPA Protocol)", "Severe Sepsis Resuscitation Bundles", "Cardioversion & Defibrillation", "Management of Severe Anaphylaxis", "Acute Poisoning Decontamination"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "Pooja Mehta", rating: 5, date: "2026-09-14", comment: "Swift assessment of my allergic reaction. Stabilized within 15 minutes." }
-      ]
-    },
-    {
-      id: "DOC-115",
-      name: "Dr. Shalini Verma",
-      specialty: "Stroke Neurology & Neuro-Immunology",
-      department: "Neurology",
-      room: "OPD-204 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 7,
-      nextSlot: "12:15 PM",
-      phone: "+91 98480 11115",
-      experience: "16 yrs",
-      fee: 1250,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80",
-      about: "Lead Stroke Neurologist specializing in hyperacute ischemic stroke interventions, Multiple Sclerosis, autoimmune encephalitis, refractory epilepsy, and peripheral neuropathy.",
-      successRate: 97.4,
-      patientRating: 4.94,
-      reviewCount: 520,
-      totalSurgeries: 38,
-      successfulSurgeries: 37,
-      inRecoverySurgeries: 1,
-      totalConsultations: 21000,
-      avgWaitTime: "10 mins",
-      councilRegNo: "MCI-TS-34509",
-      languages: ["English", "Hindi", "Telugu", "Kannada"],
-      education: [
-        { degree: "MBBS", institution: "Bangalore Medical College", year: "2008" },
-        { degree: "MD - Medicine", institution: "KMC Manipal", year: "2012" },
-        { degree: "DM - Neurology", institution: "NIMHANS Bengaluru", year: "2016" }
-      ],
-      certifications: ["Fellow of European Board of Neurology (FEBN)", "Comprehensive Epilepsy Program Fellow"],
-      proceduresTreated: ["Video-EEG Interpretation", "Nerve Conduction Studies & EMG", "Therapeutic Plasma Exchange in Neuropathy", "Botox Therapy for Dystonia & Migraine", "Stroke Neuro-Rehabilitation Plan"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "Chandra Sekhar", rating: 5, date: "2026-09-16", comment: "Her diagnosis for my persistent neuropathy was precise after months of suffering. Very comforting doctor." }
-      ]
-    },
-    {
-      id: "DOC-116",
-      name: "Dr. Abhishek Pillai",
-      specialty: "Minimally Invasive Spine & Pediatric Neurosurgery",
-      department: "Neurology",
-      room: "OPD-205 (Block A)",
-      status: "In-Surgery",
-      availableNow: false,
-      availableSlotsToday: 3,
-      nextSlot: "03:15 PM",
-      phone: "+91 98480 11116",
-      experience: "13 yrs",
-      fee: 1300,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Consultant Neurosurgeon specializing in endoscopic cranial base surgery, pediatric hydrocephalus (ETV), spinal cord tumor resection, and robotic-assisted spine stabilization.",
-      successRate: 98.4,
-      patientRating: 4.91,
-      reviewCount: 390,
-      totalSurgeries: 62,
-      successfulSurgeries: 61,
-      inRecoverySurgeries: 1,
-      totalConsultations: 13200,
-      avgWaitTime: "15 mins",
-      councilRegNo: "MCI-TS-49120",
-      languages: ["English", "Malayalam", "Tamil", "Hindi"],
-      education: [
-        { degree: "MBBS", institution: "Calicut Medical College", year: "2011" },
-        { degree: "MS - General Surgery", institution: "JIPMER Puducherry", year: "2015" },
-        { degree: "MCh - Neurosurgery", institution: "SCTIMST Trivandrum", year: "2019" }
-      ],
-      certifications: ["AO Spine Global Fellow", "Endoscopic Skull Base Surgery Fellow (Pittsburgh, USA)"],
-      proceduresTreated: ["Endoscopic Third Ventriculostomy (ETV)", "Microdiscectomy & Cervical Corpectomy", "Craniotomy for Glioma & Meningioma", "Chiari Malformation Decompression", "Spinal Fusion & Fixation"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Bajaj Allianz"],
-      patientReviews: [
-        { patientName: "M. Radhika", rating: 5, date: "2026-09-11", comment: "Performed my mother's cervical spine surgery. She is recovering wonderfully without motor deficit." }
-      ]
-    },
-    {
-      id: "DOC-117",
-      name: "Dr. Kavita Reddy",
-      specialty: "Advanced Laparoscopic Gynae & Reproductive Medicine",
-      department: "Obstetrics & Gynaecology",
-      room: "OPD-212 (Block B)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 9,
-      nextSlot: "11:15 AM",
-      phone: "+91 98480 11117",
-      experience: "15 yrs",
-      fee: 1000,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&auto=format&fit=crop&q=80",
-      about: "Specialist in 3D laparoscopic and hysteroscopic surgery, uterine fibroid embolization, endometriosis staging & excision, and assisted reproductive technologies (IUI/IVF).",
-      successRate: 98.8,
-      patientRating: 4.95,
-      reviewCount: 540,
-      totalSurgeries: 86,
-      successfulSurgeries: 85,
-      inRecoverySurgeries: 1,
-      totalConsultations: 19800,
-      avgWaitTime: "8 mins",
-      councilRegNo: "MCI-TS-38190",
-      languages: ["English", "Telugu", "Hindi"],
-      education: [
-        { degree: "MBBS", institution: "Gandhi Medical College", year: "2009" },
-        { degree: "MS - OBG", institution: "Osmania Medical College", year: "2013" },
-        { degree: "Fellowship in Reproductive Medicine", institution: "CRAFT Fertility", year: "2016" }
-      ],
-      certifications: ["Fellow of Indian College of Obstetricians & Gynaecologists (FICOG)", "Diploma in Advanced Gynaecological Endoscopy (Kiel, Germany)"],
-      proceduresTreated: ["Total Laparoscopic Hysterectomy (TLH)", "Laparoscopic Ovarian Cystectomy", "Hysteroscopic Polypectomy & Septum Resection", "Ovulation Induction & IUI", "Endometriosis Excision"],
-      insuranceAccepted: ["Star Health", "HDFC ERGO", "Care Health", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "Divya N.", rating: 5, date: "2026-09-17", comment: "Dr. Kavita successfully removed a large fibroid through keyhole surgery. Minimal pain and back home in 2 days." }
-      ]
-    },
-    {
-      id: "DOC-118",
-      name: "Dr. Sunita Bansal",
-      specialty: "Maternal-Fetal Medicine & High-Risk Pregnancy",
-      department: "Obstetrics & Gynaecology",
-      room: "OPD-214 (Block B)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 6,
-      nextSlot: "01:30 PM",
-      phone: "+91 98480 11118",
-      experience: "19 yrs",
-      fee: 1100,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80",
-      about: "Senior Maternal-Fetal Medicine specialist handling gestational diabetes, pre-eclampsia, twin/triplet gestations, amniocentesis, and targeted congenital anomaly screening.",
-      successRate: 98.6,
-      patientRating: 4.96,
-      reviewCount: 620,
-      totalSurgeries: 72,
-      successfulSurgeries: 71,
-      inRecoverySurgeries: 1,
-      totalConsultations: 24000,
-      avgWaitTime: "10 mins",
-      councilRegNo: "MCI-TS-27801",
-      languages: ["English", "Hindi", "Telugu", "Bengali"],
-      education: [
-        { degree: "MBBS", institution: "SMS Medical College Jaipur", year: "2005" },
-        { degree: "MD - OBG", institution: "Lady Hardinge Medical College", year: "2009" },
-        { degree: "Fellowship in Fetal Medicine", institution: "Fetal Medicine Foundation UK", year: "2013" }
-      ],
-      certifications: ["FMF (UK) Certified 11-13 Weeks & Anomaly Specialist", "Life Member FOGSI"],
-      proceduresTreated: ["Amniocentesis & Chorionic Villus Sampling (CVS)", "Level II Anomaly Ultrasound Scans", "High-Risk Caesarean Section", "Cervical Cerclage (Encirclage)", "Gestational Hypertension Protocol"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "Swathi K.", rating: 5, date: "2026-09-15", comment: "Handled my twins pregnancy with unmatched diligence and weekly growth tracking. Blessed with healthy twins." }
-      ]
-    },
-    {
-      id: "DOC-119",
-      name: "Dr. Amitav Ghosh",
-      specialty: "Arthroscopy & Sports Injury Reconstruction",
-      department: "Orthopaedics",
-      room: "OPD-109 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 8,
-      nextSlot: "11:00 AM",
-      phone: "+91 98480 11119",
-      experience: "14 yrs",
-      fee: 1000,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Consultant Sports Orthopaedic Surgeon specializing in keyhole knee ligament repairs (ACL/PCL/Meniscus), rotator cuff repairs, shoulder instability (Bankart), and cartilage preservation.",
-      successRate: 98.7,
-      patientRating: 4.89,
-      reviewCount: 410,
-      totalSurgeries: 79,
-      successfulSurgeries: 78,
-      inRecoverySurgeries: 1,
-      totalConsultations: 17500,
-      avgWaitTime: "10 mins",
-      councilRegNo: "MCI-TS-41098",
-      languages: ["English", "Hindi", "Bengali", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Calcutta Medical College", year: "2010" },
-        { degree: "MS - Orthopaedics", institution: "King George's Medical University", year: "2014" },
-        { degree: "Fellowship in Sports Medicine & Arthroscopy", institution: "Sant Parmanand Hospital", year: "2017" }
-      ],
-      certifications: ["International Society of Arthroscopy, Knee Surgery and Orthopaedic Sports Medicine (ISAKOS) Member", "Indian Arthroscopy Society (IAS) Certified"],
-      proceduresTreated: ["Arthroscopic ACL/PCL Reconstruction", "Meniscal Repair & Root Fixation", "Rotator Cuff Repair (Keyhole)", "Shoulder Bankart Repair", "PRP Injections for Tendinopathy"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Bajaj Allianz"],
-      patientReviews: [
-        { patientName: "Naveen Raju", rating: 5, date: "2026-09-12", comment: "Got my ACL rebuilt by Dr. Amitav. I am back to jogging within 4 months with full stability." }
-      ]
-    },
-    {
-      id: "DOC-120",
-      name: "Dr. Suresh Nambiar",
-      specialty: "Complex Spine Surgery & Pelvi-Acetabular Trauma",
-      department: "Orthopaedics",
-      room: "OPD-110 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 5,
-      nextSlot: "02:00 PM",
-      phone: "+91 98480 11120",
-      experience: "19 yrs",
-      fee: 1200,
-      photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&auto=format&fit=crop&q=80",
-      about: "Senior Spine Surgeon specializing in scoliosis correction, degenerative spondylolisthesis, artificial disc replacement, and high-energy pelvi-acetabular fracture stabilization.",
-      successRate: 97.8,
-      patientRating: 4.92,
-      reviewCount: 470,
-      totalSurgeries: 91,
-      successfulSurgeries: 89,
-      inRecoverySurgeries: 2,
-      totalConsultations: 20500,
-      avgWaitTime: "12 mins",
-      councilRegNo: "MCI-TS-25410",
-      languages: ["English", "Malayalam", "Tamil", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "KMC Mangalore", year: "2005" },
-        { degree: "MS - Orthopaedics", institution: "Madras Medical College", year: "2009" },
-        { degree: "Fellowship in Adult Spine Deformity", institution: "Queen's Medical Centre, Nottingham UK", year: "2013" }
-      ],
-      certifications: ["AO Spine Faculty", "Association of Spine Surgeons of India (ASSI) Executive Member"],
-      proceduresTreated: ["Transforaminal Lumbar Interbody Fusion (TLIF)", "Cervical Artificial Disc Replacement", "Scoliosis Posterior Correction", "Pelvic Ring Fracture Fixation", "Vertebroplasty / Kyphoplasty"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "B. Venkateswarlu", rating: 5, date: "2026-09-14", comment: "My chronic severe sciatica was completely eliminated after L4-L5 TLIF surgery. Excellent surgeon." }
-      ]
-    },
-    {
-      id: "DOC-121",
-      name: "Dr. Aditya Bharadwaj",
-      specialty: "Pediatric Intensivist & Pediatric Cardiology",
-      department: "Paediatrics",
-      room: "PICU Consult (Block B)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 8,
-      nextSlot: "12:00 PM",
-      phone: "+91 98480 11121",
-      experience: "12 yrs",
-      fee: 900,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Specialist in Pediatric Intensive Care, managing severe pediatric sepsis, congenital heart disease evaluation, pediatric echocardiography, and non-invasive pediatric ventilation.",
-      successRate: 100,
-      patientRating: 4.93,
-      reviewCount: 360,
-      totalSurgeries: 28,
-      successfulSurgeries: 28,
-      inRecoverySurgeries: 0,
-      totalConsultations: 14200,
-      avgWaitTime: "5-10 mins",
-      councilRegNo: "MCI-TS-53210",
-      languages: ["English", "Telugu", "Hindi"],
-      education: [
-        { degree: "MBBS", institution: "Andhra Medical College", year: "2012" },
-        { degree: "MD - Paediatrics", institution: "PGIMER Chandigarh", year: "2016" },
-        { degree: "Fellowship in Pediatric Critical Care", institution: "IAP / Rainbow Hospitals", year: "2019" }
-      ],
-      certifications: ["IAP Fellowship in Pediatric Critical Care", "Pediatric Advanced Life Support (PALS) Instructor"],
-      proceduresTreated: ["Pediatric Echocardiography", "Pediatric Central Venous Line Placement", "High-Frequency Oscillatory Ventilation (HFOV)", "Pediatric Cardiac Evaluation", "Management of Severe Dengue & Shock"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Bajaj Allianz"],
-      patientReviews: [
-        { patientName: "Sowmya Rao", rating: 5, date: "2026-09-13", comment: "Dr. Aditya guided us through our 4-year-old child's severe pneumonia in PICU with extraordinary skill and patience." }
-      ]
-    },
-    {
-      id: "DOC-122",
-      name: "Dr. Tanvi Shah",
-      specialty: "Pediatric Asthma, Allergy & Child Development",
-      department: "Paediatrics",
-      room: "OPD-114 (Block B)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 12,
-      nextSlot: "Available Now / Walk-in",
-      phone: "+91 98480 11122",
-      experience: "10 yrs",
-      fee: 750,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&auto=format&fit=crop&q=80",
-      about: "Paediatrician specializing in childhood wheezing, recurrent chest infections, milk protein allergy, pediatric spirometry, and neuro-developmental follow-ups.",
-      successRate: 100,
-      patientRating: 4.95,
-      reviewCount: 410,
-      totalSurgeries: 12,
-      successfulSurgeries: 12,
-      inRecoverySurgeries: 0,
-      totalConsultations: 16800,
-      avgWaitTime: "5 mins",
-      councilRegNo: "MCI-TS-62840",
-      languages: ["English", "Gujarati", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Seth GS Medical College & KEM Mumbai", year: "2014" },
-        { degree: "MD - Paediatrics", institution: "Topiwala National Medical College", year: "2018" },
-        { degree: "Fellowship in Pediatric Pulmonology", institution: "Sir Ganga Ram Hospital", year: "2021" }
-      ],
-      certifications: ["Member European Respiratory Society (Pediatric Assembly)", "Certified Pediatric Allergy Specialist"],
-      proceduresTreated: ["Pediatric Spirometry & Lung Function", "Skin Prick Allergy Testing in Children", "Asthma Inhaler Technique Coaching", "Pediatric Bronchoscopy Assisting", "Developmental Screening"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "M. Deepthi", rating: 5, date: "2026-09-15", comment: "So gentle with kids. My 3yo daughter was laughing throughout the allergy examination." }
-      ]
-    },
-    {
-      id: "DOC-123",
-      name: "Dr. Ritu Saxena",
-      specialty: "Hepatology & Liver Transplant Medicine",
-      department: "Gastroenterology",
-      room: "OPD-312 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 6,
-      nextSlot: "01:00 PM",
-      phone: "+91 98480 11123",
-      experience: "16 yrs",
-      fee: 1350,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80",
-      about: "Senior Hepatologist specializing in acute-on-chronic liver failure, pre & post-liver transplant management, portal hypertension, viral hepatitis B/C elimination, and NAFLD/NASH regression.",
-      successRate: 97.7,
-      patientRating: 4.91,
-      reviewCount: 390,
-      totalSurgeries: 44,
-      successfulSurgeries: 43,
-      inRecoverySurgeries: 1,
-      totalConsultations: 18900,
-      avgWaitTime: "10 mins",
-      councilRegNo: "MCI-TS-35490",
-      languages: ["English", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Maulana Azad Medical College", year: "2008" },
-        { degree: "MD - Medicine", institution: "AIIMS New Delhi", year: "2012" },
-        { degree: "DM - Hepatology", institution: "ILBS New Delhi", year: "2016" }
-      ],
-      certifications: ["American Association for the Study of Liver Diseases (AASLD) Fellow", "Indian National Association for Study of the Liver (INASL)"],
-      proceduresTreated: ["FibroScan (Transient Elastography)", "Hepatic Venous Pressure Gradient (HVPG)", "Transjugular Liver Biopsy Interpretation", "Variceal Band Ligation (EVL)", "Liver Transplant Candidate Protocol"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "Rajendra V.", rating: 5, date: "2026-09-11", comment: "Dr. Ritu managed my father's cirrhosis with great empathy and structured medical management." }
-      ]
-    },
-    {
-      id: "DOC-124",
-      name: "Dr. Mohan Krishna",
-      specialty: "Therapeutic Endoscopy, ERCP & EUS",
-      department: "Gastroenterology",
-      room: "OPD-314 (Block A)",
-      status: "In-Surgery",
-      availableNow: false,
-      availableSlotsToday: 4,
-      nextSlot: "02:45 PM",
-      phone: "+91 98480 11124",
-      experience: "18 yrs",
-      fee: 1400,
-      photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&auto=format&fit=crop&q=80",
-      about: "Lead Therapeutic Endoscopist specializing in complex bile duct stone removal (ERCP), Endoscopic Ultrasound (EUS) guided fine needle biopsies, ESD/EMR for early GI cancers, and POEM for achalasia.",
-      successRate: 98.9,
-      patientRating: 4.93,
-      reviewCount: 480,
-      totalSurgeries: 94,
-      successfulSurgeries: 93,
-      inRecoverySurgeries: 1,
-      totalConsultations: 22400,
-      avgWaitTime: "15 mins",
-      councilRegNo: "MCI-TS-26810",
-      languages: ["English", "Telugu", "Hindi", "Tamil"],
-      education: [
-        { degree: "MBBS", institution: "Osmania Medical College", year: "2006" },
-        { degree: "MD - General Medicine", institution: "Gandhi Medical College", year: "2010" },
-        { degree: "DM - Medical Gastroenterology", institution: "NIMS Hyderabad", year: "2014" }
-      ],
-      certifications: ["Fellow of American Society for Gastrointestinal Endoscopy (FASGE)", "World Endoscopy Organization (WEO) Fellow"],
-      proceduresTreated: ["Endoscopic Retrograde Cholangiopancreatography (ERCP)", "Endoscopic Ultrasound (EUS-FNA)", "Peroral Endoscopic Myotomy (POEM)", "Endoscopic Mucosal Resection (EMR)", "Metal Stent Placement (Esophageal/Biliary)"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "T. Srinivas", rating: 5, date: "2026-09-16", comment: "Painless ERCP stone extraction by Dr. Mohan Krishna. Discharged the very next morning." }
-      ]
-    },
-    {
-      id: "DOC-125",
-      name: "Dr. Suniti Bannerjee",
-      specialty: "Interventional Pulmonology & Sleep Disorders",
-      department: "Pulmonology",
-      room: "OPD-218 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 9,
-      nextSlot: "11:45 AM",
-      phone: "+91 98480 11125",
-      experience: "14 yrs",
-      fee: 950,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&auto=format&fit=crop&q=80",
-      about: "Consultant Pulmonologist with special focus on Interstitial Lung Disease (ILD/Pulmonary Fibrosis), Obstructive Sleep Apnea (Polysomnography), and cryo-biopsy of lung lesions.",
-      successRate: 97.2,
-      patientRating: 4.89,
-      reviewCount: 330,
-      totalSurgeries: 36,
-      successfulSurgeries: 35,
-      inRecoverySurgeries: 1,
-      totalConsultations: 15600,
-      avgWaitTime: "8 mins",
-      councilRegNo: "MCI-TS-42391",
-      languages: ["English", "Bengali", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Medical College Kolkata", year: "2010" },
-        { degree: "MD - Respiratory Medicine", institution: "V.P. Chest Institute, Delhi", year: "2014" },
-        { degree: "Fellowship in Sleep Medicine", institution: "Royal Melbourne Hospital, Australia", year: "2018" }
-      ],
-      certifications: ["American College of Chest Physicians (FCCP)", "Indian Chest Society (ICS) Member"],
-      proceduresTreated: ["Level-1 Diagnostic Polysomnography (Sleep Study)", "Cryo-Transbronchial Lung Biopsy", "Endobronchial Valve Placement for Emphysema", "CPAP / BiPAP Titration Trials", "Post-COVID Pulmonary Fibrosis Care"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "M. Anjaneyulu", rating: 5, date: "2026-09-17", comment: "My sleep apnea was diagnosed properly and CPAP titration made an immense improvement to my daytime energy." }
-      ]
-    },
-    {
-      id: "DOC-126",
-      name: "Dr. Raghavendra Rao",
-      specialty: "Allergy, Severe Asthma & Bronchoscopy",
-      department: "Pulmonology",
-      room: "OPD-220 (Block A)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 11,
-      nextSlot: "Available Now / Walk-in",
-      phone: "+91 98480 11126",
-      experience: "16 yrs",
-      fee: 900,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Expert in biologic therapies for severe refractory asthma, industrial dust/occupational lung disease evaluations, diagnostic rigid bronchoscopy, and smoking cessation clinics.",
-      successRate: 98.1,
-      patientRating: 4.90,
-      reviewCount: 410,
-      totalSurgeries: 52,
-      successfulSurgeries: 51,
-      inRecoverySurgeries: 1,
-      totalConsultations: 18500,
-      avgWaitTime: "5-8 mins",
-      councilRegNo: "MCI-TS-31820",
-      languages: ["English", "Telugu", "Kannada", "Hindi"],
-      education: [
-        { degree: "MBBS", institution: "KMC Manipal", year: "2008" },
-        { degree: "MD - Tuberculosis & Chest Diseases", institution: "Mysore Medical College", year: "2012" },
-        { degree: "European Diplomate in Respiratory Medicine", institution: "HERMES Switzerland", year: "2016" }
-      ],
-      certifications: ["Fellow European Respiratory Society", "Indian Association for Bronchology (IAB) Member"],
-      proceduresTreated: ["Bronchial Thermoplasty Evaluation", "Biologic Injections (Omalizumab/Mepolizumab)", "Pleuroscopy & Medical Thoracoscopy", "Comprehensive Pulmonary Function Test (DLCO)", "Occupational Spirometry Screening"],
-      insuranceAccepted: ["Star Health", "Care Health", "HDFC ERGO", "Niva Bupa"],
-      patientReviews: [
-        { patientName: "S. K. Nambiar", rating: 5, date: "2026-09-14", comment: "Dr. Raghavendra's asthma regimen completely brought my nocturnal coughing attacks under control." }
-      ]
-    },
-    {
-      id: "DOC-127",
-      name: "Dr. Divya Nambiar",
-      specialty: "Vascular & Neuro-Interventional Radiology",
-      department: "Radiology",
-      room: "Cath Lab 2 & Radiology Suite",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 8,
-      nextSlot: "12:30 PM",
-      phone: "+91 98480 11127",
-      experience: "15 yrs",
-      fee: 1200,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&auto=format&fit=crop&q=80",
-      about: "Pioneer in image-guided minimally invasive interventions including uterine fibroid embolization (UFE), mechanical thrombectomy for acute stroke, varicose vein laser ablation, and liver tumor chemoembolization (TACE).",
-      successRate: 98.5,
-      patientRating: 4.94,
-      reviewCount: 360,
-      totalSurgeries: 68,
-      successfulSurgeries: 67,
-      inRecoverySurgeries: 1,
-      totalConsultations: 14000,
-      avgWaitTime: "10 mins",
-      councilRegNo: "MCI-TS-39801",
-      languages: ["English", "Malayalam", "Tamil", "Hindi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Calicut Medical College", year: "2009" },
-        { degree: "MD - Radiodiagnosis", institution: "Amrita Institute of Medical Sciences", year: "2013" },
-        { degree: "Fellowship in Vascular & Interventional Radiology", institution: "SCTIMST Trivandrum", year: "2016" }
-      ],
-      certifications: ["Indian Society of Vascular and Interventional Radiology (ISVIR) Life Member", "Cardiovascular and Interventional Radiological Society of Europe (CIRSE)"],
-      proceduresTreated: ["Uterine Artery Embolization (UFE)", "Endovenous Laser Varicose Vein Ablation (EVLT)", "Transarterial Chemoembolization (TACE)", "CT-Guided Lung & Bone Biopsies", "Percutaneous Nephrostomy & Biliary Drainage"],
-      insuranceAccepted: ["All Major Cashless TPAs & Insurance Providers"],
-      patientReviews: [
-        { patientName: "Lakshmi Narayana", rating: 5, date: "2026-09-13", comment: "Laser treatment for my varicose veins was painless and I walked out the same afternoon. Dr. Divya is excellent." }
-      ]
-    },
-    {
-      id: "DOC-128",
-      name: "Dr. Pankaj Mehta",
-      specialty: "Musculoskeletal & Advanced 3T MRI Neuroimaging",
-      department: "Radiology",
-      room: "3T MRI Console 1 (Ground Floor)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 14,
-      nextSlot: "Available Now (Scan Reporting)",
-      phone: "+91 98480 11128",
-      experience: "13 yrs",
-      fee: 950,
-      photo: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80",
-      about: "Specialist in sports injury MRI scans, cartilage mapping, brachial plexus imaging, MR Tractography, functional MRI (fMRI), and multiparametric Prostate MRI (PIRADS).",
-      successRate: 100,
-      patientRating: 4.91,
-      reviewCount: 280,
-      totalSurgeries: 22,
-      successfulSurgeries: 22,
-      inRecoverySurgeries: 0,
-      totalConsultations: 26000,
-      avgWaitTime: "5 mins",
-      councilRegNo: "MCI-TS-48192",
-      languages: ["English", "Hindi", "Gujarati", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "Baroda Medical College", year: "2011" },
-        { degree: "MD - Radio-diagnosis", institution: "Tata Memorial Centre, Mumbai", year: "2015" },
-        { degree: "European Diploma in Radiology (EDiR)", institution: "European Board of Radiology Vienna", year: "2018" }
-      ],
-      certifications: ["European Society of Radiology (ESR)", "Society of Skeletal Radiology (SSR) Member"],
-      proceduresTreated: ["3T MRI Cartilage & Meniscus Mapping", "Multiparametric Prostate MRI (PI-RADS v2.1)", "MR Neurography of Peripheral Nerves", "CT Coronary Angiography", "High-Resolution Musculoskeletal USG"],
-      insuranceAccepted: ["All Major Cashless TPAs"],
-      patientReviews: [
-        { patientName: "Arjun Reddy", rating: 5, date: "2026-09-17", comment: "Superb clarity on my knee MRI scan report which caught an occult ligament micro-tear missed earlier." }
-      ]
-    },
-    {
-      id: "DOC-129",
-      name: "Dr. Pradeep Joshi",
-      specialty: "Molecular Diagnostics, Genomics & Clinical Chemistry",
-      department: "Laboratory",
-      room: "Molecular Genetics Lab (Level 2)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 16,
-      nextSlot: "Available Now (Lab Consult)",
-      phone: "+91 98480 11129",
-      experience: "16 yrs",
-      fee: 750,
-      photo: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=200&auto=format&fit=crop&q=80",
-      about: "Head of Molecular Genetics and High-Throughput Clinical Chemistry. Specializing in Next-Generation Sequencing (NGS) for somatic cancer mutations, pharmacogenomics, metabolic profiling, and therapeutic drug monitoring (TDM).",
-      successRate: 99.9,
-      patientRating: 4.93,
-      reviewCount: 250,
-      totalSurgeries: 0,
-      successfulSurgeries: 0,
-      inRecoverySurgeries: 0,
-      totalConsultations: 31000,
-      avgWaitTime: "3-5 mins",
-      councilRegNo: "MCI-TS-31940",
-      languages: ["English", "Hindi", "Marathi", "Telugu"],
-      education: [
-        { degree: "MBBS", institution: "B.J. Medical College Pune", year: "2008" },
-        { degree: "MD - Biochemistry", institution: "AIIMS New Delhi", year: "2012" },
-        { degree: "Fellowship in Molecular Genetics", institution: "MD Anderson Cancer Center, USA", year: "2016" }
-      ],
-      certifications: ["College of American Pathologists (CAP) Inspector Certified", "Association of Clinical Biochemists of India (ACBI) Fellow"],
-      proceduresTreated: ["Next-Generation Sequencing (NGS) Oncology Panel", "Real-Time PCR & Viral Load Testing", "Therapeutic Drug Monitoring (Tacrolimus/Digoxin)", "Hemoglobin Variant HPLC Analysis", "Comprehensive Metabolic Screening"],
-      insuranceAccepted: ["All Major Cashless TPAs & Health Insurances"],
-      patientReviews: [
-        { patientName: "S. Raman", rating: 5, date: "2026-09-15", comment: "Dr. Joshi personally explained my son's complex genetic metabolism panel with tremendous patience." }
-      ]
-    },
-    {
-      id: "DOC-130",
-      name: "Dr. Ananya Srinivas",
-      specialty: "Clinical Microbiology & Hospital Infection Control",
-      department: "Laboratory",
-      room: "Microbiology & Culture Lab (Level 2)",
-      status: "On-Duty",
-      availableNow: true,
-      availableSlotsToday: 14,
-      nextSlot: "Available Now (Culture Review)",
-      phone: "+91 98480 11130",
-      experience: "11 yrs",
-      fee: 700,
-      photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&auto=format&fit=crop&q=80",
-      about: "Lead Clinical Microbiologist and Infection Prevention Officer. Specializing in rapid MALDI-TOF bacterial identification, antimicrobial susceptibility profiling, fungal serology, and hospital surveillance.",
-      successRate: 99.8,
-      patientRating: 4.90,
-      reviewCount: 210,
-      totalSurgeries: 0,
-      successfulSurgeries: 0,
-      inRecoverySurgeries: 0,
-      totalConsultations: 25000,
-      avgWaitTime: "5 mins",
-      councilRegNo: "MCI-TS-57103",
-      languages: ["English", "Telugu", "Kannada", "Hindi"],
-      education: [
-        { degree: "MBBS", institution: "St. John's Medical College Bangalore", year: "2013" },
-        { degree: "MD - Microbiology", institution: "JIPMER Puducherry", year: "2017" },
-        { degree: "Fellowship in Hospital Infection Control", institution: "CMC Vellore", year: "2020" }
-      ],
-      certifications: ["Fellow of Indian Association of Medical Microbiologists (IAMM)", "CDC Certified Infection Control Officer"],
-      proceduresTreated: ["MALDI-TOF Mass Spectrometry Identification", "Automated Blood Culture (BACTEC)", "Antimicrobial Susceptibility Testing (MIC Guidance)", "Fungal Culture & Galactomannan Antigen", "Hospital Infection Surveillance & Audit"],
-      insuranceAccepted: ["All Major Cashless TPAs & Insurances"],
-      patientReviews: [
-        { patientName: "Dr. Haritha K.", rating: 5, date: "2026-09-16", comment: "Fast identification of resistant bug helped optimize targeted antibiotics for our ICU patient within hours." }
-      ]
-    }
-  ],
+  {
+    "id": "DOC-101",
+    "name": "Dr. Ananya Reddy",
+    "specialty": "Interventional Cardiology",
+    "department": "Cardiology",
+    "room": "OPD-302 (Block A)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 12,
+    "nextSlot": "Immediate / Walk-in",
+    "phone": "+91 98480 11223",
+    "experience": "14 yrs",
+    "fee": 1200,
+    "photo": "https://images.unsplash.com/photo-1594824813566-78853a15f795?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant in Interventional Cardiology and Structural Heart Interventions. Expert in complex angioplasty, TAVR, coronary stenting, and acute cardiac care.",
+    "successRate": 98.9,
+    "patientRating": 4.95,
+    "reviewCount": 560,
+    "totalSurgeries": 88,
+    "successfulSurgeries": 87,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 16200,
+    "avgWaitTime": "10-15 mins",
+    "councilRegNo": "MCI-TS-44120",
+    "languages": [
+      "English",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Osmania Medical College, Hyderabad",
+        "year": "2010"
+      },
+      {
+        "degree": "MD - General Medicine",
+        "institution": "AIIMS New Delhi",
+        "year": "2014"
+      },
+      {
+        "degree": "DM - Cardiology",
+        "institution": "NIMS Hyderabad",
+        "year": "2017"
+      }
+    ],
+    "certifications": [
+      "Fellow of European Society of Cardiology (FESC)",
+      "Gold Medalist in DM Cardiology"
+    ],
+    "proceduresTreated": [
+      "Primary & Elective Angioplasty (PTCA)",
+      "Drug-Eluting Stent Placement",
+      "Radial Artery Angiography",
+      "Pacemaker Implantation"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health",
+      "Niva Bupa"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Rameshwar P.",
+        "rating": 5,
+        "date": "2026-09-17",
+        "comment": "Dr. Ananya explained my stent procedure clearly and provided phenomenal care."
+      }
+    ]
+  },
+  {
+    "id": "DOC-102",
+    "name": "Dr. Rohan Sharma",
+    "specialty": "Orthopaedics & Joint Replacement",
+    "department": "Orthopaedics",
+    "room": "OPD-108 (Block A)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 8,
+    "nextSlot": "11:30 AM (In 20 mins)",
+    "phone": "+91 98480 22334",
+    "experience": "16 yrs",
+    "fee": 1100,
+    "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80",
+    "about": "Chief Orthopaedic Surgeon specializing in computer-navigated robotic knee & hip replacement, sports medicine arthroscopy, and complex trauma fixation.",
+    "successRate": 99,
+    "patientRating": 4.92,
+    "reviewCount": 510,
+    "totalSurgeries": 96,
+    "successfulSurgeries": 95,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 18400,
+    "avgWaitTime": "12 mins",
+    "councilRegNo": "MCI-TS-38291",
+    "languages": [
+      "English",
+      "Hindi",
+      "Punjabi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Kasturba Medical College, Manipal",
+        "year": "2008"
+      },
+      {
+        "degree": "MS - Orthopaedics",
+        "institution": "KEM Hospital, Mumbai",
+        "year": "2012"
+      }
+    ],
+    "certifications": [
+      "Fellow in Robotic Joint Replacement (Germany)",
+      "Arthroscopy Association Member"
+    ],
+    "proceduresTreated": [
+      "Robotic Knee Replacement",
+      "Total Hip Arthroplasty",
+      "ACL & Meniscus Repair",
+      "Fracture Reconstruction"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "Bajaj Allianz"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Gurpreet S.",
+        "rating": 5,
+        "date": "2026-09-10",
+        "comment": "Dr. Rohan performed my knee replacement brilliantly. Walking painless now."
+      }
+    ]
+  },
+  {
+    "id": "DOC-103",
+    "name": "Dr. Priya Nair",
+    "specialty": "Paediatrics & Neonatology",
+    "department": "Paediatrics",
+    "room": "OPD-204 (Block B)",
+    "status": "In-Consult",
+    "availableNow": true,
+    "availableSlotsToday": 10,
+    "nextSlot": "Available Now",
+    "phone": "+91 98480 33445",
+    "experience": "12 yrs",
+    "fee": 850,
+    "photo": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Pediatrician and Neonatal Specialist. Expert in pediatric immunizations, developmental milestones, childhood asthma, and neonatal ICU management.",
+    "successRate": 98.8,
+    "patientRating": 4.96,
+    "reviewCount": 620,
+    "totalSurgeries": 34,
+    "successfulSurgeries": 34,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 15200,
+    "avgWaitTime": "8 mins",
+    "councilRegNo": "MCI-TS-49102",
+    "languages": [
+      "English",
+      "Malayalam",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "CMC Vellore",
+        "year": "2012"
+      },
+      {
+        "degree": "MD - Paediatrics",
+        "institution": "JIPMER Puducherry",
+        "year": "2016"
+      }
+    ],
+    "certifications": [
+      "Indian Academy of Pediatrics (IAP) Member",
+      "Advanced Neonatal Resuscitation Trainer"
+    ],
+    "proceduresTreated": [
+      "Childhood Immunization",
+      "Neonatal Jaundice Care",
+      "Pediatric Asthma Management",
+      "Growth Tracking"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Niva Bupa"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Sunitha M.",
+        "rating": 5,
+        "date": "2026-09-14",
+        "comment": "Dr. Priya is incredibly gentle and patient with babies. Best pediatrician!"
+      }
+    ]
+  },
+  {
+    "id": "DOC-104",
+    "name": "Dr. Suresh Babu",
+    "specialty": "Neurology & Stroke Specialist",
+    "department": "Neurology",
+    "room": "OPD-405 (Block B)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 6,
+    "nextSlot": "12:15 PM",
+    "phone": "+91 98480 44556",
+    "experience": "18 yrs",
+    "fee": 1400,
+    "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80",
+    "about": "Chief Neurologist specializing in acute stroke thrombolysis, epilepsy diagnostics, Parkinson's disease management, and nerve conduction studies.",
+    "successRate": 98.5,
+    "patientRating": 4.89,
+    "reviewCount": 440,
+    "totalSurgeries": 52,
+    "successfulSurgeries": 51,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 21000,
+    "avgWaitTime": "15 mins",
+    "councilRegNo": "MCI-TS-29188",
+    "languages": [
+      "English",
+      "Telugu",
+      "Tamil"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Madras Medical College",
+        "year": "2006"
+      },
+      {
+        "degree": "DM - Neurology",
+        "institution": "NIMHANS Bengaluru",
+        "year": "2013"
+      }
+    ],
+    "certifications": [
+      "American Academy of Neurology Fellow",
+      "Stroke Association Advisor"
+    ],
+    "proceduresTreated": [
+      "Stroke Thrombolysis",
+      "EEG & Video Monitoring",
+      "EMG & Nerve Studies",
+      "Migraine Management"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "ICICI Lombard"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Venkatesh K.",
+        "rating": 5,
+        "date": "2026-09-08",
+        "comment": "Accurate diagnosis and excellent treatment plan for father's stroke recovery."
+      }
+    ]
+  },
+  {
+    "id": "DOC-105",
+    "name": "Dr. Meera Iyer",
+    "specialty": "Obstetrics & High-Risk Pregnancy",
+    "department": "Obstetrics & Gynaecology",
+    "room": "OPD-201 (Block C)",
+    "status": "In-Consult",
+    "availableNow": true,
+    "availableSlotsToday": 9,
+    "nextSlot": "Immediate",
+    "phone": "+91 98480 55667",
+    "experience": "15 yrs",
+    "fee": 1000,
+    "photo": "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=400&auto=format&fit=crop&q=80",
+    "about": "Lead Consultant Obstetrician and Gynecologist. Expert in high-risk pregnancy care, painless deliveries, laparoscopic hysterectomy, and fertility management.",
+    "successRate": 99.1,
+    "patientRating": 4.97,
+    "reviewCount": 680,
+    "totalSurgeries": 92,
+    "successfulSurgeries": 91,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 17800,
+    "avgWaitTime": "10 mins",
+    "councilRegNo": "MCI-TS-51920",
+    "languages": [
+      "English",
+      "Tamil",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Stanley Medical College",
+        "year": "2009"
+      },
+      {
+        "degree": "MS - Obstetrics & Gynaecology",
+        "institution": "JIPMER",
+        "year": "2013"
+      }
+    ],
+    "certifications": [
+      "MRCOG (London UK)",
+      "FOGSI Certified Laparoscopic Surgeon"
+    ],
+    "proceduresTreated": [
+      "High-Risk Delivery Care",
+      "Laparoscopic Cystectomy",
+      "Infertility Workup",
+      "Antenatal Care"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Tata AIG"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Anusuya P.",
+        "rating": 5,
+        "date": "2026-09-12",
+        "comment": "Dr. Meera made my high-risk delivery smooth and safe. Eternally grateful."
+      }
+    ]
+  },
+  {
+    "id": "DOC-106",
+    "name": "Dr. Arjun Patel",
+    "specialty": "Laparoscopic & General Surgery",
+    "department": "General Surgery",
+    "room": "OPD-102 (Block A)",
+    "status": "In-Surgery",
+    "availableNow": false,
+    "availableSlotsToday": 3,
+    "nextSlot": "03:00 PM",
+    "phone": "+91 98480 66778",
+    "experience": "17 yrs",
+    "fee": 1000,
+    "photo": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant General & Minimal Access Surgeon. Specialized in laparoscopic cholecystectomy, hernia mesh repair, appendectomy, and laser proctology.",
+    "successRate": 98.7,
+    "patientRating": 4.88,
+    "reviewCount": 390,
+    "totalSurgeries": 110,
+    "successfulSurgeries": 108,
+    "inRecoverySurgeries": 2,
+    "totalConsultations": 19200,
+    "avgWaitTime": "15 mins",
+    "councilRegNo": "MCI-TS-34190",
+    "languages": [
+      "English",
+      "Gujarati",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "BJ Medical College, Ahmedabad",
+        "year": "2007"
+      },
+      {
+        "degree": "MS - General Surgery",
+        "institution": "AIIMS New Delhi",
+        "year": "2011"
+      }
+    ],
+    "certifications": [
+      "FIAGES (Laparoscopic Surgery)",
+      "Laser Surgery Certified"
+    ],
+    "proceduresTreated": [
+      "Laparoscopic Appendectomy",
+      "Hernia Repair",
+      "Gallbladder Surgery",
+      "Hemorrhoid Laser Surgery"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "Niva Bupa"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Chirag M.",
+        "rating": 5,
+        "date": "2026-09-01",
+        "comment": "Minimal pain after laparoscopic gallbladder surgery. Dr. Arjun is top notch."
+      }
+    ]
+  },
+  {
+    "id": "DOC-107",
+    "name": "Dr. Kavya Menon",
+    "specialty": "Dermatology & Cosmetology",
+    "department": "Dermatology",
+    "room": "OPD-305 (Block C)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 11,
+    "nextSlot": "Available Now",
+    "phone": "+91 98480 77889",
+    "experience": "10 yrs",
+    "fee": 800,
+    "photo": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&auto=format&fit=crop&q=80",
+    "about": "Consultant Dermatologist and Aesthetic Specialist. Expertise in clinical dermatology, laser skin therapies, acne scar revision, and psoriasis treatment.",
+    "successRate": 98.4,
+    "patientRating": 4.91,
+    "reviewCount": 340,
+    "totalSurgeries": 22,
+    "successfulSurgeries": 22,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 11400,
+    "avgWaitTime": "8 mins",
+    "councilRegNo": "MCI-TS-58210",
+    "languages": [
+      "English",
+      "Malayalam",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Government Medical College, Kozhikode",
+        "year": "2014"
+      },
+      {
+        "degree": "MD - Dermatology",
+        "institution": "Madras Medical College",
+        "year": "2018"
+      }
+    ],
+    "certifications": [
+      "IADVL Life Member",
+      "Aesthetic Laser Surgery Certification"
+    ],
+    "proceduresTreated": [
+      "Laser Skin Resurfacing",
+      "Acne & Scar Treatment",
+      "Psoriasis Phototherapy",
+      "Chemical Peels"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Divya N.",
+        "rating": 5,
+        "date": "2026-08-25",
+        "comment": "Skin cleared up dramatically within 3 weeks under Dr. Kavya's care."
+      }
+    ]
+  },
+  {
+    "id": "DOC-108",
+    "name": "Dr. Venkat Rao",
+    "specialty": "ENT & Head-Neck Surgery",
+    "department": "ENT",
+    "room": "OPD-210 (Block B)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 7,
+    "nextSlot": "11:45 AM",
+    "phone": "+91 98480 88990",
+    "experience": "19 yrs",
+    "fee": 900,
+    "photo": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior ENT Surgeon and Rhinologist. Expert in endoscopic sinus surgery (FESS), tympanoplasty, vertigo management, and micro-laryngeal voice surgery.",
+    "successRate": 98.6,
+    "patientRating": 4.87,
+    "reviewCount": 410,
+    "totalSurgeries": 78,
+    "successfulSurgeries": 77,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 20500,
+    "avgWaitTime": "12 mins",
+    "councilRegNo": "MCI-TS-28190",
+    "languages": [
+      "English",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Andhra Medical College, Visakhapatnam",
+        "year": "2005"
+      },
+      {
+        "degree": "MS - ENT",
+        "institution": "Osmania Medical College",
+        "year": "2009"
+      }
+    ],
+    "certifications": [
+      "AOI National Member",
+      "FESS Endoscopic Surgery Specialist"
+    ],
+    "proceduresTreated": [
+      "Endoscopic Sinus Surgery (FESS)",
+      "Tympanoplasty",
+      "Tonsillectomy",
+      "Vertigo Rehabilitation"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Niva Bupa"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Subba Rao",
+        "rating": 5,
+        "date": "2026-09-05",
+        "comment": "Sinus pressure completely gone post endoscopic surgery. Excellent doctor."
+      }
+    ]
+  },
+  {
+    "id": "DOC-109",
+    "name": "Dr. Fatima Khan",
+    "specialty": "Radiology & Imaging Specialist",
+    "department": "Radiology",
+    "room": "Radiology Suite 1",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 15,
+    "nextSlot": "Immediate",
+    "phone": "+91 98480 99001",
+    "experience": "13 yrs",
+    "fee": 950,
+    "photo": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&auto=format&fit=crop&q=80",
+    "about": "Chief Radiologist specializing in 3T MRI interpretation, multi-slice CT angiography, musculoskeletal ultrasound, and image-guided biopsy procedures.",
+    "successRate": 99.2,
+    "patientRating": 4.93,
+    "reviewCount": 480,
+    "totalSurgeries": 15,
+    "successfulSurgeries": 15,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 22000,
+    "avgWaitTime": "5 mins",
+    "councilRegNo": "MCI-TS-45120",
+    "languages": [
+      "English",
+      "Urdu",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Deccan College of Medical Sciences",
+        "year": "2011"
+      },
+      {
+        "degree": "MD - Radio-Diagnosis",
+        "institution": "NIMS Hyderabad",
+        "year": "2015"
+      }
+    ],
+    "certifications": [
+      "Indian Radiological & Imaging Association (IRIA) Fellow"
+    ],
+    "proceduresTreated": [
+      "3T MRI Diagnostics",
+      "CT Coronary Angiography",
+      "USG Guided Biopsy",
+      "Color Doppler Studies"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "Bajaj Allianz"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Ayesha B.",
+        "rating": 5,
+        "date": "2026-09-18",
+        "comment": "Extremely detailed MRI report provided with prompt turnaround."
+      }
+    ]
+  },
+  {
+    "id": "DOC-110",
+    "name": "Dr. Harish Gupta",
+    "specialty": "Medical Oncology & Chemotherapy",
+    "department": "Oncology",
+    "room": "OPD-501 (Block D)",
+    "status": "In-Consult",
+    "availableNow": true,
+    "availableSlotsToday": 5,
+    "nextSlot": "01:15 PM",
+    "phone": "+91 98481 11223",
+    "experience": "21 yrs",
+    "fee": 1500,
+    "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant Medical Oncologist. Pioneer in targeted immunotherapy, molecular tumor profiling, precision cancer therapies, and systemic chemotherapy.",
+    "successRate": 97.5,
+    "patientRating": 4.9,
+    "reviewCount": 530,
+    "totalSurgeries": 40,
+    "successfulSurgeries": 39,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 16500,
+    "avgWaitTime": "15 mins",
+    "councilRegNo": "MCI-TS-22910",
+    "languages": [
+      "English",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "KGMC Lucknow",
+        "year": "2003"
+      },
+      {
+        "degree": "DM - Medical Oncology",
+        "institution": "Tata Memorial Hospital, Mumbai",
+        "year": "2010"
+      }
+    ],
+    "certifications": [
+      "ASCO Member",
+      "ESMO Certified Medical Oncologist"
+    ],
+    "proceduresTreated": [
+      "Immunotherapy",
+      "Targeted Cancer Therapy",
+      "Systemic Chemotherapy",
+      "Bone Marrow Biopsy"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "HDFC ERGO",
+      "Aarogyasri"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Mahesh C.",
+        "rating": 5,
+        "date": "2026-09-02",
+        "comment": "Dr. Harish's compassionate oncological guidance gave our family immense hope."
+      }
+    ]
+  },
+  {
+    "id": "DOC-111",
+    "name": "Dr. Lakshmi Prasad",
+    "specialty": "Endocrinology & Diabetology",
+    "department": "Endocrinology",
+    "room": "OPD-308 (Block A)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 8,
+    "nextSlot": "12:30 PM",
+    "phone": "+91 98481 22334",
+    "experience": "14 yrs",
+    "fee": 1000,
+    "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80",
+    "about": "Lead Endocrinologist specializing in type 1 & 2 diabetes management, thyroid disorders, osteoporosis, pituitary disease, and hormonal imbalances.",
+    "successRate": 98.7,
+    "patientRating": 4.94,
+    "reviewCount": 460,
+    "totalSurgeries": 10,
+    "successfulSurgeries": 10,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 17400,
+    "avgWaitTime": "10 mins",
+    "councilRegNo": "MCI-TS-41290",
+    "languages": [
+      "English",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Osmania Medical College",
+        "year": "2010"
+      },
+      {
+        "degree": "DM - Endocrinology",
+        "institution": "PGIMER Chandigarh",
+        "year": "2016"
+      }
+    ],
+    "certifications": [
+      "Endocrine Society USA Member",
+      "RSSDI Life Member"
+    ],
+    "proceduresTreated": [
+      "Insulin Pump Therapy",
+      "Thyroid Nodule Evaluation",
+      "Hormonal Replacement",
+      "Gestational Diabetes Care"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Niva Bupa",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Narayana Swamy",
+        "rating": 5,
+        "date": "2026-09-11",
+        "comment": "HbA1c dropped from 10.2 to 6.4 under Dr. Lakshmi's expert regimen."
+      }
+    ]
+  },
+  {
+    "id": "DOC-112",
+    "name": "Dr. Sandeep Kulkarni",
+    "specialty": "Urology & Kidney Transplant",
+    "department": "Urology",
+    "room": "OPD-402 (Block C)",
+    "status": "In-Surgery",
+    "availableNow": false,
+    "availableSlotsToday": 3,
+    "nextSlot": "02:45 PM",
+    "phone": "+91 98481 33445",
+    "experience": "18 yrs",
+    "fee": 1200,
+    "photo": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400&auto=format&fit=crop&q=80",
+    "about": "Chief Urologist and Kidney Transplant Surgeon. Specialist in laser prostatectomy (HoLEP), RIRS kidney stone clearance, laparoscopic nephrectomy, and male infertility.",
+    "successRate": 99,
+    "patientRating": 4.89,
+    "reviewCount": 520,
+    "totalSurgeries": 102,
+    "successfulSurgeries": 101,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 20100,
+    "avgWaitTime": "15 mins",
+    "councilRegNo": "MCI-TS-29810",
+    "languages": [
+      "English",
+      "Marathi",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Grant Medical College, Mumbai",
+        "year": "2006"
+      },
+      {
+        "degree": "MCh - Urology",
+        "institution": "SGS Medical College, Mumbai",
+        "year": "2012"
+      }
+    ],
+    "certifications": [
+      "Urological Society of India Fellow",
+      "Endourology Society Member"
+    ],
+    "proceduresTreated": [
+      "RIRS Laser Kidney Stone Removal",
+      "Laser Prostate Surgery (HoLEP)",
+      "Laparoscopic Nephrectomy",
+      "Varicocele Repair"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health",
+      "CGHS"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Prashanth G.",
+        "rating": 5,
+        "date": "2026-08-30",
+        "comment": "Stones cleared completely with laser in a 1-day hospital stay."
+      }
+    ]
+  },
+  {
+    "id": "DOC-113",
+    "name": "Dr. Divya Chowdary",
+    "specialty": "Ophthalmology & Cataract Surgery",
+    "department": "Ophthalmology",
+    "room": "OPD-105 (Block C)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 13,
+    "nextSlot": "Available Now",
+    "phone": "+91 98481 44556",
+    "experience": "11 yrs",
+    "fee": 800,
+    "photo": "https://images.unsplash.com/photo-1594824813566-78853a15f795?w=400&auto=format&fit=crop&q=80",
+    "about": "Consultant Ophthalmic Surgeon. Expert in Femto-LASIK vision correction, phacoemulsification premium IOL cataract surgery, glaucoma care, and diabetic retinopathy.",
+    "successRate": 99.4,
+    "patientRating": 4.96,
+    "reviewCount": 580,
+    "totalSurgeries": 84,
+    "successfulSurgeries": 84,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 15900,
+    "avgWaitTime": "8 mins",
+    "councilRegNo": "MCI-TS-48190",
+    "languages": [
+      "English",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Andhra Medical College",
+        "year": "2013"
+      },
+      {
+        "degree": "MS - Ophthalmology",
+        "institution": "LV Prasad Eye Institute",
+        "year": "2017"
+      }
+    ],
+    "certifications": [
+      "All India Ophthalmological Society Fellow",
+      "Femto-LASIK Certified"
+    ],
+    "proceduresTreated": [
+      "Phacoemulsification Cataract Surgery",
+      "LASIK Vision Correction",
+      "Glaucoma Trabeculectomy",
+      "Diabetic Retinal Laser"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "Niva Bupa"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Saraswathi K.",
+        "rating": 5,
+        "date": "2026-09-14",
+        "comment": "Clear 6/6 vision after cataract surgery. Dr. Divya is wonderful!"
+      }
+    ]
+  },
+  {
+    "id": "DOC-114",
+    "name": "Dr. Imran Sheikh",
+    "specialty": "Pulmonology & Critical Care",
+    "department": "Pulmonology",
+    "room": "OPD-208 (Block A)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 7,
+    "nextSlot": "11:45 AM",
+    "phone": "+91 98481 55667",
+    "experience": "13 yrs",
+    "fee": 1000,
+    "photo": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&auto=format&fit=crop&q=80",
+    "about": "Lead Pulmonologist & Respiratory Specialist. Specialized in COPD management, severe asthma, bronchoscopy, sleep apnea titration, and post-viral lung rehabilitation.",
+    "successRate": 98.1,
+    "patientRating": 4.88,
+    "reviewCount": 370,
+    "totalSurgeries": 44,
+    "successfulSurgeries": 43,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 14200,
+    "avgWaitTime": "10 mins",
+    "councilRegNo": "MCI-TS-42910",
+    "languages": [
+      "English",
+      "Urdu",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Deccan College of Medical Sciences",
+        "year": "2011"
+      },
+      {
+        "degree": "MD - Pulmonary Medicine",
+        "institution": "VP Chest Institute Delhi",
+        "year": "2015"
+      }
+    ],
+    "certifications": [
+      "European Diploma in Respiratory Medicine (EDARM)",
+      "ICS Life Member"
+    ],
+    "proceduresTreated": [
+      "Diagnostic Fiberoptic Bronchoscopy",
+      "Polysomnography (Sleep Study)",
+      "Pleural Effusion Drainage",
+      "COPD Rehabilitation"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Zubair Ahmed",
+        "rating": 5,
+        "date": "2026-09-03",
+        "comment": "Severe asthma now fully controlled under Dr. Imran's modern therapy."
+      }
+    ]
+  },
+  {
+    "id": "DOC-115",
+    "name": "Dr. Swathi Naidu",
+    "specialty": "Psychiatry & Behavioral Health",
+    "department": "Psychiatry",
+    "room": "OPD-408 (Block D)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 9,
+    "nextSlot": "Available Now",
+    "phone": "+91 98481 66778",
+    "experience": "11 yrs",
+    "fee": 900,
+    "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80",
+    "about": "Consultant Psychiatrist and Behavioral Therapist. Specialized in clinical depression, anxiety disorders, adult ADHD, stress management, and cognitive behavioral therapy.",
+    "successRate": 98.3,
+    "patientRating": 4.94,
+    "reviewCount": 310,
+    "totalSurgeries": 5,
+    "successfulSurgeries": 5,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 10800,
+    "avgWaitTime": "10 mins",
+    "councilRegNo": "MCI-TS-49120",
+    "languages": [
+      "English",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Osmania Medical College",
+        "year": "2013"
+      },
+      {
+        "degree": "MD - Psychiatry",
+        "institution": "NIMHANS Bengaluru",
+        "year": "2017"
+      }
+    ],
+    "certifications": [
+      "Indian Psychiatric Society Life Member",
+      "CBT Certified Specialist"
+    ],
+    "proceduresTreated": [
+      "Cognitive Behavioral Therapy",
+      "Depression & Anxiety Management",
+      "Sleep Disorder Care",
+      "De-addiction Counseling"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Karthik N.",
+        "rating": 5,
+        "date": "2026-09-09",
+        "comment": "Dr. Swathi is compassionate, empathetic, and truly life-changing."
+      }
+    ]
+  },
+  {
+    "id": "DOC-116",
+    "name": "Dr. Karthik Subramanian",
+    "specialty": "Interventional Gastroenterology",
+    "department": "Gastroenterology",
+    "room": "OPD-304 (Block B)",
+    "status": "In-Consult",
+    "availableNow": true,
+    "availableSlotsToday": 6,
+    "nextSlot": "12:10 PM",
+    "phone": "+91 98481 77889",
+    "experience": "16 yrs",
+    "fee": 1100,
+    "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Gastroenterologist and Hepatologist. Expert in therapeutic endoscopy, ERCP bile duct stone extraction, IBS treatment, fatty liver care, and colonoscopy.",
+    "successRate": 98.8,
+    "patientRating": 4.91,
+    "reviewCount": 490,
+    "totalSurgeries": 72,
+    "successfulSurgeries": 71,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 17900,
+    "avgWaitTime": "12 mins",
+    "councilRegNo": "MCI-TS-36190",
+    "languages": [
+      "English",
+      "Tamil",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "MMC Chennai",
+        "year": "2008"
+      },
+      {
+        "degree": "DM - Gastroenterology",
+        "institution": "PGI Chandigarh",
+        "year": "2015"
+      }
+    ],
+    "certifications": [
+      "Indian Society of Gastroenterology Fellow",
+      "ASGE Member"
+    ],
+    "proceduresTreated": [
+      "Diagnostic & Therapeutic Colonoscopy",
+      "ERCP Bile Duct Stenting",
+      "Upper GI Endoscopy",
+      "Fatty Liver Reversal"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "HDFC ERGO"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Gopalakrishnan V.",
+        "rating": 5,
+        "date": "2026-09-06",
+        "comment": "Painless colonoscopy and very reassuring clinical explanation."
+      }
+    ]
+  },
+  {
+    "id": "DOC-117",
+    "name": "Dr. Pooja Verma",
+    "specialty": "Anesthesiology & Critical Care",
+    "department": "Anesthesiology",
+    "room": "OT Complex 1",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 10,
+    "nextSlot": "Immediate",
+    "phone": "+91 98481 88990",
+    "experience": "12 yrs",
+    "fee": 900,
+    "photo": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant Anesthesiologist specializing in neuro-anesthesia, pediatric anesthesia, ultrasound-guided regional nerve blocks, and acute pain management.",
+    "successRate": 99.3,
+    "patientRating": 4.92,
+    "reviewCount": 290,
+    "totalSurgeries": 120,
+    "successfulSurgeries": 119,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 14500,
+    "avgWaitTime": "5 mins",
+    "councilRegNo": "MCI-TS-47180",
+    "languages": [
+      "English",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "BHU Varanasi",
+        "year": "2012"
+      },
+      {
+        "degree": "MD - Anaesthesiology",
+        "institution": "AIIMS New Delhi",
+        "year": "2016"
+      }
+    ],
+    "certifications": [
+      "Indian Society of Anaesthesiologists Fellow",
+      "Ultrasound Regional Anesthesia Certified"
+    ],
+    "proceduresTreated": [
+      "Ultrasound Guided Nerve Blocks",
+      "Epidural Pain Relief",
+      "General Anesthesia for Complex OT",
+      "Post-Op Analgesia"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Sunil K.",
+        "rating": 5,
+        "date": "2026-09-11",
+        "comment": "Woke up smoothly from surgery with zero nausea. Excellent anesthesiologist!"
+      }
+    ]
+  },
+  {
+    "id": "DOC-118",
+    "name": "Dr. Naveen Kumar",
+    "specialty": "Nephrology & Renal Transplant",
+    "department": "Nephrology",
+    "room": "OPD-401 (Block C)",
+    "status": "In-Consult",
+    "availableNow": true,
+    "availableSlotsToday": 5,
+    "nextSlot": "01:00 PM",
+    "phone": "+91 98481 99001",
+    "experience": "15 yrs",
+    "fee": 1200,
+    "photo": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400&auto=format&fit=crop&q=80",
+    "about": "Chief Nephrologist and Dialysis Director. Specialist in chronic kidney disease (CKD) management, hemodialysis protocols, renal biopsy, and kidney transplants.",
+    "successRate": 98.6,
+    "patientRating": 4.89,
+    "reviewCount": 420,
+    "totalSurgeries": 58,
+    "successfulSurgeries": 57,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 16800,
+    "avgWaitTime": "15 mins",
+    "councilRegNo": "MCI-TS-39102",
+    "languages": [
+      "English",
+      "Telugu",
+      "Kannada",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Bangalore Medical College",
+        "year": "2009"
+      },
+      {
+        "degree": "DM - Nephrology",
+        "institution": "NIMS Hyderabad",
+        "year": "2016"
+      }
+    ],
+    "certifications": [
+      "Indian Society of Nephrology Fellow",
+      "Transplant Nephrology Specialist"
+    ],
+    "proceduresTreated": [
+      "Hemodialysis & Peritoneal Dialysis",
+      "Renal Biopsy",
+      "AV Fistula Care",
+      "Kidney Transplant Management"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health",
+      "Aarogyasri"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Baskar Rao",
+        "rating": 5,
+        "date": "2026-08-29",
+        "comment": "Creatinine levels stabilized under Dr. Naveen's meticulous care."
+      }
+    ]
+  },
+  {
+    "id": "DOC-119",
+    "name": "Dr. Shruti Deshpande",
+    "specialty": "Pathology & Molecular Diagnostics",
+    "department": "Laboratory",
+    "room": "Central Lab Block",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 14,
+    "nextSlot": "Immediate",
+    "phone": "+91 98482 11223",
+    "experience": "11 yrs",
+    "fee": 750,
+    "photo": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&auto=format&fit=crop&q=80",
+    "about": "Consultant Pathologist & Laboratory Director. Expertise in histopathology, oncological biopsy staining, hematology automated diagnostics, and molecular genetics.",
+    "successRate": 99.5,
+    "patientRating": 4.95,
+    "reviewCount": 380,
+    "totalSurgeries": 0,
+    "successfulSurgeries": 0,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 25000,
+    "avgWaitTime": "5 mins",
+    "councilRegNo": "MCI-TS-50129",
+    "languages": [
+      "English",
+      "Marathi",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "BJ Medical College Pune",
+        "year": "2013"
+      },
+      {
+        "degree": "MD - Pathology",
+        "institution": "KEM Hospital Mumbai",
+        "year": "2017"
+      }
+    ],
+    "certifications": [
+      "NABL Lead Assessor",
+      "Molecular Pathology Certified"
+    ],
+    "proceduresTreated": [
+      "Biopsy Histopathology",
+      "Cytology & FNAC",
+      "Bone Marrow Reporting",
+      "Genetic Marker Testing"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Mohan Lal",
+        "rating": 5,
+        "date": "2026-09-15",
+        "comment": "Highly reliable laboratory reports with zero delay."
+      }
+    ]
+  },
+  {
+    "id": "DOC-120",
+    "name": "Dr. Mohan Krishna",
+    "specialty": "Emergency Medicine & Trauma",
+    "department": "Emergency",
+    "room": "Trauma Bay 2",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 16,
+    "nextSlot": "Immediate Walk-in",
+    "phone": "+91 98482 22334",
+    "experience": "13 yrs",
+    "fee": 1000,
+    "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant in Emergency Trauma Medicine. Expert in acute cardiac arrest resuscitation, severe polytrauma management, critical airway, and toxicology.",
+    "successRate": 98.4,
+    "patientRating": 4.9,
+    "reviewCount": 450,
+    "totalSurgeries": 65,
+    "successfulSurgeries": 64,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 17200,
+    "avgWaitTime": "5 mins",
+    "councilRegNo": "MCI-TS-43910",
+    "languages": [
+      "English",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Osmania Medical College",
+        "year": "2011"
+      },
+      {
+        "degree": "MD - Emergency Medicine",
+        "institution": "AIIMS New Delhi",
+        "year": "2015"
+      }
+    ],
+    "certifications": [
+      "ATLS Instructor",
+      "ACLS & BLS Master Trainer"
+    ],
+    "proceduresTreated": [
+      "Polytrauma Resuscitation",
+      "Rapid Intubation",
+      "Central Line Insertion",
+      "Chest Tube Insertion"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health",
+      "Govt EHS"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Sandeep V.",
+        "rating": 5,
+        "date": "2026-09-04",
+        "comment": "Saved my life during acute allergic anaphylaxis in ER!"
+      }
+    ]
+  },
+  {
+    "id": "DOC-121",
+    "name": "Dr. Ritu Agarwal",
+    "specialty": "Dentistry & Maxillofacial Surgery",
+    "department": "Dentistry",
+    "room": "OPD-109 (Block C)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 9,
+    "nextSlot": "12:00 PM",
+    "phone": "+91 98482 33445",
+    "experience": "10 yrs",
+    "fee": 700,
+    "photo": "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=400&auto=format&fit=crop&q=80",
+    "about": "Consultant Dental Surgeon & Maxillofacial Specialist. Expertise in painless root canal treatment (RCT), dental implants, wisdom tooth extraction, and smile designing.",
+    "successRate": 99.1,
+    "patientRating": 4.93,
+    "reviewCount": 360,
+    "totalSurgeries": 45,
+    "successfulSurgeries": 45,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 12900,
+    "avgWaitTime": "8 mins",
+    "councilRegNo": "MCI-TS-53102",
+    "languages": [
+      "English",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "BDS",
+        "institution": "Government Dental College Hyderabad",
+        "year": "2014"
+      },
+      {
+        "degree": "MDS - Conservative Dentistry",
+        "institution": "Manipal College of Dental Sciences",
+        "year": "2018"
+      }
+    ],
+    "certifications": [
+      "Indian Dental Association Member",
+      "Implantology Specialist"
+    ],
+    "proceduresTreated": [
+      "Microscopic Root Canal Therapy",
+      "Dental Implant Placement",
+      "Wisdom Tooth Extraction",
+      "Teeth Whitening"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Pooja S.",
+        "rating": 5,
+        "date": "2026-09-07",
+        "comment": "Painless root canal done in a single sitting. Dr. Ritu is super skilled."
+      }
+    ]
+  },
+  {
+    "id": "DOC-122",
+    "name": "Dr. Vikram Singh",
+    "specialty": "Neurosurgery & Spine Surgery",
+    "department": "Neurology",
+    "room": "OPD-406 (Block B)",
+    "status": "In-Surgery",
+    "availableNow": false,
+    "availableSlotsToday": 2,
+    "nextSlot": "03:30 PM",
+    "phone": "+91 98482 44556",
+    "experience": "20 yrs",
+    "fee": 1500,
+    "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80",
+    "about": "Chief Neurosurgeon specializing in brain tumor excision, minimally invasive spine surgery, aneurysm clipping, and traumatic brain injury reconstruction.",
+    "successRate": 98.2,
+    "patientRating": 4.91,
+    "reviewCount": 490,
+    "totalSurgeries": 115,
+    "successfulSurgeries": 113,
+    "inRecoverySurgeries": 2,
+    "totalConsultations": 19500,
+    "avgWaitTime": "15 mins",
+    "councilRegNo": "MCI-TS-25910",
+    "languages": [
+      "English",
+      "Hindi",
+      "Punjabi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "AFMC Pune",
+        "year": "2004"
+      },
+      {
+        "degree": "MCh - Neurosurgery",
+        "institution": "AIIMS New Delhi",
+        "year": "2011"
+      }
+    ],
+    "certifications": [
+      "Neurological Society of India Fellow",
+      "World Federation of Neurosurgical Societies Member"
+    ],
+    "proceduresTreated": [
+      "Craniotomy for Brain Tumor",
+      "Microscopic Spine Discectomy",
+      "Aneurysm Clipping",
+      "Spinal Fusion"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health",
+      "Aarogyasri"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Rajender P.",
+        "rating": 5,
+        "date": "2026-08-27",
+        "comment": "Complex spine surgery performed with perfection. Walking without pain now."
+      }
+    ]
+  },
+  {
+    "id": "DOC-123",
+    "name": "Dr. Harini Raghavan",
+    "specialty": "Rheumatology & Autoimmune Diseases",
+    "department": "Rheumatology",
+    "room": "OPD-306 (Block A)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 8,
+    "nextSlot": "12:15 PM",
+    "phone": "+91 98482 55667",
+    "experience": "12 yrs",
+    "fee": 1000,
+    "photo": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400&auto=format&fit=crop&q=80",
+    "about": "Consultant Rheumatologist. Specialized in rheumatoid arthritis, lupus (SLE), ankylosing spondylitis, gout, vasculitis, and biologic immune therapies.",
+    "successRate": 98.6,
+    "patientRating": 4.92,
+    "reviewCount": 330,
+    "totalSurgeries": 8,
+    "successfulSurgeries": 8,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 11900,
+    "avgWaitTime": "10 mins",
+    "councilRegNo": "MCI-TS-46910",
+    "languages": [
+      "English",
+      "Tamil",
+      "Telugu",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Stanley Medical College",
+        "year": "2012"
+      },
+      {
+        "degree": "DM - Clinical Immunology & Rheumatology",
+        "institution": "JIPMER Puducherry",
+        "year": "2018"
+      }
+    ],
+    "certifications": [
+      "Indian Rheumatology Association Fellow",
+      "EULAR Certified Specialist"
+    ],
+    "proceduresTreated": [
+      "Biologic Therapy Infusion",
+      "Joint Fluid Aspiration",
+      "Rheumatoid Arthritis Care",
+      "Lupus Management"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "Niva Bupa"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Radha M.",
+        "rating": 5,
+        "date": "2026-09-13",
+        "comment": "Joint pain controlled after starting Dr. Harini's targeted treatment plan."
+      }
+    ]
+  },
+  {
+    "id": "DOC-124",
+    "name": "Dr. Anil Choudhary",
+    "specialty": "Cardiothoracic & Vascular Surgery",
+    "department": "Cardiology",
+    "room": "OT Complex 2",
+    "status": "In-Surgery",
+    "availableNow": false,
+    "availableSlotsToday": 1,
+    "nextSlot": "04:00 PM",
+    "phone": "+91 98482 66778",
+    "experience": "23 yrs",
+    "fee": 1500,
+    "photo": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&auto=format&fit=crop&q=80",
+    "about": "Chief Cardiothoracic Surgeon. Expert in off-pump coronary artery bypass graft (CABG), mitral valve replacement, aortic aneurysm repair, and lung surgeries.",
+    "successRate": 98.9,
+    "patientRating": 4.93,
+    "reviewCount": 610,
+    "totalSurgeries": 130,
+    "successfulSurgeries": 128,
+    "inRecoverySurgeries": 2,
+    "totalConsultations": 22400,
+    "avgWaitTime": "15 mins",
+    "councilRegNo": "MCI-TS-19810",
+    "languages": [
+      "English",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "SMS Medical College Jaipur",
+        "year": "2001"
+      },
+      {
+        "degree": "MCh - CTVS",
+        "institution": "AIIMS New Delhi",
+        "year": "2008"
+      }
+    ],
+    "certifications": [
+      "Indian Association of Cardiovascular Surgeons Fellow",
+      "Heart Transplant Specialist"
+    ],
+    "proceduresTreated": [
+      "Beating Heart Bypass Surgery (CABG)",
+      "Mitral & Aortic Valve Replacement",
+      "Aortic Aneurysm Repair",
+      "Thoracotomy"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health",
+      "Aarogyasri"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Satyanarayana B.",
+        "rating": 5,
+        "date": "2026-08-31",
+        "comment": "Triple bypass surgery performed flawlessly. Dr. Anil is a master surgeon."
+      }
+    ]
+  },
+  {
+    "id": "DOC-125",
+    "name": "Dr. Sneha Joshi",
+    "specialty": "Physiotherapy & Rehabilitation",
+    "department": "Physiotherapy",
+    "room": "Rehab Center (Block E)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 12,
+    "nextSlot": "Available Now",
+    "phone": "+91 98482 77889",
+    "experience": "9 yrs",
+    "fee": 650,
+    "photo": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&auto=format&fit=crop&q=80",
+    "about": "Lead Physiotherapist and Sports Rehab Specialist. Expertise in post-operative orthopedic rehabilitation, stroke gait training, cervical spine therapy, and dry needling.",
+    "successRate": 99.2,
+    "patientRating": 4.95,
+    "reviewCount": 420,
+    "totalSurgeries": 0,
+    "successfulSurgeries": 0,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 13500,
+    "avgWaitTime": "5 mins",
+    "councilRegNo": "MCI-TS-54120",
+    "languages": [
+      "English",
+      "Marathi",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "BPT",
+        "institution": "SGS Medical College Mumbai",
+        "year": "2015"
+      },
+      {
+        "degree": "MPT - Musculoskeletal",
+        "institution": "Manipal University",
+        "year": "2018"
+      }
+    ],
+    "certifications": [
+      "Certified Manual Therapist",
+      "Dry Needling Specialist"
+    ],
+    "proceduresTreated": [
+      "Post-Op Knee Rehab",
+      "Stroke Neurological Gait Training",
+      "Dry Needling & Cupping",
+      "Spine Decompression Therapy"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Kavitha R.",
+        "rating": 5,
+        "date": "2026-09-10",
+        "comment": "Regained full shoulder range of motion after 6 sessions with Dr. Sneha."
+      }
+    ]
+  },
+  {
+    "id": "DOC-126",
+    "name": "Dr. Rajesh Pillai",
+    "specialty": "General Medicine & Internal Care",
+    "department": "General Medicine",
+    "room": "OPD-101 (Block A)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 10,
+    "nextSlot": "Immediate",
+    "phone": "+91 98482 88990",
+    "experience": "16 yrs",
+    "fee": 900,
+    "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant in Internal Medicine. Specialized in chronic disease management, fever protocols, hypertension control, metabolic health, and geriatric care.",
+    "successRate": 98.6,
+    "patientRating": 4.88,
+    "reviewCount": 510,
+    "totalSurgeries": 12,
+    "successfulSurgeries": 12,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 23100,
+    "avgWaitTime": "8 mins",
+    "councilRegNo": "MCI-TS-35910",
+    "languages": [
+      "English",
+      "Malayalam",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Trivandrum Medical College",
+        "year": "2008"
+      },
+      {
+        "degree": "MD - General Medicine",
+        "institution": "Madras Medical College",
+        "year": "2012"
+      }
+    ],
+    "certifications": [
+      "Association of Physicians of India Fellow"
+    ],
+    "proceduresTreated": [
+      "Hypertension Management",
+      "FUO (Fever of Unknown Origin)",
+      "Geriatric Comprehensive Care",
+      "Dyslipidemia Management"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Sudhakar N.",
+        "rating": 5,
+        "date": "2026-09-02",
+        "comment": "Dr. Rajesh listens patiently and prescribes the exact minimal necessary meds."
+      }
+    ]
+  },
+  {
+    "id": "DOC-127",
+    "name": "Dr. Nisha Bhatt",
+    "specialty": "Hematology & Bone Marrow Care",
+    "department": "Laboratory",
+    "room": "OPD-503 (Block D)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 6,
+    "nextSlot": "12:30 PM",
+    "phone": "+91 98482 99001",
+    "experience": "13 yrs",
+    "fee": 1200,
+    "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&auto=format&fit=crop&q=80",
+    "about": "Consultant Hematologist and Bone Marrow Transplant Specialist. Specialized in anemias, thalassemia, leukemia, lymphoma, bleeding disorders, and coagulation care.",
+    "successRate": 98.4,
+    "patientRating": 4.91,
+    "reviewCount": 290,
+    "totalSurgeries": 18,
+    "successfulSurgeries": 18,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 11200,
+    "avgWaitTime": "10 mins",
+    "councilRegNo": "MCI-TS-44910",
+    "languages": [
+      "English",
+      "Gujarati",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "BJ Medical College Ahmedabad",
+        "year": "2011"
+      },
+      {
+        "degree": "DM - Clinical Hematology",
+        "institution": "CMC Vellore",
+        "year": "2017"
+      }
+    ],
+    "certifications": [
+      "Indian Society of Hematology Fellow",
+      "BMT Certified Physician"
+    ],
+    "proceduresTreated": [
+      "Bone Marrow Aspiration & Biopsy",
+      "Chemotherapy for Leukemia",
+      "Thalassemia Management",
+      "Coagulation Workup"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "HDFC ERGO"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Meenakshi K.",
+        "rating": 5,
+        "date": "2026-09-14",
+        "comment": "Severe anemia diagnosed and corrected swiftly. Excellent doctor!"
+      }
+    ]
+  },
+  {
+    "id": "DOC-128",
+    "name": "Dr. Gopal Yadav",
+    "specialty": "Plastic & Reconstructive Surgery",
+    "department": "General Surgery",
+    "room": "OPD-206 (Block C)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 5,
+    "nextSlot": "01:00 PM",
+    "phone": "+91 98483 11223",
+    "experience": "15 yrs",
+    "fee": 1300,
+    "photo": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant Plastic & Reconstructive Surgeon. Expertise in microvascular reconstruction, post-burn scar revision, cleft lip repair, hand surgery, and cosmetic procedures.",
+    "successRate": 98.9,
+    "patientRating": 4.9,
+    "reviewCount": 370,
+    "totalSurgeries": 76,
+    "successfulSurgeries": 75,
+    "inRecoverySurgeries": 1,
+    "totalConsultations": 15600,
+    "avgWaitTime": "12 mins",
+    "councilRegNo": "MCI-TS-37810",
+    "languages": [
+      "English",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "BHU Varanasi",
+        "year": "2009"
+      },
+      {
+        "degree": "MCh - Plastic Surgery",
+        "institution": "PGI Chandigarh",
+        "year": "2016"
+      }
+    ],
+    "certifications": [
+      "Association of Plastic Surgeons of India Fellow"
+    ],
+    "proceduresTreated": [
+      "Microvascular Tissue Transfer",
+      "Post-Burn Scar Revision",
+      "Hand Tendon Reconstruction",
+      "Rhinoplasty"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "Bajaj Allianz"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Deepak S.",
+        "rating": 5,
+        "date": "2026-09-08",
+        "comment": "Reconstructive hand surgery restored full hand motion. Dr. Gopal is amazing."
+      }
+    ]
+  },
+  {
+    "id": "DOC-129",
+    "name": "Dr. Tanvi Mehta",
+    "specialty": "Neonatology & NICU Intensive Care",
+    "department": "Paediatrics",
+    "room": "NICU Complex (Level 3)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 9,
+    "nextSlot": "Immediate",
+    "phone": "+91 98483 22334",
+    "experience": "11 yrs",
+    "fee": 900,
+    "photo": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Neonatologist and NICU Director. Specialized in extreme premature infant resuscitation, neonatal mechanical ventilation, congenital anomaly care, and surfactant therapy.",
+    "successRate": 99.1,
+    "patientRating": 4.96,
+    "reviewCount": 410,
+    "totalSurgeries": 25,
+    "successfulSurgeries": 25,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 12800,
+    "avgWaitTime": "5 mins",
+    "councilRegNo": "MCI-TS-49810",
+    "languages": [
+      "English",
+      "Gujarati",
+      "Hindi",
+      "Telugu"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "Baroda Medical College",
+        "year": "2013"
+      },
+      {
+        "degree": "DM - Neonatology",
+        "institution": "AIIMS New Delhi",
+        "year": "2019"
+      }
+    ],
+    "certifications": [
+      "National Neonatology Forum (NNF) Fellow",
+      "NICU Resuscitation Trainer"
+    ],
+    "proceduresTreated": [
+      "Premature Infant Resuscitation",
+      "Neonatal Ventilation & Surfactant",
+      "Central Arterial Cannulation",
+      "NICU Developmental Care"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "HDFC ERGO",
+      "Care Health"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Nilesh Patel",
+        "rating": 5,
+        "date": "2026-09-16",
+        "comment": "Dr. Tanvi saved our 28-week premature twins in NICU. We are forever in debt."
+      }
+    ]
+  },
+  {
+    "id": "DOC-130",
+    "name": "Dr. Srinivas Murthy",
+    "specialty": "Infectious Diseases & Tropical Care",
+    "department": "General Medicine",
+    "room": "OPD-309 (Block A)",
+    "status": "On-Duty",
+    "availableNow": true,
+    "availableSlotsToday": 8,
+    "nextSlot": "11:50 AM",
+    "phone": "+91 98483 33445",
+    "experience": "17 yrs",
+    "fee": 1000,
+    "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&auto=format&fit=crop&q=80",
+    "about": "Senior Consultant in Infectious Diseases and Antibiotic Stewardship. Expert in drug-resistant infections, tropical fevers, HIV/TB management, and hospital infection control.",
+    "successRate": 98.7,
+    "patientRating": 4.91,
+    "reviewCount": 440,
+    "totalSurgeries": 10,
+    "successfulSurgeries": 10,
+    "inRecoverySurgeries": 0,
+    "totalConsultations": 18900,
+    "avgWaitTime": "10 mins",
+    "councilRegNo": "MCI-TS-32109",
+    "languages": [
+      "English",
+      "Telugu",
+      "Kannada",
+      "Hindi"
+    ],
+    "education": [
+      {
+        "degree": "MBBS",
+        "institution": "KMC Manipal",
+        "year": "2007"
+      },
+      {
+        "degree": "FNB - Infectious Diseases",
+        "institution": "Hinduja Hospital Mumbai",
+        "year": "2013"
+      }
+    ],
+    "certifications": [
+      "Infectious Diseases Society of America Member",
+      "NABH Infection Control Lead"
+    ],
+    "proceduresTreated": [
+      "Multidrug-Resistant Bacterial Care",
+      "Tropical Fever Management",
+      "Antibiotic Stewardship Protocol",
+      "Travel Medicine"
+    ],
+    "insuranceAccepted": [
+      "Star Health",
+      "Care Health",
+      "Niva Bupa"
+    ],
+    "patientReviews": [
+      {
+        "patientName": "Kishore Kumar",
+        "rating": 5,
+        "date": "2026-09-12",
+        "comment": "Diagnosed a rare tropical infection accurately when others were stumped."
+      }
+    ]
+  }
+],
 
   patients: [
     {
@@ -1162,7 +2018,7 @@ export const INITIAL_HOSPITAL_DATA = {
       attendingDoctor: "Dr. Ananya Mukherjee",
       registeredDate: "2026-03-12",
       admissionDate: "2026-03-15",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      photo: "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=300&auto=format&fit=crop&q=80",
       consultationsHistory: [
         {
           consultationId: "CNS-2026-101",
@@ -1309,7 +2165,7 @@ export const INITIAL_HOSPITAL_DATA = {
       attendingDoctor: "Dr. Farhan Siddiqui",
       registeredDate: "2026-02-10",
       admissionDate: "2026-03-14",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
+      photo: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=300&auto=format&fit=crop&q=80",
       consultationsHistory: [
         {
           consultationId: "CNS-2026-103",
@@ -1374,7 +2230,7 @@ export const INITIAL_HOSPITAL_DATA = {
       attendingDoctor: "Dr. Arvind Swaminathan",
       registeredDate: "2026-03-17",
       admissionDate: "2026-03-17",
-      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      photo: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300&auto=format&fit=crop&q=80",
       consultationsHistory: [
         {
           consultationId: "CNS-2026-104",
@@ -1439,7 +2295,7 @@ export const INITIAL_HOSPITAL_DATA = {
       attendingDoctor: "Dr. Rajesh K. Nair",
       registeredDate: "2026-02-28",
       admissionDate: "2026-03-16",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+      photo: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&auto=format&fit=crop&q=80",
       consultationsHistory: [
         {
           consultationId: "CNS-2026-105",
@@ -1508,21 +2364,32 @@ export const INITIAL_HOSPITAL_DATA = {
     }
   ],
 
+  doctorSlots: [
+    { id: "SLOT-201", doctorId: "DOC-101", doctorName: "Dr. Ananya Reddy", department: "Cardiology", room: "OPD-302 (Block A)", date: new Date().toISOString().split('T')[0], startTime: "09:00 AM", endTime: "09:30 AM", capacity: 5, bookedCount: 3, avgConsultTimeMins: 10, status: "Active" },
+    { id: "SLOT-202", doctorId: "DOC-101", doctorName: "Dr. Ananya Reddy", department: "Cardiology", room: "OPD-302 (Block A)", date: new Date().toISOString().split('T')[0], startTime: "09:30 AM", endTime: "10:00 AM", capacity: 5, bookedCount: 5, avgConsultTimeMins: 10, status: "Full" },
+    { id: "SLOT-203", doctorId: "DOC-102", doctorName: "Dr. Rohan Sharma", department: "Orthopaedics", room: "OPD-108 (Block A)", date: new Date().toISOString().split('T')[0], startTime: "10:00 AM", endTime: "10:30 AM", capacity: 4, bookedCount: 2, avgConsultTimeMins: 15, status: "Active" },
+    { id: "SLOT-204", doctorId: "DOC-103", doctorName: "Dr. Priya Nair", department: "Paediatrics", room: "OPD-204 (Block B)", date: new Date().toISOString().split('T')[0], startTime: "10:30 AM", endTime: "11:00 AM", capacity: 6, bookedCount: 4, avgConsultTimeMins: 10, status: "Active" },
+    { id: "SLOT-205", doctorId: "DOC-104", doctorName: "Dr. Suresh Babu", department: "Neurology", room: "OPD-405 (Block B)", date: new Date().toISOString().split('T')[0], startTime: "11:00 AM", endTime: "11:30 AM", capacity: 4, bookedCount: 1, avgConsultTimeMins: 15, status: "Active" },
+    { id: "SLOT-206", doctorId: "DOC-105", doctorName: "Dr. Meera Iyer", department: "Obstetrics & Gynaecology", room: "OPD-201 (Block C)", date: new Date().toISOString().split('T')[0], startTime: "11:30 AM", endTime: "12:00 PM", capacity: 5, bookedCount: 2, avgConsultTimeMins: 12, status: "Active" },
+    { id: "SLOT-207", doctorId: "DOC-101", doctorName: "Dr. Ananya Reddy", department: "Cardiology", room: "OPD-302 (Block A)", date: new Date(Date.now() + 86400000).toISOString().split('T')[0], startTime: "09:00 AM", endTime: "09:30 AM", capacity: 5, bookedCount: 1, avgConsultTimeMins: 10, status: "Active" },
+    { id: "SLOT-208", doctorId: "DOC-102", doctorName: "Dr. Rohan Sharma", department: "Orthopaedics", room: "OPD-108 (Block A)", date: new Date(Date.now() + 86400000).toISOString().split('T')[0], startTime: "10:00 AM", endTime: "10:30 AM", capacity: 4, bookedCount: 2, avgConsultTimeMins: 15, status: "Active" }
+  ],
+
   opdAppointments: [
-    { id: "APT-1001", token: "OPD-01", patientId: "PAT-2026-8802", patientName: "Sneha Jennifer Thomas", doctorId: "DOC-104", doctorName: "Dr. Priya Sundaram", department: "Obstetrics & Gynaecology", time: "09:30 AM", date: "2026-09-17", status: "In-Consult", reason: "2nd Trimester Routine Ultrasound & Anomaly Scan review", type: "Follow-up" },
-    { id: "APT-1002", token: "OPD-02", patientId: "PAT-2026-8806", patientName: "Master Aarav Karthik", doctorId: "DOC-107", doctorName: "Dr. Meenakshi Iyer", department: "Paediatrics", time: "10:00 AM", date: "2026-09-17", status: "Waiting", reason: "Persistent dry cough and mild fever past 4 days", type: "General" },
-    { id: "APT-1003", token: "OPD-03", patientId: "PAT-2026-8801", patientName: "Rameshwar Prasad Sharma", doctorId: "DOC-102", doctorName: "Dr. Ananya Mukherjee", department: "Cardiology", time: "10:30 AM", date: "2026-09-17", status: "Completed", reason: "Post-Angioplasty Stent follow-up & lipid profile titration", type: "Post-Procedure" },
-    { id: "APT-1004", token: "OPD-04", patientId: "PAT-2026-8805", patientName: "Gurpreet Singh Chawla", doctorId: "DOC-105", doctorName: "Dr. Rajesh K. Nair", department: "Orthopaedics", time: "11:00 AM", date: "2026-09-17", status: "Checked-In", reason: "Severe lower back radiculopathy pain evaluation", type: "Specialist Consult" },
-    { id: "APT-1005", token: "OPD-05", patientId: "PAT-2026-8804", patientName: "Ayesha Fatima Khan", doctorId: "DOC-108", doctorName: "Dr. Harsh Vardhan", department: "Gastroenterology", time: "11:30 AM", date: "2026-09-17", status: "Scheduled", reason: "Acid reflux and intermittent epigastric distress", type: "New Patient" },
-    { id: "APT-1006", token: "OPD-06", patientId: "PAT-2026-8803", patientName: "Venkata Satyanarayana Reddy", doctorId: "DOC-103", doctorName: "Dr. Vikramaditya Rao", department: "Neurology", time: "12:00 PM", date: "2026-09-17", status: "Scheduled", reason: "Tremor assessment and nerve conduction velocity review", type: "Specialist Consult" }
+    { id: "APT-1001", token: "T-101", slotId: "SLOT-201", patientId: "PAT-2026-8802", patientName: "Sneha Jennifer Thomas", patientPhone: "+91 98112 33445", doctorId: "DOC-101", doctorName: "Dr. Ananya Reddy", department: "Cardiology", room: "OPD-302 (Block A)", time: "09:30 AM", date: new Date().toISOString().split('T')[0], status: "In-Consultation", reason: "Post-Angioplasty Stent follow-up & lipid profile titration", type: "Follow-up", checkInTime: "09:15 AM", estimatedWaitMins: 0, queuePosition: 0, reminderSent: true, reminderChannel: "WhatsApp", reminderTime: "Yesterday 06:00 PM" },
+    { id: "APT-1002", token: "T-102", slotId: "SLOT-203", patientId: "PAT-2026-8806", patientName: "Master Aarav Karthik", patientPhone: "+91 98490 98765", doctorId: "DOC-102", doctorName: "Dr. Rohan Sharma", department: "Orthopaedics", room: "OPD-108 (Block A)", time: "10:00 AM", date: new Date().toISOString().split('T')[0], status: "Checked-In", reason: "Persistent dry cough and mild fever past 4 days", type: "General", checkInTime: "09:40 AM", estimatedWaitMins: 10, queuePosition: 1, reminderSent: true, reminderChannel: "SMS", reminderTime: "Yesterday 06:15 PM" },
+    { id: "APT-1003", token: "T-103", slotId: "SLOT-204", patientId: "PAT-2026-8801", patientName: "Rameshwar Prasad Sharma", patientPhone: "+91 98765 43210", doctorId: "DOC-103", doctorName: "Dr. Priya Nair", department: "Paediatrics", room: "OPD-204 (Block B)", time: "10:30 AM", date: new Date().toISOString().split('T')[0], status: "Completed", reason: "Routine wellness check & pediatric growth assessment", type: "Post-Procedure", checkInTime: "10:05 AM", estimatedWaitMins: 0, queuePosition: 0, reminderSent: true, reminderChannel: "WhatsApp", reminderTime: "Yesterday 06:30 PM" },
+    { id: "APT-1004", token: "T-104", slotId: "SLOT-205", patientId: "PAT-2026-8805", patientName: "Gurpreet Singh Chawla", patientPhone: "+91 98200 45678", doctorId: "DOC-105", doctorName: "Dr. Meera Iyer", department: "Obstetrics & Gynaecology", room: "OPD-201 (Block C)", time: "11:00 AM", date: new Date().toISOString().split('T')[0], status: "Checked-In", reason: "Severe lower back radiculopathy pain evaluation", type: "Specialist Consult", checkInTime: "10:35 AM", estimatedWaitMins: 24, queuePosition: 2, reminderSent: false, reminderChannel: null, reminderTime: null },
+    { id: "APT-1005", token: "T-105", slotId: "SLOT-206", patientId: "PAT-2026-8804", patientName: "Ayesha Fatima Khan", patientPhone: "+91 97001 23456", doctorId: "DOC-104", doctorName: "Dr. Suresh Babu", department: "Neurology", room: "OPD-405 (Block B)", time: "11:30 AM", date: new Date().toISOString().split('T')[0], status: "Booked", reason: "Acid reflux and intermittent epigastric distress", type: "New Patient", checkInTime: null, estimatedWaitMins: 35, queuePosition: 3, reminderSent: true, reminderChannel: "WhatsApp", reminderTime: "Today 08:00 AM" },
+    { id: "APT-1006", token: "T-106", slotId: "SLOT-207", patientId: "PAT-2026-8803", patientName: "Venkata Satyanarayana Reddy", patientPhone: "+91 99887 76655", doctorId: "DOC-101", doctorName: "Dr. Ananya Reddy", department: "Cardiology", room: "OPD-302 (Block A)", time: "12:00 PM", date: new Date(Date.now() + 86400000).toISOString().split('T')[0], status: "Booked", reason: "Tremor assessment and nerve conduction velocity review", type: "Specialist Consult", checkInTime: null, estimatedWaitMins: 0, queuePosition: 0, reminderSent: false, reminderChannel: null, reminderTime: null },
+    { id: "APT-1007", token: "T-107", slotId: "SLOT-208", patientId: "PAT-2026-8802", patientName: "Sneha Jennifer Thomas", patientPhone: "+91 98112 33445", doctorId: "DOC-102", doctorName: "Dr. Rohan Sharma", department: "Orthopaedics", room: "OPD-108 (Block A)", time: "10:30 AM", date: new Date(Date.now() + 86400000).toISOString().split('T')[0], status: "Booked", reason: "Orthopaedic Follow-Up & Joint Mobility", type: "Follow-up", checkInTime: null, estimatedWaitMins: 0, queuePosition: 0, reminderSent: false, reminderChannel: null, reminderTime: null }
   ],
 
   tokenQueue: [
-    { token: "T-101", room: "Room 302", doctor: "Dr. Ananya Mukherjee", patient: "Rameshwar Prasad Sharma", status: "Calling", dept: "Cardiology", waitMins: 4 },
-    { token: "T-102", room: "Room 201", doctor: "Dr. Priya Sundaram", patient: "Sneha Jennifer Thomas", status: "In-Room", dept: "OBG", waitMins: 0 },
-    { token: "T-103", room: "Room 112", doctor: "Dr. Meenakshi Iyer", patient: "Master Aarav Karthik", status: "Next", dept: "Paediatrics", waitMins: 12 },
-    { token: "T-104", room: "Room 108", doctor: "Dr. Rajesh K. Nair", patient: "Gurpreet Singh Chawla", status: "Waiting", dept: "Orthopaedics", waitMins: 25 },
-    { token: "T-105", room: "Room 310", doctor: "Dr. Harsh Vardhan", patient: "Ayesha Fatima Khan", status: "Waiting", dept: "Gastro", waitMins: 38 }
+    { token: "T-101", room: "OPD-302 (Block A)", doctor: "Dr. Ananya Reddy", patient: "Sneha Jennifer Thomas", status: "In-Room", dept: "Cardiology", waitMins: 0 },
+    { token: "T-102", room: "OPD-108 (Block A)", doctor: "Dr. Rohan Sharma", patient: "Master Aarav Karthik", status: "Calling", dept: "Orthopaedics", waitMins: 10 },
+    { token: "T-104", room: "OPD-201 (Block C)", doctor: "Dr. Meera Iyer", patient: "Gurpreet Singh Chawla", status: "Waiting", dept: "Obstetrics & Gynaecology", waitMins: 24 },
+    { token: "T-105", room: "OPD-405 (Block B)", doctor: "Dr. Suresh Babu", patient: "Ayesha Fatima Khan", status: "Waiting", dept: "Neurology", waitMins: 35 }
   ],
 
   prescriptions: [
@@ -1674,6 +2541,397 @@ export const INITIAL_HOSPITAL_DATA = {
     }
   ],
 
+  drugsMaster: [
+    {
+      id: "DRUG-001",
+      brandName: "Brilinta 90mg",
+      genericName: "Ticagrelor",
+      strength: "90mg",
+      strengthMg: 90,
+      category: "Antiplatelet (P2Y12 Inhibitor)",
+      maxDailyDoseMg: 180,
+      defaultFrequency: "1 tab BID (Twice daily)",
+      route: "Oral",
+      allergyClasses: ["Ticagrelor", "Antiplatelet"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "Platelet aggregation inhibitor for acute coronary syndrome and post-coronary stenting."
+    },
+    {
+      id: "DRUG-002",
+      brandName: "Rozavel-EZ 20/10",
+      genericName: "Rosuvastatin + Ezetimibe",
+      strength: "20mg + 10mg",
+      strengthMg: 30,
+      category: "Lipid Lowering / Statin",
+      maxDailyDoseMg: 50,
+      defaultFrequency: "1 tab HS (Bedtime)",
+      route: "Oral",
+      allergyClasses: ["Statins"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "Dual action LDL reducer combining HMG-CoA reductase inhibitor and cholesterol absorption blocker."
+    },
+    {
+      id: "DRUG-003",
+      brandName: "Augmentin 625 Duo",
+      genericName: "Amoxicillin + Clavulanic Acid",
+      strength: "500mg + 125mg",
+      strengthMg: 625,
+      category: "Broad Spectrum Antibiotic (Penicillin class)",
+      maxDailyDoseMg: 2000,
+      defaultFrequency: "1 tab BD (Twice daily)",
+      route: "Oral",
+      allergyClasses: ["Penicillin", "Beta-Lactam"],
+      pediatricSafe: true,
+      pediatricMgPerKg: 20,
+      description: "Bactericidal aminopenicillin with beta-lactamase inhibitor for respiratory and soft tissue infections."
+    },
+    {
+      id: "DRUG-004",
+      brandName: "Dolo 650 / Calpol",
+      genericName: "Paracetamol (Acetaminophen)",
+      strength: "650mg",
+      strengthMg: 650,
+      category: "Analgesic & Antipyretic",
+      maxDailyDoseMg: 4000,
+      defaultFrequency: "1 tab TDS (Thrice daily)",
+      route: "Oral",
+      allergyClasses: ["Paracetamol"],
+      pediatricSafe: true,
+      pediatricMgPerKg: 15,
+      description: "Centrally acting antipyretic and analgesic. Strict adult ceiling 4000mg/day to prevent hepatotoxicity."
+    },
+    {
+      id: "DRUG-005",
+      brandName: "Ciplox 500",
+      genericName: "Ciprofloxacin Hydrochloride",
+      strength: "500mg",
+      strengthMg: 500,
+      category: "Fluoroquinolone Antibiotic",
+      maxDailyDoseMg: 1500,
+      defaultFrequency: "1 tab BD (Twice daily)",
+      route: "Oral",
+      allergyClasses: ["Ciprofloxacin", "Fluoroquinolones"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "DNA gyrase inhibitor bactericidal antibiotic. High CYP1A2 interaction profile with methylxanthines."
+    },
+    {
+      id: "DRUG-006",
+      brandName: "Ecosprin 75 / 150",
+      genericName: "Aspirin (Acetylsalicylic Acid)",
+      strength: "75mg",
+      strengthMg: 75,
+      category: "NSAID / Antiplatelet",
+      maxDailyDoseMg: 325,
+      defaultFrequency: "1 tab OD (After lunch)",
+      route: "Oral",
+      allergyClasses: ["Aspirin", "NSAIDs", "Salicylates"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "Irreversible COX-1 inhibitor antiplatelet. Contraindicated in active peptic ulcer and children (Reye's syndrome)."
+    },
+    {
+      id: "DRUG-007",
+      brandName: "Brufen 400",
+      genericName: "Ibuprofen",
+      strength: "400mg",
+      strengthMg: 400,
+      category: "NSAID (Analgesic & Anti-inflammatory)",
+      maxDailyDoseMg: 2400,
+      defaultFrequency: "1 tab TDS (After food)",
+      route: "Oral",
+      allergyClasses: ["Ibuprofen", "NSAIDs", "Aspirin"],
+      pediatricSafe: true,
+      pediatricMgPerKg: 10,
+      description: "Non-selective COX inhibitor for musculoskeletal pain, fever, and inflammation. Blunts aspirin cardio-protection."
+    },
+    {
+      id: "DRUG-008",
+      brandName: "Deriphyllin Retard 150mg",
+      genericName: "Theophylline + Etofylline",
+      strength: "150mg",
+      strengthMg: 150,
+      category: "Bronchodilator (Methylxanthine)",
+      maxDailyDoseMg: 600,
+      defaultFrequency: "1 tab BD (Twice daily)",
+      route: "Oral",
+      allergyClasses: ["Theophylline", "Xanthines"],
+      pediatricSafe: true,
+      pediatricMgPerKg: 5,
+      description: "Phosphodiesterase inhibitor bronchodilator for bronchial asthma and COPD. Narrow therapeutic index."
+    },
+    {
+      id: "DRUG-009",
+      brandName: "Telma 40",
+      genericName: "Telmisartan",
+      strength: "40mg",
+      strengthMg: 40,
+      category: "Angiotensin II Receptor Blocker (ARB)",
+      maxDailyDoseMg: 80,
+      defaultFrequency: "1 tab OD (Morning)",
+      route: "Oral",
+      allergyClasses: ["Telmisartan", "ARBs"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "Antihypertensive ARB promoting vasodilation and renal protection. May elevate potassium with potassium sparers."
+    },
+    {
+      id: "DRUG-010",
+      brandName: "Pan 40",
+      genericName: "Pantoprazole Sodium",
+      strength: "40mg",
+      strengthMg: 40,
+      category: "Proton Pump Inhibitor (PPI)",
+      maxDailyDoseMg: 80,
+      defaultFrequency: "1 tab OD (Before breakfast)",
+      route: "Oral",
+      allergyClasses: ["Pantoprazole", "PPIs"],
+      pediatricSafe: true,
+      pediatricMgPerKg: 1,
+      description: "Gastric acid inhibitor for peptic ulcer, GERD, and gastroprotection during dual antiplatelet therapy."
+    },
+    {
+      id: "DRUG-011",
+      brandName: "Cetzine 10",
+      genericName: "Cetirizine Hydrochloride",
+      strength: "10mg",
+      strengthMg: 10,
+      category: "Antihistamine (Second Generation H1 Blocker)",
+      maxDailyDoseMg: 10,
+      defaultFrequency: "1 tab HS (Bedtime)",
+      route: "Oral",
+      allergyClasses: ["Cetirizine"],
+      pediatricSafe: true,
+      pediatricMgPerKg: 0.25,
+      description: "Selective peripheral H1 receptor antagonist for allergic rhinitis, urticaria, and pruritus."
+    },
+    {
+      id: "DRUG-012",
+      brandName: "Warf 5mg",
+      genericName: "Warfarin Sodium",
+      strength: "5mg",
+      strengthMg: 5,
+      category: "Oral Vitamin K Antagonist (Anticoagulant)",
+      maxDailyDoseMg: 10,
+      defaultFrequency: "1 tab OD (Night as per INR)",
+      route: "Oral",
+      allergyClasses: ["Warfarin"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "Oral anticoagulant for deep vein thrombosis, pulmonary embolism, and prosthetic heart valves. High bleeding risk with antiplatelets."
+    },
+    {
+      id: "DRUG-013",
+      brandName: "Aldactone 25",
+      genericName: "Spironolactone",
+      strength: "25mg",
+      strengthMg: 25,
+      category: "Potassium-Sparing Diuretic / Aldosterone Antagonist",
+      maxDailyDoseMg: 100,
+      defaultFrequency: "1 tab OD (Morning)",
+      route: "Oral",
+      allergyClasses: ["Spironolactone"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "Mineralocorticoid receptor antagonist used in heart failure and resistant hypertension. Risk of severe hyperkalemia with ACEi/ARBs."
+    },
+    {
+      id: "DRUG-014",
+      brandName: "Ultram / Tramazac 50",
+      genericName: "Tramadol Hydrochloride",
+      strength: "50mg",
+      strengthMg: 50,
+      category: "Centrally Acting Opioid Analgesic",
+      maxDailyDoseMg: 400,
+      defaultFrequency: "1 cap SOS or BD",
+      route: "Oral",
+      allergyClasses: ["Tramadol", "Opioids"],
+      pediatricSafe: false,
+      pediatricMgPerKg: 0,
+      description: "Mu-opioid agonist and SNRI inhibitor. Severe Serotonin Syndrome and seizure hazard with serotonergic antidepressants."
+    }
+  ],
+
+  drugInteractions: [
+    {
+      id: "INT-001",
+      drugA: "Aspirin (Acetylsalicylic Acid)",
+      drugB: "Warfarin Sodium",
+      severity: "Severe",
+      mechanism: "Pharmacodynamic Synergism & Gastric Erosion",
+      clinicalEffect: "Concomitant use profoundly amplifies hemorrhagic risk, resulting in major upper GI bleeding, epistaxis, and intracranial hemorrhage.",
+      recommendation: "Contraindicated for routine care. If indicated for mechanical heart valves, maintain target INR 2.0-2.5 and co-prescribe a PPI."
+    },
+    {
+      id: "INT-002",
+      drugA: "Aspirin (Acetylsalicylic Acid)",
+      drugB: "Ticagrelor",
+      severity: "Moderate",
+      mechanism: "Dual Antiplatelet Synergism",
+      clinicalEffect: "Increases non-CABG related major bleeding and dyspnea incidence. High maintenance doses of Aspirin (>100mg) attenuate Ticagrelor efficacy.",
+      recommendation: "Maintain Aspirin maintenance dose strictly <= 100mg once daily when administered alongside Ticagrelor 90mg BID."
+    },
+    {
+      id: "INT-003",
+      drugA: "Ciprofloxacin Hydrochloride",
+      drugB: "Theophylline + Etofylline",
+      severity: "Severe",
+      mechanism: "Cytochrome P450 1A2 (CYP1A2) Metabolic Inhibition",
+      clinicalEffect: "Ciprofloxacin drastically inhibits hepatic clearance of theophylline, raising serum theophylline levels by 100-300%, triggering refractory seizures, arrhythmias, and nausea.",
+      recommendation: "Avoid co-administration. If an antibiotic is mandatory, switch to Azithromycin or reduce Theophylline dosage by 50% with serum level monitoring."
+    },
+    {
+      id: "INT-004",
+      drugA: "Telmisartan",
+      drugB: "Spironolactone",
+      severity: "Severe",
+      mechanism: "Dual Renin-Angiotensin-Aldosterone System (RAAS) Blockade",
+      clinicalEffect: "Combined inhibition of aldosterone leads to dangerous potassium retention, precipitating severe hyperkalemia (K+ > 6.0 mEq/L) and cardiac conduction arrest.",
+      recommendation: "Exercise extreme vigilance. Check baseline Serum Creatinine and Potassium; recheck within 5 days of initiation."
+    },
+    {
+      id: "INT-005",
+      drugA: "Ibuprofen",
+      drugB: "Aspirin (Acetylsalicylic Acid)",
+      severity: "Moderate",
+      mechanism: "Competitive Platelet COX-1 Active Site Binding",
+      clinicalEffect: "Ibuprofen competitively impedes irreversible COX-1 acetylation by low-dose aspirin, eliminating the cardioprotective antiplatelet effect and doubling gastrointestinal ulcer risk.",
+      recommendation: "Take Aspirin at least 2 hours prior to Ibuprofen, or substitute Ibuprofen with Paracetamol for pain management."
+    },
+    {
+      id: "INT-006",
+      drugA: "Tramadol Hydrochloride",
+      drugB: "Cetzine 10",
+      severity: "Mild",
+      mechanism: "Central Nervous System Depression",
+      clinicalEffect: "Additive psychomotor sedation, somnolence, and impaired motor reflexes.",
+      recommendation: "Warn patient against operating heavy machinery or driving."
+    },
+    {
+      id: "INT-007",
+      drugA: "Amoxicillin + Clavulanic Acid",
+      drugB: "Warfarin Sodium",
+      severity: "Moderate",
+      mechanism: "Gut Flora Suppression & Vitamin K Depletion",
+      clinicalEffect: "Broad-spectrum oral penicillins eradicate vitamin K-synthesizing gut bacteria, elevating INR and bleeding tendency.",
+      recommendation: "Check Prothrombin Time / INR on Day 3 of antibiotic therapy."
+    }
+  ],
+
+  labTestMaster: [
+    {
+      id: "TEST-CBC",
+      code: "L-101",
+      testName: "Complete Blood Count (CBC & Hemogram)",
+      category: "Hematology",
+      sampleType: "Venous Blood (EDTA Purple Top)",
+      turnaroundMins: 45,
+      price: 450,
+      parameters: [
+        { name: "Hemoglobin (Hb)", unit: "g/dL", min: 13.0, max: 17.0, criticalLow: 7.0, criticalHigh: 20.0, description: "Oxygen carrying protein in red blood cells" },
+        { name: "Total Leucocyte Count (WBC)", unit: "/cumm", min: 4000, max: 11000, criticalLow: 2000, criticalHigh: 30000, description: "Total white blood cells for immune response" },
+        { name: "Platelet Count", unit: "lakhs/cumm", min: 1.5, max: 4.5, criticalLow: 0.5, criticalHigh: 8.0, description: "Primary hemostatic clotting fragments" },
+        { name: "Hematocrit (PCV)", unit: "%", min: 40.0, max: 50.0, criticalLow: 20.0, criticalHigh: 60.0, description: "Packed cell volume percentage" },
+        { name: "Neutrophils", unit: "%", min: 40, max: 75, criticalLow: 15, criticalHigh: 90, description: "First responder phagocytes" }
+      ]
+    },
+    {
+      id: "TEST-TROP",
+      code: "L-102",
+      testName: "High-Sensitivity Cardiac Troponin-I (hs-cTnI)",
+      category: "Cardiac & Emergency",
+      sampleType: "Venous Blood (Serum SST Red Top)",
+      turnaroundMins: 30,
+      price: 1200,
+      parameters: [
+        { name: "hs-cTnI (Troponin-I)", unit: "ng/mL", min: 0.000, max: 0.034, criticalLow: null, criticalHigh: 0.050, description: "Gold standard myocardial necrosis biomarker" }
+      ]
+    },
+    {
+      id: "TEST-KFT",
+      code: "L-103",
+      testName: "Kidney Function Test (KFT) & Electrolytes",
+      category: "Biochemistry",
+      sampleType: "Serum Gel Separator (Red/Gold SST)",
+      turnaroundMins: 60,
+      price: 850,
+      parameters: [
+        { name: "Serum Creatinine", unit: "mg/dL", min: 0.70, max: 1.20, criticalLow: null, criticalHigh: 4.0, description: "Muscle metabolism byproduct cleared by glomeruli" },
+        { name: "Blood Urea Nitrogen (BUN)", unit: "mg/dL", min: 8.0, max: 20.0, criticalLow: null, criticalHigh: 60.0, description: "Protein metabolism waste product" },
+        { name: "Serum Potassium (K+)", unit: "mEq/L", min: 3.5, max: 5.0, criticalLow: 2.8, criticalHigh: 6.2, description: "Principal intracellular cation, vital for cardiac rhythm" },
+        { name: "Serum Sodium (Na+)", unit: "mEq/L", min: 135, max: 145, criticalLow: 120, criticalHigh: 160, description: "Extracellular cation regulating blood volume and osmolality" }
+      ]
+    },
+    {
+      id: "TEST-LFT",
+      code: "L-104",
+      testName: "Comprehensive Liver Function Test (LFT)",
+      category: "Biochemistry",
+      sampleType: "Serum Gel Separator (Red/Gold SST)",
+      turnaroundMins: 60,
+      price: 800,
+      parameters: [
+        { name: "Total Bilirubin", unit: "mg/dL", min: 0.2, max: 1.2, criticalLow: null, criticalHigh: 12.0, description: "Heme breakdown pigment" },
+        { name: "SGOT (AST)", unit: "U/L", min: 10, max: 40, criticalLow: null, criticalHigh: 500, description: "Aspartate aminotransferase cellular enzyme" },
+        { name: "SGPT (ALT)", unit: "U/L", min: 7, max: 56, criticalLow: null, criticalHigh: 500, description: "Alanine aminotransferase liver specific enzyme" },
+        { name: "Alkaline Phosphatase (ALP)", unit: "U/L", min: 44, max: 147, criticalLow: null, criticalHigh: 600, description: "Biliary tract and bone enzyme" },
+        { name: "Serum Albumin", unit: "g/dL", min: 3.5, max: 5.0, criticalLow: 2.0, criticalHigh: null, description: "Major circulating oncotic plasma protein" }
+      ]
+    },
+    {
+      id: "TEST-GLUC",
+      code: "L-105",
+      testName: "Random Blood Glucose & Glycated HbA1c",
+      category: "Biochemistry",
+      sampleType: "Fluoride Grey / EDTA Purple",
+      turnaroundMins: 30,
+      price: 550,
+      parameters: [
+        { name: "Plasma Glucose (Random)", unit: "mg/dL", min: 70, max: 140, criticalLow: 45, criticalHigh: 400, description: "Instant circulating venous blood sugar" },
+        { name: "HbA1c (3-Month Glycemic)", unit: "%", min: 4.0, max: 5.7, criticalLow: null, criticalHigh: 11.0, description: "Long term glucose control index" }
+      ]
+    }
+  ],
+
+  criticalLabAlerts: [
+    {
+      id: "CRIT-ALERT-01",
+      orderId: "LAB-8812",
+      orderNo: "ORD-LAB-9923",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      testName: "Kidney Function Test (KFT) & Electrolytes",
+      criticalParameter: "Serum Potassium (K+)",
+      value: "6.4 mEq/L",
+      referenceRange: "3.5 - 5.0 mEq/L (Critical > 6.2)",
+      severity: "Life-Threatening Hyperkalemia",
+      alertedToDoctor: "Dr. Farhan Siddiqui",
+      alertTime: "2026-09-17 10:15 AM",
+      status: "Doctor Notified - Pending Review",
+      acknowledged: false
+    },
+    {
+      id: "CRIT-ALERT-02",
+      orderId: "LAB-8816",
+      orderNo: "ORD-LAB-9927",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      testName: "High-Sensitivity Cardiac Troponin-I (hs-cTnI)",
+      criticalParameter: "hs-cTnI (Troponin-I)",
+      value: "0.185 ng/mL",
+      referenceRange: "0.000 - 0.034 ng/mL (Critical > 0.050)",
+      severity: "Acute Myocardial Necrosis Alert",
+      alertedToDoctor: "Dr. Ananya Mukherjee",
+      alertTime: "2026-09-17 08:50 AM",
+      status: "Acknowledged by Attending Cardiologist",
+      acknowledged: true,
+      acknowledgedAt: "2026-09-17 08:55 AM",
+      actionTaken: "Patient shifted to CCU. Urgent repeat ECG and bedside echo ordered."
+    }
+  ],
+
   labOrders: [
     {
       id: "LAB-8810",
@@ -1686,12 +2944,27 @@ export const INITIAL_HOSPITAL_DATA = {
       sampleType: "Venous Blood (EDTA + Serum Gel Separator)",
       barcode: "MEDLAB*8810*CBC*",
       orderTime: "2026-09-17 08:30 AM",
-      status: "Report Ready",
+      sampleCollectedTime: "2026-09-17 08:45 AM",
+      processingStartTime: "2026-09-17 09:00 AM",
+      reportedTime: "2026-09-17 09:35 AM",
+      verifiedTime: "2026-09-17 09:48 AM",
+      status: "verified", // 5-stage: ordered | sample_collected | processing | reported | verified
       verifiedBy: "Dr. Neha Kulkarni, MD (Path)",
+      technician: "R. Murali, DMLT",
+      isCritical: false,
+      doctorAlerted: false,
+      pdfAttachment: "Official_NABL_Report_LAB8810.pdf",
+      timeline: [
+        { stage: "ordered", time: "08:30 AM", user: "Dr. Ananya Mukherjee", note: "Order requisitioned & fee auto-captured to billing" },
+        { stage: "sample_collected", time: "08:45 AM", user: "Phlebotomist Deepa", note: "5.0 mL drawn into SST & EDTA vacutainers" },
+        { stage: "processing", time: "09:00 AM", user: "Tech R. Murali", note: "Loaded into Roche Cobas 6000 analyzer" },
+        { stage: "reported", time: "09:35 AM", user: "LIS Auto-Interface", note: "Results transmitted. High/Low flags calculated" },
+        { stage: "verified", time: "09:48 AM", user: "Dr. Neha Kulkarni", note: "Clinical sign-off & electronic seal applied" }
+      ],
       parameters: [
         { name: "High-Sensitivity Troponin I", result: "0.012", unit: "ng/mL", reference: "0.000 - 0.034", flag: "Normal" },
         { name: "Total Cholesterol", result: "228.4", unit: "mg/dL", reference: "125.0 - 200.0", flag: "High" },
-        { name: "LDL Cholesterol", result: "148.0", unit: "mg/dL", reference: "< 100.0 (Optimal < 70 in CAD)", flag: "High" },
+        { name: "LDL Cholesterol", result: "148.0", unit: "mg/dL", reference: "< 100.0 (Optimal < 70)", flag: "High" },
         { name: "HDL Cholesterol", result: "38.2", unit: "mg/dL", reference: "40.0 - 60.0", flag: "Low" },
         { name: "Triglycerides", result: "211.0", unit: "mg/dL", reference: "< 150.0", flag: "High" },
         { name: "Serum Creatinine", result: "1.08", unit: "mg/dL", reference: "0.70 - 1.20", flag: "Normal" },
@@ -1710,8 +2983,23 @@ export const INITIAL_HOSPITAL_DATA = {
       sampleType: "Heparinized Radial Arterial Blood",
       barcode: "MEDLAB*8811*ABG*",
       orderTime: "2026-09-17 09:15 AM",
-      status: "Report Ready",
+      sampleCollectedTime: "2026-09-17 09:25 AM",
+      processingStartTime: "2026-09-17 09:30 AM",
+      reportedTime: "2026-09-17 09:42 AM",
+      verifiedTime: "2026-09-17 09:50 AM",
+      status: "verified",
       verifiedBy: "Dr. Neha Kulkarni, MD (Path)",
+      technician: "R. Murali, DMLT",
+      isCritical: false,
+      doctorAlerted: false,
+      pdfAttachment: "Official_NABL_Report_LAB8811.pdf",
+      timeline: [
+        { stage: "ordered", time: "09:15 AM", user: "Dr. Farhan Siddiqui", note: "Stat requisition for respiratory acidosis" },
+        { stage: "sample_collected", time: "09:25 AM", user: "ICU Staff Nurse Reena", note: "Radial arterial sample on ice" },
+        { stage: "processing", time: "09:30 AM", user: "Tech S. Rao", note: "Radiometer ABL90 analyzer" },
+        { stage: "reported", time: "09:42 AM", user: "Tech S. Rao", note: "Blood gas calibrated" },
+        { stage: "verified", time: "09:50 AM", user: "Dr. Neha Kulkarni", note: "Authorized & released to ICU" }
+      ],
       parameters: [
         { name: "pH", result: "7.31", unit: "", reference: "7.35 - 7.45", flag: "Low" },
         { name: "pCO2", result: "54.2", unit: "mmHg", reference: "35.0 - 45.0", flag: "High" },
@@ -1722,6 +3010,112 @@ export const INITIAL_HOSPITAL_DATA = {
         { name: "Blood Urea Nitrogen (BUN)", result: "38.0", unit: "mg/dL", reference: "8.0 - 20.0", flag: "High" }
       ],
       interpretation: "Partially compensated respiratory acidosis with moderate hypercapnia secondary to COPD exacerbation. Baseline elevated serum creatinine reflecting CKD Stage 3."
+    },
+    {
+      id: "LAB-8812",
+      orderNo: "ORD-LAB-9923",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      testName: "Kidney Function Test (KFT) & Electrolytes",
+      category: "Biochemistry",
+      orderedBy: "Dr. Farhan Siddiqui",
+      sampleType: "Venous Blood (Serum SST Red Top)",
+      barcode: "MEDLAB*8812*KFT*",
+      orderTime: "2026-09-17 09:40 AM",
+      sampleCollectedTime: "2026-09-17 09:52 AM",
+      processingStartTime: "2026-09-17 10:02 AM",
+      reportedTime: "2026-09-17 10:14 AM",
+      status: "reported",
+      verifiedBy: "Pending Pathologist Sign-Off",
+      technician: "R. Murali, DMLT",
+      isCritical: true,
+      doctorAlerted: true,
+      criticalAlertMessage: "CRITICAL VALUE: Serum Potassium is 6.4 mEq/L (Critical High > 6.2). Urgent cardiac arrhythmia hazard!",
+      timeline: [
+        { stage: "ordered", time: "09:40 AM", user: "Dr. Farhan Siddiqui", note: "Follow-up electrolyte check" },
+        { stage: "sample_collected", time: "09:52 AM", user: "Phlebotomist Deepa", note: "Serum SST drawn" },
+        { stage: "processing", time: "10:02 AM", user: "Tech R. Murali", note: "Roche Cobas Ion Selective Electrode" },
+        { stage: "reported", time: "10:14 AM", user: "Tech R. Murali", note: "CRITICAL ALERT TRIGGERED: Potassium 6.4 mEq/L" }
+      ],
+      parameters: [
+        { name: "Serum Potassium (K+)", result: "6.4", unit: "mEq/L", reference: "3.5 - 5.0", flag: "Critical" },
+        { name: "Serum Sodium (Na+)", result: "132", unit: "mEq/L", reference: "135 - 145", flag: "Low" },
+        { name: "Serum Creatinine", result: "2.35", unit: "mg/dL", reference: "0.70 - 1.20", flag: "High" },
+        { name: "Blood Urea Nitrogen (BUN)", result: "42.0", unit: "mg/dL", reference: "8.0 - 20.0", flag: "High" }
+      ],
+      interpretation: "CRITICAL ALERT: Life-threatening hyperkalemia (K+ = 6.4). Immediate calcium gluconate, insulin-dextrose, or hemodialysis consideration required."
+    },
+    {
+      id: "LAB-8813",
+      orderNo: "ORD-LAB-9924",
+      patientId: "PAT-2026-8802",
+      patientName: "Sneha Jennifer Thomas",
+      testName: "Complete Blood Count (CBC & Hemogram)",
+      category: "Hematology",
+      orderedBy: "Dr. Priya Sundaram",
+      sampleType: "Venous Blood (EDTA Purple Top)",
+      barcode: "MEDLAB*8813*CBC*",
+      orderTime: "2026-09-17 10:10 AM",
+      sampleCollectedTime: "2026-09-17 10:25 AM",
+      processingStartTime: "2026-09-17 10:35 AM",
+      status: "processing",
+      verifiedBy: null,
+      technician: "Anjali P., MLT",
+      isCritical: false,
+      doctorAlerted: false,
+      timeline: [
+        { stage: "ordered", time: "10:10 AM", user: "Dr. Priya Sundaram", note: "Antenatal 24-week routine screening" },
+        { stage: "sample_collected", time: "10:25 AM", user: "Phlebotomist Swetha", note: "3.5 mL EDTA tube drawn" },
+        { stage: "processing", time: "10:35 AM", user: "Tech Anjali P.", note: "Loaded on Sysmex XN-1000 automated counter" }
+      ],
+      parameters: [],
+      interpretation: "Sample actively running on automated Sysmex XN-1000 hematology counter. Estimated completion: 8 minutes."
+    },
+    {
+      id: "LAB-8814",
+      orderNo: "ORD-LAB-9925",
+      patientId: "PAT-2026-8804",
+      patientName: "Ayesha Fatima Khan",
+      testName: "Comprehensive Liver Function Test (LFT)",
+      category: "Biochemistry",
+      orderedBy: "Dr. Arvind Swaminathan",
+      sampleType: "Venous Blood (Serum SST Red Top)",
+      barcode: "MEDLAB*8814*LFT*",
+      orderTime: "2026-09-17 10:15 AM",
+      sampleCollectedTime: "2026-09-17 10:28 AM",
+      status: "sample_collected",
+      verifiedBy: null,
+      technician: null,
+      isCritical: false,
+      doctorAlerted: false,
+      timeline: [
+        { stage: "ordered", time: "10:15 AM", user: "Dr. Arvind Swaminathan", note: "Emergency observation workup" },
+        { stage: "sample_collected", time: "10:28 AM", user: "Phlebotomist Deepa", note: "Sample accessioned and sent to centrifugation rack" }
+      ],
+      parameters: [],
+      interpretation: "Sample collected at Emergency Phlebotomy desk. Centrifugation in progress; awaiting analyzer batch queue."
+    },
+    {
+      id: "LAB-8815",
+      orderNo: "ORD-LAB-9926",
+      patientId: "PAT-2026-8806",
+      patientName: "Master Aarav Karthik",
+      testName: "Complete Blood Count (CBC) & Pediatric Platelets",
+      category: "Hematology",
+      orderedBy: "Dr. Meenakshi Iyer",
+      sampleType: "Pediatric Microtainer (EDTA Purple Top)",
+      barcode: "MEDLAB*8815*PED*",
+      orderTime: "2026-09-17 10:32 AM",
+      status: "ordered",
+      verifiedBy: null,
+      technician: null,
+      isCritical: false,
+      doctorAlerted: false,
+      timeline: [
+        { stage: "ordered", time: "10:32 AM", user: "Dr. Meenakshi Iyer", note: "Pediatric fever spike evaluation. Auto-charged to billing." }
+      ],
+      parameters: [],
+      interpretation: "Requisitioned by Pediatric OPD. Token generated. Patient proceeding to Pediatric Phlebotomy cubicle."
     }
   ],
 
@@ -1879,10 +3273,456 @@ export const INITIAL_HOSPITAL_DATA = {
     }
   ],
 
+  charges: [
+    {
+      id: "CHG-1001",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      admissionId: "IPD-8801",
+      serviceType: "Bed Charges",
+      serviceName: "Cardiology Step-Down (Ward 4B) Bed Stay - Day 1",
+      qty: 1,
+      rate: 3500,
+      amount: 3500,
+      date: "2026-09-15",
+      sourceModule: "IPD",
+      status: "Billed",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1002",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      admissionId: "IPD-8801",
+      serviceType: "Bed Charges",
+      serviceName: "Cardiology Step-Down (Ward 4B) Bed Stay - Day 2",
+      qty: 1,
+      rate: 3500,
+      amount: 3500,
+      date: "2026-09-16",
+      sourceModule: "IPD",
+      status: "Billed",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1003",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      admissionId: "IPD-8801",
+      serviceType: "Laboratory",
+      serviceName: "Comprehensive Cardiac & Lipid Biomarker Panel",
+      qty: 1,
+      rate: 4200,
+      amount: 4200,
+      date: "2026-09-16",
+      sourceModule: "Laboratory",
+      status: "Billed",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1004",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      admissionId: "IPD-8801",
+      serviceType: "Surgery/OT",
+      serviceName: "Primary Angioplasty (PTCA) with Drug-Eluting Stent Placement",
+      qty: 1,
+      rate: 85000,
+      amount: 85000,
+      date: "2026-09-15",
+      sourceModule: "Operation Theatre",
+      status: "Billed",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1005",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      admissionId: "IPD-8801",
+      serviceType: "Pharmacy",
+      serviceName: "Brilinta (Ticagrelor 90mg) + Rozavel-EZ Inpatient Pack",
+      qty: 2,
+      rate: 1850,
+      amount: 3700,
+      date: "2026-09-16",
+      sourceModule: "Pharmacy",
+      status: "Billed",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1006",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      admissionId: "IPD-8803",
+      serviceType: "Bed Charges",
+      serviceName: "Medical ICU (MICU-03) Bed Stay - Day 1",
+      qty: 1,
+      rate: 8500,
+      amount: 8500,
+      date: "2026-09-14",
+      sourceModule: "IPD",
+      status: "Pending",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1007",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      admissionId: "IPD-8803",
+      serviceType: "Bed Charges",
+      serviceName: "Medical ICU (MICU-03) Bed Stay - Day 2",
+      qty: 1,
+      rate: 8500,
+      amount: 8500,
+      date: "2026-09-15",
+      sourceModule: "IPD",
+      status: "Pending",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1008",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      admissionId: "IPD-8803",
+      serviceType: "Bed Charges",
+      serviceName: "Medical ICU (MICU-03) Bed Stay - Day 3",
+      qty: 1,
+      rate: 8500,
+      amount: 8500,
+      date: "2026-09-16",
+      sourceModule: "IPD",
+      status: "Pending",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1009",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      admissionId: "IPD-8803",
+      serviceType: "Laboratory",
+      serviceName: "Arterial Blood Gas (ABG) & Renal Function Test Panel",
+      qty: 2,
+      rate: 1800,
+      amount: 3600,
+      date: "2026-09-15",
+      sourceModule: "Laboratory",
+      status: "Pending",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1010",
+      patientId: "PAT-2026-8804",
+      patientName: "Ayesha Fatima Khan",
+      admissionId: "ER-8804",
+      serviceType: "Emergency",
+      serviceName: "Emergency Resuscitation & Acute Nebulization Triage",
+      qty: 1,
+      rate: 3500,
+      amount: 3500,
+      date: "2026-09-17",
+      sourceModule: "Emergency",
+      status: "Pending",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1011",
+      patientId: "PAT-2026-8804",
+      patientName: "Ayesha Fatima Khan",
+      admissionId: "ER-8804",
+      serviceType: "Radiology",
+      serviceName: "Digital Chest X-Ray (PA View)",
+      qty: 1,
+      rate: 1200,
+      amount: 1200,
+      date: "2026-09-17",
+      sourceModule: "Radiology",
+      status: "Pending",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1012",
+      patientId: "PAT-2026-8805",
+      patientName: "Gurpreet Singh Chawla",
+      admissionId: "IPD-8805",
+      serviceType: "Radiology",
+      serviceName: "MRI 3.0 Tesla Lumbosacral Spine with Contrast",
+      qty: 1,
+      rate: 9500,
+      amount: 9500,
+      date: "2026-09-16",
+      sourceModule: "Radiology",
+      status: "Pending",
+      isAutoCaptured: true
+    },
+    {
+      id: "CHG-1013",
+      patientId: "PAT-2026-8805",
+      patientName: "Gurpreet Singh Chawla",
+      admissionId: "IPD-8805",
+      serviceType: "Bed Charges",
+      serviceName: "Orthopaedics Special Ward (ORTHO-204) Bed - Day 1",
+      qty: 1,
+      rate: 4200,
+      amount: 4200,
+      date: "2026-09-16",
+      sourceModule: "IPD",
+      status: "Pending",
+      isAutoCaptured: true
+    }
+  ],
+
+  servicePriceMaster: [
+    { id: "PRC-101", code: "SRV-BED-GEN", category: "Bed Charges", name: "General Ward Bed (Per Day)", rate: 1800, sacCode: "999311", dept: "IPD", taxPct: 0, status: "Active" },
+    { id: "PRC-102", code: "SRV-BED-SEMI", category: "Bed Charges", name: "Semi-Private Ward Bed (Per Day)", rate: 3200, sacCode: "999311", dept: "IPD", taxPct: 0, status: "Active" },
+    { id: "PRC-103", code: "SRV-BED-PVT", category: "Bed Charges", name: "Single Private Room Bed (Per Day)", rate: 4500, sacCode: "999311", dept: "IPD", taxPct: 0, status: "Active" },
+    { id: "PRC-104", code: "SRV-BED-ICU", category: "Bed Charges", name: "Intensive Care Unit (ICU/CCU/MICU) Bed (Per Day)", rate: 8500, sacCode: "999311", dept: "Critical Care", taxPct: 0, status: "Active" },
+    { id: "PRC-105", code: "SRV-CON-GEN", category: "Consultation", name: "OPD Specialist Doctor Consultation", rate: 850, sacCode: "999312", dept: "OPD", taxPct: 0, status: "Active" },
+    { id: "PRC-106", code: "SRV-CON-SR", category: "Consultation", name: "Senior Super-Specialist / HOD Consultation", rate: 1500, sacCode: "999312", dept: "OPD", taxPct: 0, status: "Active" },
+    { id: "PRC-107", code: "SRV-LAB-CBC", category: "Laboratory", name: "Complete Blood Count (CBC) with ESR", rate: 650, sacCode: "999313", dept: "Pathology", taxPct: 0, status: "Active" },
+    { id: "PRC-108", code: "SRV-LAB-LIPID", category: "Laboratory", name: "Complete Lipid Profile (Cholesterol, LDL, HDL, Triglycerides)", rate: 1100, sacCode: "999313", dept: "Biochemistry", taxPct: 0, status: "Active" },
+    { id: "PRC-109", code: "SRV-LAB-LFT", category: "Laboratory", name: "Liver Function Test (LFT) Comprehensive", rate: 1200, sacCode: "999313", dept: "Biochemistry", taxPct: 0, status: "Active" },
+    { id: "PRC-110", code: "SRV-LAB-KFT", category: "Laboratory", name: "Renal / Kidney Function Test (KFT / RFT)", rate: 1150, sacCode: "999313", dept: "Biochemistry", taxPct: 0, status: "Active" },
+    { id: "PRC-111", code: "SRV-LAB-TROP", category: "Laboratory", name: "High-Sensitivity Troponin-I Quantitative", rate: 2100, sacCode: "999313", dept: "Biochemistry", taxPct: 0, status: "Active" },
+    { id: "PRC-112", code: "SRV-RAD-XRAY", category: "Radiology", name: "Digital Chest X-Ray (Single / Double View)", rate: 1200, sacCode: "999313", dept: "Radiology", taxPct: 0, status: "Active" },
+    { id: "PRC-113", code: "SRV-RAD-USG", category: "Radiology", name: "Whole Abdomen & Pelvis Ultrasound (USG)", rate: 2400, sacCode: "999313", dept: "Radiology", taxPct: 0, status: "Active" },
+    { id: "PRC-114", code: "SRV-RAD-CT", category: "Radiology", name: "Multi-Slice CT Scan (Head / Brain / Thorax)", rate: 4800, sacCode: "999313", dept: "Radiology", taxPct: 0, status: "Active" },
+    { id: "PRC-115", code: "SRV-RAD-MRI", category: "Radiology", name: "3.0 Tesla MRI Spine / Brain with Screening", rate: 9500, sacCode: "999313", dept: "Radiology", taxPct: 0, status: "Active" },
+    { id: "PRC-116", code: "SRV-SUR-LAP", category: "Surgery/OT", name: "Laparoscopic Cholecystectomy (Gallbladder Removal)", rate: 48000, sacCode: "999314", dept: "OT", taxPct: 0, status: "Active" },
+    { id: "PRC-117", code: "SRV-SUR-PTCA", category: "Surgery/OT", name: "Coronary Angioplasty (PTCA) with Stent (Excl. Implant)", rate: 85000, sacCode: "999314", dept: "Cath Lab", taxPct: 0, status: "Active" },
+    { id: "PRC-118", code: "SRV-NRS-DAY", category: "Nursing", name: "Daily Specialized Nursing & Patient Telemetry Care", rate: 1200, sacCode: "999311", dept: "Nursing", taxPct: 0, status: "Active" }
+  ],
+
+  servicePackages: [
+    {
+      id: "PKG-201",
+      code: "PKG-DEL-NORMAL",
+      name: "Normal Vaginal Delivery Package",
+      department: "Obstetrics & Gynaecology",
+      baseRate: 45000,
+      discountedRate: 38000,
+      stayDurationDays: 3,
+      roomType: "Semi-Private Ward",
+      inclusions: [
+        "3 Days Semi-Private Room Accommodation",
+        "Obstetrician & Pediatrician Delivery Fees",
+        "Labour Room (LDRP) & Nursing Charges",
+        "Standard Delivery Consumables & Mother Meds",
+        "Baby Initial Vaccines (BCG, OPV, Hep-B) & Blood Grouping",
+        "Mother Routine Post-Natal Follow-up"
+      ],
+      exclusions: ["Blood Transfusions", "Emergency NICU Care", "Specialized Neonatal Phototherapy"],
+      status: "Active"
+    },
+    {
+      id: "PKG-202",
+      code: "PKG-DEL-LSCS",
+      name: "Lower Segment Caesarean Section (C-Section) Package",
+      department: "Obstetrics & Gynaecology",
+      baseRate: 75000,
+      discountedRate: 64000,
+      stayDurationDays: 4,
+      roomType: "Single Private Room",
+      inclusions: [
+        "4 Days Single Room Stay",
+        "Surgical Team, Anesthetist & Pediatrician Charges",
+        "Major Modular OT Charges & Sterilization",
+        "Pre-op Labs (CBC, PT/INR, Blood Group, Viral Markers)",
+        "Post-op Standard IV Fluids & Antibiotics",
+        "Baby Intake Screening & Primary Immunizations"
+      ],
+      exclusions: ["Blood Transfusions", "Extended NICU Incubator Stay"],
+      status: "Active"
+    },
+    {
+      id: "PKG-203",
+      code: "PKG-SUR-LAP-CHOL",
+      name: "Laparoscopic Cholecystectomy (Gallbladder) Package",
+      department: "General & Minimal Access Surgery",
+      baseRate: 65000,
+      discountedRate: 55000,
+      stayDurationDays: 2,
+      roomType: "Semi-Private Room",
+      inclusions: [
+        "2 Days Hospital Stay",
+        "Lap Surgeon & Anesthesiologist Charges",
+        "Operation Theatre & Laparoscopy Tower Facility",
+        "Histopathology of Gallbladder Specimen",
+        "Pre-op Routine Investigations & Post-op Antibiotics"
+      ],
+      exclusions: ["ERCP Stenting (if CBD stones)", "Extended ICU observation"],
+      status: "Active"
+    },
+    {
+      id: "PKG-204",
+      code: "PKG-SUR-TKR",
+      name: "Total Knee Replacement (Single Joint) Package",
+      department: "Orthopaedics & Joint Care",
+      baseRate: 185000,
+      discountedRate: 165000,
+      stayDurationDays: 5,
+      roomType: "Special Ward",
+      inclusions: [
+        "5 Days Hospital Stay with Physiotherapy",
+        "Orthopaedic Surgeon & Surgical Team Charges",
+        "Modular Laminar OT Charges & Computer Navigation",
+        "Pre-op Cardiac & Blood Workup",
+        "Post-op Inpatient Physiotherapy Mobilization Sessions"
+      ],
+      exclusions: ["High-End Robotic Implant Cost (Billed at MRP)", "Extended ICU stay beyond 24h"],
+      status: "Active"
+    },
+    {
+      id: "PKG-205",
+      code: "PKG-CHK-EXEC",
+      name: "Comprehensive Executive Master Health Checkup",
+      department: "Preventive Healthcare",
+      baseRate: 11000,
+      discountedRate: 8500,
+      stayDurationDays: 0,
+      roomType: "Daycare Lounge",
+      inclusions: [
+        "68 Blood & Urine Biomarkers (CBC, Lipid, LFT, KFT, HbA1c, Thyroid Panel)",
+        "Digital Chest X-Ray & Resting ECG 12-Lead",
+        "2D Echocardiography / TMT Treadmill Stress Test",
+        "Ultrasound Whole Abdomen & Pelvis",
+        "Consultation with Cardiologist, Physician & Dietitian",
+        "Nutritious Executive Breakfast at Hospital Lounge"
+      ],
+      exclusions: ["CT / MRI Scans", "Specialized Tumor Markers"],
+      status: "Active"
+    }
+  ],
+
   insuranceClaims: [
-    { id: "CLM-901", patientName: "Rameshwar Prasad Sharma", insurer: "Star Health Insurance", tpa: "Medi Assist TPA", policyNo: "SH-CORP-9921448", claimAmount: 180000, approvedAmount: 150000, status: "Pre-Auth Approved", claimType: "Cashless IPD" },
-    { id: "CLM-902", patientName: "Venkata Satyanarayana Reddy", insurer: "Care Health Insurance", tpa: "FHPL TPA", policyNo: "CARE-SR-440192", claimAmount: 320000, approvedAmount: 280000, status: "Adjudication", claimType: "Cashless ICU" },
-    { id: "CLM-903", patientName: "Gurpreet Singh Chawla", insurer: "Niva Bupa Health Insurance", tpa: "Health Insurance TPA", policyNo: "NB-CORP-33910", claimAmount: 185000, approvedAmount: 180000, status: "Query Raised (Implant Invoice required)", claimType: "Cashless Surgery" }
+    {
+      id: "CLM-901",
+      claimNo: "CLM-STAR-2026-8801",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      policyNo: "SH-CORP-9921448",
+      insurer: "Star Health Insurance",
+      tpa: "Medi Assist TPA",
+      schemeType: "Private Health Insurance",
+      treatmentType: "Cashless IPD (PTCA / Angioplasty)",
+      claimAmount: 180000,
+      preAuthAmount: 180000,
+      approvedAmount: 150000,
+      deductibleAmount: 30000,
+      copayPct: 10,
+      status: "Pre-Auth Approved",
+      rejectionReason: null,
+      submissionDate: "2026-09-15",
+      approvalDate: "2026-09-16",
+      remarks: "Pre-auth verified for single stent PTCA with Star Health Mediclaim."
+    },
+    {
+      id: "CLM-902",
+      claimNo: "PMJAY-TS-2026-9042",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      policyNo: "PMJAY-ABHA-778102941",
+      insurer: "National Health Authority (PMJAY / Ayushman Bharat)",
+      tpa: "State Health Agency (Telangana)",
+      schemeType: "PMJAY Government Scheme",
+      treatmentType: "Cashless ICU / Acute Respiratory Failure",
+      claimAmount: 320000,
+      preAuthAmount: 300000,
+      approvedAmount: 280000,
+      deductibleAmount: 0,
+      copayPct: 0,
+      status: "Pre-Auth Approved",
+      rejectionReason: null,
+      submissionDate: "2026-09-14",
+      approvalDate: "2026-09-15",
+      remarks: "100% Cashless Government Health Scheme Coverage authorized under PMJAY Tertiary package."
+    },
+    {
+      id: "CLM-903",
+      claimNo: "CLM-NB-2026-4401",
+      patientId: "PAT-2026-8805",
+      patientName: "Gurpreet Singh Chawla",
+      policyNo: "NB-CORP-33910",
+      insurer: "Niva Bupa Health Insurance",
+      tpa: "Health Insurance TPA",
+      schemeType: "Corporate Group Mediclaim",
+      treatmentType: "Cashless Spine Microdiscectomy",
+      claimAmount: 185000,
+      preAuthAmount: 185000,
+      approvedAmount: 180000,
+      deductibleAmount: 5000,
+      copayPct: 0,
+      status: "Query Raised",
+      rejectionReason: "Implant invoice and pre-operative MRI DICOM plate requested by TPA medical desk.",
+      submissionDate: "2026-09-16",
+      approvalDate: null,
+      remarks: "Query raised by TPA doctor. Hospital billing desk to submit original spine implant invoice."
+    },
+    {
+      id: "CLM-904",
+      claimNo: "PMJAY-TS-2026-9043",
+      patientId: "PAT-2026-8804",
+      patientName: "Ayesha Fatima Khan",
+      policyNo: "PMJAY-ABHA-129481023",
+      insurer: "National Health Authority (PMJAY / Ayushman Bharat)",
+      tpa: "State Health Agency",
+      schemeType: "PMJAY Government Scheme",
+      treatmentType: "Emergency Bronchial Asthma Triage",
+      claimAmount: 12000,
+      preAuthAmount: 12000,
+      approvedAmount: 0,
+      deductibleAmount: 12000,
+      copayPct: 0,
+      status: "Rejected",
+      rejectionReason: "Emergency Daycare observation less than mandatory 24-hour inpatient admission rule under PMJAY guideline section 4.2.",
+      submissionDate: "2026-09-17",
+      approvalDate: null,
+      remarks: "Claim rejected due to non-fulfilment of 24h hospitalization criteria. Converted to hospital charity concession."
+    }
+  ],
+
+  billingAuditLogs: [
+    {
+      id: "BAUD-2026-01",
+      timestamp: "2026-09-17 11:20 AM",
+      billNo: "BILL-IPD-2026-0981",
+      patientName: "Rameshwar Prasad Sharma",
+      action: "Discount Applied",
+      field: "Institutional Discount",
+      previousValue: "₹0",
+      newValue: "₹5,000",
+      changeAmount: 5000,
+      reason: "NABH Senior Citizen Concession approved by Medical Director",
+      user: "Dr. Arvind Swaminathan (Medical Superintendent)",
+      role: "admin"
+    },
+    {
+      id: "BAUD-2026-02",
+      timestamp: "2026-09-17 10:45 AM",
+      billNo: "BILL-IPD-2026-0981",
+      patientName: "Rameshwar Prasad Sharma",
+      action: "Rate Adjusted",
+      field: "Nursing Charges",
+      previousValue: "₹5,500",
+      newValue: "₹4,500",
+      changeAmount: -1000,
+      reason: "Adjusted for half-day nursing overlap on transition from ICU to Step-Down ward",
+      user: "K. Sudhakar (Billing Supervisor)",
+      role: "billing"
+    },
+    {
+      id: "BAUD-2026-03",
+      timestamp: "2026-09-16 04:30 PM",
+      billNo: "BILL-IPD-2026-0980",
+      patientName: "Gurpreet Singh Chawla",
+      action: "Package Applied",
+      field: "Surgical Bill Package",
+      previousValue: "Itemized Charges: ₹1,95,000",
+      newValue: "Fixed Package: ₹1,65,000",
+      changeAmount: -30000,
+      reason: "Patient enrolled in standard Spine Surgery Fixed Care Package",
+      user: "Chilla Sai (Accounts Executive)",
+      role: "admin"
+    }
   ],
 
   staffRoster: [
@@ -1915,6 +3755,183 @@ export const INITIAL_HOSPITAL_DATA = {
     averageLengthOfStay: "3.8 Days",
     criticalAlarms: 3,
     pendingLabReports: 18,
-    tpaPendingApproval: 6
-  }
+    tpaPendingApproval: 6,
+    expectedDischargesTodayCount: 5,
+    cleaningBedsCount: 3
+  },
+
+  pharmacyItems: [
+    { id: "PHARM-001", code: "RX-TIC-90", name: "Brilinta 90mg", genericName: "Ticagrelor", category: "Cardiology / Antiplatelet", form: "Tablet", unitPrice: 42.50, reorderLevel: 300, totalStock: 1420 },
+    { id: "PHARM-002", code: "RX-ROS-20", name: "Rozavel-EZ 20/10", genericName: "Rosuvastatin 20mg + Ezetimibe 10mg", category: "Lipid Lowering", form: "Tablet", unitPrice: 28.00, reorderLevel: 250, totalStock: 890 },
+    { id: "PHARM-003", code: "RX-AUG-625", name: "Augmentin 625 Duo", genericName: "Amoxicillin 500mg + Clavulanic Acid 125mg", category: "Antibiotics (Penicillin)", form: "Tablet", unitPrice: 22.80, reorderLevel: 350, totalStock: 240 },
+    { id: "PHARM-004", code: "RX-DOL-650", name: "Dolo 650", genericName: "Paracetamol 650mg", category: "Analgesic & Antipyretic", form: "Tablet", unitPrice: 3.50, reorderLevel: 1000, totalStock: 4800 },
+    { id: "PHARM-005", code: "RX-CIP-500", name: "Ciplox 500", genericName: "Ciprofloxacin 500mg", category: "Fluoroquinolone Antibiotic", form: "Tablet", unitPrice: 16.00, reorderLevel: 200, totalStock: 520 },
+    { id: "PHARM-006", code: "RX-DER-150", name: "Deriphyllin Retard 150mg", genericName: "Theophylline + Etofylline", category: "Respiratory / Bronchodilator", form: "Tablet", unitPrice: 8.50, reorderLevel: 200, totalStock: 65 },
+    { id: "PHARM-007", code: "RX-MER-1G", name: "Inj. Meropenem 1g (Meromac)", genericName: "Meropenem 1000mg IV", category: "Critical Care Antibiotic", form: "Injection", unitPrice: 850.00, reorderLevel: 100, totalStock: 180 },
+    { id: "PHARM-008", code: "RX-PAN-40", name: "Pan 40", genericName: "Pantoprazole 40mg", category: "Gastroenterology / PPI", form: "Tablet", unitPrice: 9.80, reorderLevel: 400, totalStock: 2100 },
+    { id: "PHARM-009", code: "RX-TEL-40", name: "Telma 40", genericName: "Telmisartan 40mg", category: "Antihypertensive ARB", form: "Tablet", unitPrice: 12.00, reorderLevel: 300, totalStock: 1250 }
+  ],
+
+  pharmacyBatches: [
+    { id: "BAT-101", itemId: "PHARM-001", itemName: "Brilinta 90mg", batchNo: "BT-2024-88A", expiryDate: "2027-08-30", qty: 900, purchasePrice: 32.00, mrp: 42.50, supplier: "AstraZeneca India", rack: "Rack C-04", status: "In-Stock" },
+    { id: "BAT-102", itemId: "PHARM-001", itemName: "Brilinta 90mg", batchNo: "BT-2024-42B", expiryDate: "2026-12-15", qty: 520, purchasePrice: 31.50, mrp: 42.50, supplier: "AstraZeneca India", rack: "Rack C-04", status: "In-Stock" },
+    { id: "BAT-103", itemId: "PHARM-002", itemName: "Rozavel-EZ 20/10", batchNo: "RZ-99120", expiryDate: "2027-04-15", qty: 890, purchasePrice: 20.00, mrp: 28.00, supplier: "Sun Pharma Laboratories", rack: "Rack C-02", status: "In-Stock" },
+    { id: "BAT-104", itemId: "PHARM-003", itemName: "Augmentin 625 Duo", batchNo: "AG-4410", expiryDate: "2026-11-20", qty: 140, purchasePrice: 16.50, mrp: 22.80, supplier: "GSK Pharmaceuticals", rack: "Rack A-08", status: "Low Stock" },
+    { id: "BAT-105", itemId: "PHARM-003", itemName: "Augmentin 625 Duo", batchNo: "AG-4302", expiryDate: "2026-05-10", qty: 100, purchasePrice: 16.00, mrp: 22.80, supplier: "GSK Pharmaceuticals", rack: "Rack A-08", status: "Near Expiry" },
+    { id: "BAT-106", itemId: "PHARM-004", itemName: "Dolo 650", batchNo: "DL-8821", expiryDate: "2027-10-30", qty: 3200, purchasePrice: 2.10, mrp: 3.50, supplier: "Micro Labs Ltd", rack: "Rack D-01", status: "In-Stock" },
+    { id: "BAT-107", itemId: "PHARM-004", itemName: "Dolo 650", batchNo: "DL-7714", expiryDate: "2026-10-25", qty: 1600, purchasePrice: 2.00, mrp: 3.50, supplier: "Micro Labs Ltd", rack: "Rack D-01", status: "In-Stock" },
+    { id: "BAT-108", itemId: "PHARM-006", itemName: "Deriphyllin Retard 150mg", batchNo: "DP-2291", expiryDate: "2026-04-28", qty: 65, purchasePrice: 5.80, mrp: 8.50, supplier: "Zydus Healthcare", rack: "Rack R-01", status: "Near Expiry" },
+    { id: "BAT-109", itemId: "PHARM-007", itemName: "Inj. Meropenem 1g", batchNo: "MP-1082", expiryDate: "2026-10-10", qty: 180, purchasePrice: 620.00, mrp: 850.00, supplier: "Cipla Critical Care", rack: "Cold Room-01", status: "In-Stock" }
+  ],
+
+  stockMovements: [
+    { id: "MOV-1001", itemId: "PHARM-001", itemName: "Brilinta 90mg", batchNo: "BT-2024-42B", type: "DISPENSE_OUT", qty: -30, balanceAfter: 520, reference: "POS-INV-2026-9081", patientName: "Rameshwar Prasad Sharma", user: "Lead Pharmacist Rajesh Varma", timestamp: "2026-09-17 10:35 AM" },
+    { id: "MOV-1002", itemId: "PHARM-003", itemName: "Augmentin 625 Duo", batchNo: "AG-4302", type: "DISPENSE_OUT", qty: -10, balanceAfter: 100, reference: "POS-INV-2026-9082", patientName: "Walk-in OPD Patient", user: "Dispenser Swathi", timestamp: "2026-09-17 09:40 AM" },
+    { id: "MOV-1003", itemId: "PHARM-004", itemName: "Dolo 650", batchNo: "DL-7714", type: "DISPENSE_OUT", qty: -20, balanceAfter: 1600, reference: "POS-INV-2026-9083", patientName: "Master Aarav Karthik", user: "Lead Pharmacist Rajesh Varma", timestamp: "2026-09-17 09:15 AM" },
+    { id: "MOV-1004", itemId: "PHARM-007", itemName: "Inj. Meropenem 1g", batchNo: "MP-1082", type: "PURCHASE_IN", qty: 100, balanceAfter: 180, reference: "GRN-PO-44021", patientName: "Hospital Inward Store", user: "Purchase Manager R. Rao", timestamp: "2026-09-16 02:15 PM" }
+  ],
+
+  beds: [
+    // Medical & Coronary ICU (WARD-ICU)
+    { bedNo: "MICU-01", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-A", bedType: "ICU Ventilator Bed", status: "occupied", patientId: "PAT-2026-8809", patientName: "K. Mohan Rao (62M)", attendingDoctor: "Dr. Farhan Siddiqui", oxygen: true, ventilator: true, telemetry: "Active", admittedAt: "2026-09-14 06:30 AM", expectedDischarge: "2026-09-20 12:00 PM" },
+    { bedNo: "MICU-02", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-A", bedType: "ICU Ventilator Bed", status: "occupied", patientId: "PAT-2026-8810", patientName: "N. Lakshmi (54F)", attendingDoctor: "Dr. Ananya Mukherjee", oxygen: true, ventilator: false, telemetry: "Active", admittedAt: "2026-09-15 02:00 PM", expectedDischarge: "2026-09-18 10:00 AM" },
+    { bedNo: "MICU-03", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-A", bedType: "ICU High Dependency Bed", status: "occupied", patientId: "PAT-2026-8803", patientName: "Venkata Satyanarayana Reddy", attendingDoctor: "Dr. Farhan Siddiqui", oxygen: true, ventilator: false, telemetry: "Active", admittedAt: "2026-09-16 09:00 AM", expectedDischarge: "2026-09-19 04:00 PM" },
+    { bedNo: "MICU-04", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-B", bedType: "ICU Ventilator Bed", status: "available", patientId: null, patientName: null, attendingDoctor: null, oxygen: true, ventilator: true, telemetry: "Standby" },
+    { bedNo: "MICU-05", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-B", bedType: "ICU High Dependency Bed", status: "occupied", patientId: "PAT-2026-8811", patientName: "Farid Ahmed (49M)", attendingDoctor: "Dr. Ananya Mukherjee", oxygen: true, ventilator: false, telemetry: "Active", admittedAt: "2026-09-16 11:20 PM", expectedDischarge: "Today (2026-09-17 03:00 PM)" },
+    { bedNo: "MICU-06", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-B", bedType: "ICU High Dependency Bed", status: "cleaning", patientId: null, patientName: null, attendingDoctor: null, oxygen: true, ventilator: false, telemetry: "Off", cleaningStartedAt: "2026-09-17 09:40 AM", housekeeper: "Housekeeper Ramesh B." },
+    { bedNo: "MICU-07", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-C", bedType: "ICU Ventilator Bed", status: "occupied", patientId: "PAT-2026-8812", patientName: "David D'Souza (71M)", attendingDoctor: "Dr. Farhan Siddiqui", oxygen: true, ventilator: false, telemetry: "Active", admittedAt: "2026-09-13 04:15 PM", expectedDischarge: "2026-09-18 11:00 AM" },
+    { bedNo: "MICU-08", wardId: "WARD-ICU", wardName: "Medical & Coronary ICU", floor: "2nd Floor", roomNo: "ICU-Pod-C", bedType: "ICU Ventilator Bed", status: "reserved", patientId: "PAT-2026-8813", patientName: "Reserved for Post-CABG recovery (M. K. Nambiar)", attendingDoctor: "Dr. Ananya Mukherjee", oxygen: true, ventilator: true, telemetry: "Pre-Configured" },
+
+    // Cardiology Step-Down (WARD-CARDIO)
+    { bedNo: "4B-101", wardId: "WARD-CARDIO", wardName: "Cardiology Step-Down (Ward 4B)", floor: "4th Floor", roomNo: "Room 401", bedType: "Semi-Private Cardiac Bed", status: "occupied", patientId: "PAT-2026-8814", patientName: "Subba Rao (55M)", attendingDoctor: "Dr. Ananya Mukherjee", oxygen: false, ventilator: false, telemetry: "Active", admittedAt: "2026-09-15 10:00 AM", expectedDischarge: "Today (2026-09-17 01:00 PM)" },
+    { bedNo: "4B-102", wardId: "WARD-CARDIO", wardName: "Cardiology Step-Down (Ward 4B)", floor: "4th Floor", roomNo: "Room 401", bedType: "Semi-Private Cardiac Bed", status: "occupied", patientId: "PAT-2026-8815", patientName: "Anita Agarwal (60F)", attendingDoctor: "Dr. Ananya Mukherjee", oxygen: false, ventilator: false, telemetry: "Active", admittedAt: "2026-09-14 02:30 PM", expectedDischarge: "2026-09-18 12:00 PM" },
+    { bedNo: "4B-103", wardId: "WARD-CARDIO", wardName: "Cardiology Step-Down (Ward 4B)", floor: "4th Floor", roomNo: "Room 402", bedType: "Semi-Private Cardiac Bed", status: "available", patientId: null, patientName: null, attendingDoctor: null, oxygen: true, ventilator: false, telemetry: "Standby" },
+    { bedNo: "4B-104", wardId: "WARD-CARDIO", wardName: "Cardiology Step-Down (Ward 4B)", floor: "4th Floor", roomNo: "Room 402", bedType: "Semi-Private Cardiac Bed", status: "cleaning", patientId: null, patientName: null, attendingDoctor: null, oxygen: true, ventilator: false, telemetry: "Off", cleaningStartedAt: "2026-09-17 10:05 AM", housekeeper: "Housekeeper Sunitha" },
+    { bedNo: "4B-108", wardId: "WARD-CARDIO", wardName: "Cardiology Step-Down (Ward 4B)", floor: "4th Floor", roomNo: "Room 404", bedType: "Private Deluxe Room", status: "occupied", patientId: "PAT-2026-8801", patientName: "Rameshwar Prasad Sharma", attendingDoctor: "Dr. Ananya Mukherjee", oxygen: true, ventilator: false, telemetry: "Active", admittedAt: "2026-09-15 08:30 AM", expectedDischarge: "Today (2026-09-17 02:30 PM)" },
+    { bedNo: "4B-109", wardId: "WARD-CARDIO", wardName: "Cardiology Step-Down (Ward 4B)", floor: "4th Floor", roomNo: "Room 405", bedType: "Private Deluxe Room", status: "maintenance", patientId: null, patientName: null, attendingDoctor: null, oxygen: false, ventilator: false, telemetry: "Off", maintenanceReason: "Motorized backrest actuator calibration & oxygen flow sensor service" },
+    { bedNo: "4B-110", wardId: "WARD-CARDIO", wardName: "Cardiology Step-Down (Ward 4B)", floor: "4th Floor", roomNo: "Room 405", bedType: "Private Deluxe Room", status: "available", patientId: null, patientName: null, attendingDoctor: null, oxygen: true, ventilator: false, telemetry: "Standby" },
+
+    // Orthopaedics & Joint Care (WARD-ORTHO)
+    { bedNo: "ORTHO-201", wardId: "WARD-ORTHO", wardName: "Orthopaedics & Joint Care (Ward 2A)", floor: "2nd Floor", roomNo: "Room 201", bedType: "Surgical Recovery Bed", status: "occupied", patientId: "PAT-2026-8816", patientName: "Harish Patel (42M)", attendingDoctor: "Dr. Rajesh K. Nair", oxygen: false, ventilator: false, telemetry: "None", admittedAt: "2026-09-16 07:00 AM", expectedDischarge: "2026-09-19 11:00 AM" },
+    { bedNo: "ORTHO-204", wardId: "WARD-ORTHO", wardName: "Orthopaedics & Joint Care (Ward 2A)", floor: "2nd Floor", roomNo: "Room 202", bedType: "Surgical Recovery Bed", status: "occupied", patientId: "PAT-2026-8805", patientName: "Gurpreet Singh Chawla", attendingDoctor: "Dr. Rajesh K. Nair", oxygen: false, ventilator: false, telemetry: "Active", admittedAt: "2026-09-15 11:00 AM", expectedDischarge: "Today (2026-09-17 04:30 PM)" },
+    { bedNo: "ORTHO-205", wardId: "WARD-ORTHO", wardName: "Orthopaedics & Joint Care (Ward 2A)", floor: "2nd Floor", roomNo: "Room 203", bedType: "General Ward Bed", status: "available", patientId: null, patientName: null, attendingDoctor: null, oxygen: true, ventilator: false, telemetry: "Standby" },
+    { bedNo: "ORTHO-206", wardId: "WARD-ORTHO", wardName: "Orthopaedics & Joint Care (Ward 2A)", floor: "2nd Floor", roomNo: "Room 203", bedType: "General Ward Bed", status: "available", patientId: null, patientName: null, attendingDoctor: null, oxygen: false, ventilator: false, telemetry: "Standby" }
+  ],
+
+  admissions: [
+    {
+      admissionId: "ADM-2026-081",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      uhid: "UHID-2026-8801",
+      abhaId: "91-8842-9901-3421",
+      bedNo: "4B-108",
+      wardId: "WARD-CARDIO",
+      wardName: "Cardiology Step-Down (Ward 4B)",
+      roomNo: "Room 404",
+      admitTime: "2026-09-15 08:30 AM",
+      expectedDischarge: "Today (2026-09-17 02:30 PM)",
+      dischargeTime: null,
+      diagnosis: "CAD s/p PTCA to LAD, Essential Hypertension",
+      attendingDoctor: "Dr. Ananya Mukherjee",
+      status: "Admitted"
+    },
+    {
+      admissionId: "ADM-2026-082",
+      patientId: "PAT-2026-8803",
+      patientName: "Venkata Satyanarayana Reddy",
+      uhid: "UHID-2026-8803",
+      abhaId: "91-7711-2233-4455",
+      bedNo: "MICU-03",
+      wardId: "WARD-ICU",
+      wardName: "Medical & Coronary ICU",
+      roomNo: "ICU-Pod-A",
+      admitTime: "2026-09-16 09:00 AM",
+      expectedDischarge: "2026-09-19 04:00 PM",
+      dischargeTime: null,
+      diagnosis: "Acute COPD Exacerbation, Type 2 Respiratory Acidosis, CKD Stage 3",
+      attendingDoctor: "Dr. Farhan Siddiqui",
+      status: "Admitted"
+    },
+    {
+      admissionId: "ADM-2026-083",
+      patientId: "PAT-2026-8805",
+      patientName: "Gurpreet Singh Chawla",
+      uhid: "UHID-2026-8805",
+      abhaId: "91-6622-4411-8899",
+      bedNo: "ORTHO-204",
+      wardId: "WARD-ORTHO",
+      wardName: "Orthopaedics & Joint Care (Ward 2A)",
+      roomNo: "Room 202",
+      admitTime: "2026-09-15 11:00 AM",
+      expectedDischarge: "Today (2026-09-17 04:30 PM)",
+      dischargeTime: null,
+      diagnosis: "L4-L5 Lumbar Disc Herniation s/p Microdiscectomy",
+      attendingDoctor: "Dr. Rajesh K. Nair",
+      status: "Admitted"
+    },
+    {
+      admissionId: "ADM-2026-084",
+      patientId: "PAT-2026-8814",
+      patientName: "Subba Rao (55M)",
+      uhid: "UHID-2026-8814",
+      abhaId: "91-4433-2211-7788",
+      bedNo: "4B-101",
+      wardId: "WARD-CARDIO",
+      wardName: "Cardiology Step-Down (Ward 4B)",
+      roomNo: "Room 401",
+      admitTime: "2026-09-15 10:00 AM",
+      expectedDischarge: "Today (2026-09-17 01:00 PM)",
+      dischargeTime: null,
+      diagnosis: "Post Angioplasty Day 2 Recovery",
+      attendingDoctor: "Dr. Ananya Mukherjee",
+      status: "Admitted"
+    },
+    {
+      admissionId: "ADM-2026-085",
+      patientId: "PAT-2026-8811",
+      patientName: "Farid Ahmed (49M)",
+      uhid: "UHID-2026-8811",
+      abhaId: "91-5588-9922-1133",
+      bedNo: "MICU-05",
+      wardId: "WARD-ICU",
+      wardName: "Medical & Coronary ICU",
+      roomNo: "ICU-Pod-B",
+      admitTime: "2026-09-16 11:20 PM",
+      expectedDischarge: "Today (2026-09-17 03:00 PM)",
+      dischargeTime: null,
+      diagnosis: "Acute STEMI, Thrombolyzed, Step-down candidate",
+      attendingDoctor: "Dr. Ananya Mukherjee",
+      status: "Admitted"
+    }
+  ],
+
+  bedTransfers: [
+    {
+      id: "TRF-2026-01",
+      patientId: "PAT-2026-8801",
+      patientName: "Rameshwar Prasad Sharma",
+      uhid: "UHID-2026-8801",
+      fromBed: "MICU-02",
+      toBed: "4B-108",
+      fromWard: "Medical & Coronary ICU",
+      toWard: "Cardiology Step-Down (Ward 4B)",
+      reason: "Patient stabilized post-stent; stepped down from ICU to intermediate ward",
+      transferredBy: "Sr. Nurse Reena Mathews",
+      timestamp: "2026-09-16 02:00 PM"
+    },
+    {
+      id: "TRF-2026-02",
+      patientId: "PAT-2026-8805",
+      patientName: "Gurpreet Singh Chawla",
+      uhid: "UHID-2026-8805",
+      fromBed: "ORTHO-201",
+      toBed: "ORTHO-204",
+      fromWard: "Orthopaedics & Joint Care (Ward 2A)",
+      toWard: "Orthopaedics & Joint Care (Ward 2A)",
+      reason: "Shifted to private window bed per attendant request post-op",
+      transferredBy: "Sr. Nurse Sunitha Bai",
+      timestamp: "2026-09-16 09:30 AM"
+    }
+  ]
 };

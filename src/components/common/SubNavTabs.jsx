@@ -20,9 +20,9 @@ export const SubNavTabs = ({ tabs, activeKey, onSelectTab }) => {
           >
             {Icon && (
               <Icon
-                size={16}
-                className={isActive ? 'text-white' : tab.highlight ? 'text-teal-600 dark:text-teal-400' : 'text-text-dim'}
-                strokeWidth={isActive ? 2.3 : 2.0}
+                size={17}
+                className={isActive ? 'text-teal-600 dark:text-teal-400' : tab.highlight ? 'text-teal-600 dark:text-teal-400' : 'text-text-dim'}
+                strokeWidth={isActive ? 2.2 : 1.9}
               />
             )}
             <span>{tab.label}</span>

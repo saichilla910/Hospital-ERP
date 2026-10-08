@@ -11,18 +11,26 @@ import {
   BarChart3,
   TrendingUp,
   Settings as SettingsIcon,
+  Pill,
+  ShieldCheck,
   X,
-  Activity
+  Activity,
+  LogOut,
+  ChevronRight
 } from 'lucide-react';
 import { useHospital } from '../../context/HospitalContext';
 import { BrandLogo } from '../common/BrandLogo';
+import { ROLES } from '../../services/authService';
 
 export const Sidebar = () => {
   const {
     activeNav,
     setActiveNav,
     mobileSidebarOpen,
-    setMobileSidebarOpen
+    setMobileSidebarOpen,
+    currentUser,
+    canAccess,
+    logout
   } = useHospital();
 
   const [isMobile, setIsMobile] = useState(
@@ -40,34 +48,46 @@ export const Sidebar = () => {
     if (isMobile) setMobileSidebarOpen(false);
   };
 
-  const navSections = [
+  const allNavSections = [
     {
       group: 'CLINICAL OPERATIONS',
       items: [
-        { key: 'dashboard',   label: 'Dashboard',       icon: LayoutGrid },
-        { key: 'patients',    aliases: ['patients', 'patientManagement'], label: 'Patients', icon: Users },
-        { key: 'doctors',     label: 'Doctors',          icon: Stethoscope },
-        { key: 'appointment', aliases: ['appointment', 'opd'],            label: 'Appointments', icon: Calendar },
-        { key: 'bedroom',     aliases: ['bedroom', 'ipd'],                label: 'IPD / Beds',   icon: Bed },
-        { key: 'emergency',   aliases: ['emergency'],                     label: 'Emergency (ER)', icon: ShieldAlert },
+        { key: 'dashboard',   label: 'Dashboard',       icon: LayoutGrid, permKey: 'dashboard' },
+        { key: 'patients',    aliases: ['patients', 'patientManagement'], label: 'Patients', icon: Users, permKey: 'patients' },
+        { key: 'doctors',     label: 'Doctors',          icon: Stethoscope, permKey: 'doctors' },
+        { key: 'appointment', aliases: ['appointment', 'opd'],            label: 'Appointments', icon: Calendar, permKey: 'appointment' },
+        { key: 'bedroom',     aliases: ['bedroom', 'ipd'],                label: 'IPD / Beds',   icon: Bed, permKey: 'ipd' },
+        { key: 'emergency',   aliases: ['emergency'],                     label: 'Emergency (ER)', icon: ShieldAlert, permKey: 'emergency' },
       ]
     },
     {
       group: 'DIAGNOSTICS & FINANCE',
       items: [
-        { key: 'labReports',  aliases: ['labReports', 'laboratory'],      label: 'Lab Reports',  icon: FlaskConical },
-        { key: 'transaction', aliases: ['transaction', 'billing'],        label: 'Billing',      icon: Receipt },
-        { key: 'reports',     label: 'Reports & Stats',  icon: BarChart3 },
-        { key: 'finance',     label: 'Finance',          icon: TrendingUp },
+        { key: 'pharmacy',    label: 'Pharmacy',         icon: Pill, permKey: 'pharmacy' },
+        { key: 'labReports',  aliases: ['labReports', 'laboratory'],      label: 'Lab Reports',  icon: FlaskConical, permKey: 'laboratory' },
+        { key: 'transaction', aliases: ['transaction', 'billing'],        label: 'Billing',      icon: Receipt, permKey: 'billing' },
+        { key: 'reports',     label: 'Reports & Stats',  icon: BarChart3, permKey: 'reports' },
+        { key: 'finance',     label: 'Finance',          icon: TrendingUp, permKey: 'finance' },
       ]
     },
     {
-      group: 'CONFIGURATION',
+      group: 'CONFIGURATION & USERS',
       items: [
-        { key: 'settings',    aliases: ['settings', 'administration'],    label: 'Settings',     icon: SettingsIcon },
+        { key: 'administration', aliases: ['administration', 'users'], label: 'Users & Staff', icon: ShieldCheck, permKey: 'users' },
+        { key: 'settings',    label: 'Settings',     icon: SettingsIcon, permKey: 'settings' },
       ]
     }
   ];
+
+  // Role-filtered navigation sections
+  const navSections = allNavSections
+    .map((section) => ({
+      ...section,
+      items: section.items.filter((item) => canAccess(item.permKey || item.key))
+    }))
+    .filter((section) => section.items.length > 0);
+
+  const currentRoleMeta = ROLES[currentUser?.role] || ROLES.admin;
 
   const isItemActive = (item) => {
     if (item.aliases) return item.aliases.includes(activeNav.module);
@@ -111,11 +131,11 @@ export const Sidebar = () => {
                 className="text-[15px] font-bold text-text-main tracking-tight leading-tight truncate"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
-                MediCore ERP
+                HospitalCare ERP
               </span>
             </div>
             <p className="text-xs font-medium text-teal-700 dark:text-teal-400 truncate mt-0.5">
-              Enterprise NABH Care
+              Clinical & Resource Management
             </p>
           </div>
         </div>
@@ -183,26 +203,42 @@ export const Sidebar = () => {
         ))}
       </nav>
 
-      {/* ── Live Hospital Status Footer ── */}
-      <div className="p-4 shrink-0 border-t border-border-subtle bg-bg-surface">
-        <div className="p-3 rounded-xl bg-bg-surface-elevated border border-border-subtle flex items-center gap-3">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border border-emerald-500/25 shadow-xs"
-            style={{ background: 'rgba(16,185,129,0.12)' }}
-          >
-            <Activity size={16} className="text-emerald-600 dark:text-emerald-400" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-xs font-bold text-text-main truncate">
-              MediCore Hospital
+      {/* ── Active Staff Role & Hospital Status Footer ── */}
+      <div className="p-3.5 shrink-0 border-t border-border-subtle bg-bg-surface flex flex-col gap-2">
+        {/* User Role Card */}
+        {currentUser && (
+          <div className="p-2.5 rounded-xl bg-bg-surface-elevated border border-border-subtle flex items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-teal-500/30 flex items-center justify-center bg-teal-500/10 text-base">
+                {currentRoleMeta.emoji}
+              </div>
+              <div className="min-w-0">
+                <div className="text-xs font-bold text-text-main truncate">
+                  {currentUser.name}
+                </div>
+                <div className="text-[11px] font-semibold text-teal-700 dark:text-teal-400 truncate">
+                  <span>{currentRoleMeta.name}</span>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-              <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 truncate">
-                NABH Enterprise Care
-              </span>
-            </div>
+
+            <button
+              onClick={logout}
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-text-muted hover:text-rose-600 hover:bg-rose-500/10 transition-colors cursor-pointer shrink-0"
+              title="Sign Out of HospitalCare ERP"
+            >
+              <LogOut size={14} />
+            </button>
           </div>
+        )}
+
+        {/* Live Hospital Status */}
+        <div className="px-2.5 py-1.5 rounded-lg bg-bg-surface flex items-center justify-between text-[11px] text-text-muted">
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <span className="font-semibold text-text-main">NABH Enterprise</span>
+          </div>
+          <span className="text-[10px] text-text-dim">v2.4 Online</span>
         </div>
       </div>
     </aside>
